@@ -5,45 +5,56 @@ NAME	=	fdf
 SRC			=	src
 INCLUDE		=	include
 OBJ_DIR		=	objects
-LIB_DIR		=	libraries
+
+#-----STATIC LIBRARIES
+MINILIBX_DIR	=	minilibx-linux
+MINILIBX		=	${MINILIBX_DIR}/libmlx.a
+MINILIBX_LINUX	=	${MINILIBX_DIR}/libmlx_Linux.a
+
+LIBFT_DIR		=	libft
+LIBFT			=	${LIBFT_DIR}/libft.a
 
 #-----COMPILATION FLAGS
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall #-Wextra -Werror
+LIBFLAGS		=	-lXext -lX11 -lm -lz
 HEADERS			=	-I./${INCLUDE}
 OPTIMIZATION	=	#-O3
 DEBUG			=	#-g
 
+#-----LINKING LIBRARIES
+LIBFT_LINK		=	-L./${LIBFT_DIR} -lft
+MINILIBX_LINK	=	-L./${MINILIBX_DIR} -lmlx -L./${MINILIBX_DIR} -lmlx_Linux -lXext -lX11 -lm -lz
+
 #-----FILES
-LIBFT_HEADER	=	${INCLUDE}/libft.h
+FDF_HEADER	=	${INCLUDE}/ft_fdf.h
 
 #-----HERE GOES ALL THE FILES USED IN THIS PROJECT IN SRC
+SRC_FILES	=	${SRC}/main.c
 #-----------------------------
 
 #-----RULE TO GET THE .O COMPILED
-#OBJ_FILES = ${patsubst %.c,${OBJ_DIR}/%.o,${notdir ${SRC_FILES}}}
+OBJ_FILES = ${patsubst %.c,${OBJ_DIR}/%.o,${notdir ${SRC_FILES}}}
 
-#${OBJ_DIR}/%.o: ${SRC}/*/%.c ${LIBFT_HEADER} Makefile
-#${CC} ${CFLAGS} ${HEADERS} ${OPTIMIZATION} ${BUFFER_SIZE} -c $< -o $@ ${DEBUG}
+${OBJ_DIR}/%.o: ${SRC}/%.c ${FDF_HEADER} Makefile
+	$(CC) ${CFLAGS} ${HEADERS} ${OPTIMIZATION} -c $< -o $@ ${DEBUG}
 
-#-----STATIC LIBRARIES
-MINILIBX_DIR	=	minilibx-linux
-LIBFT_DIR		=	libft
+#%.o: %.c ${FDF_HEADER} Makefile
 
 #-----RULES
-all: ${LIB_DIR} ${NAME}
+all: ${LIB_DIR} ${OBJ_DIR} ${MINILIBX} ${LIBFT} ${NAME}
 
-${NAME}: ${MINILIBX} ${LIBFT} ${OBJ_FILES}
-	@echo "Compilating executable."
-	${CC} ${OBJ_FILES} ${MINILIBX} ${LIBFT} -o $@ ${DEBUG}
+${NAME}: ${OBJ_FILES}
+	@echo "Compilating fdf."
+	${CC} ${OBJ_FILES} ${LIBFT_LINK} ${MINILIBX_LINK} -o $@ ${DEBUG}
 
 ${MINILIBX}:
+	@echo "Compilating minilibx."
 	@make -C ${MINILIBX_DIR}
-#here I should move the lib to libraries or something
 
 ${LIBFT}:
+	@echo "Compilating libft."
 	@make -C ${LIBFT_DIR}
-#here I should move the lib to libraries or something
 
 #-----RULE TO CREATE THE DIRECTORIES
 ${LIB_DIR}:
@@ -55,17 +66,16 @@ ${OBJ_DIR}:
 	@mkdir -p $@
 
 clean:
+	@make clean -C ${LIBFT_DIR}
+	@make clean -C ${MINILIBX_DIR}
 	rm -f ${OBJ_FILES}
 
 fclean: clean
-	@if [ -d ${LIB_DIR} ]; \
-	then \
-        rmdir ${LIB_DIR}; \
-    fi
 	@if [ -d ${OBJ_DIR} ]; \
 	then \
         rmdir ${OBJ_DIR}; \
     fi
+	@make fclean -C ${LIBFT_DIR}
 	rm -f ${NAME}
 
 re: fclean all
