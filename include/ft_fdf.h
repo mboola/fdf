@@ -19,13 +19,18 @@
 
 # define WINDOW_WIDTH 600
 # define WINDOW_HEIGHT 300
+# define WINDOW_NAME "FDF"
 
-typedef struct	t_data {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian; //not really sure if necessary
-}	t_data;
+typedef struct	s_mlx_data {
+    void    *mlx;
+    void    *mlx_win;
+}	t_mlx_data;
+
+typedef struct  s_data {
+    int i;  //No idea what struct will be inside
+}   t_data;
+
+t_data	read_data_file(int argc, char **argv);
+int	    main_loop(t_mlx_data mlx_data, t_data data);
 
 #endif
