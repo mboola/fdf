@@ -39,8 +39,6 @@ OBJ_FILES = ${patsubst %.c,${OBJ_DIR}/%.o,${notdir ${SRC_FILES}}}
 ${OBJ_DIR}/%.o: ${SRC}/%.c ${FDF_HEADER} Makefile
 	$(CC) ${CFLAGS} ${HEADERS} ${OPTIMIZATION} -c $< -o $@ ${DEBUG}
 
-#%.o: %.c ${FDF_HEADER} Makefile
-
 #-----RULES
 all: ${LIB_DIR} ${OBJ_DIR} ${MINILIBX} ${LIBFT} ${NAME}
 

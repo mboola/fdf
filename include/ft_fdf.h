@@ -17,4 +17,15 @@
 # include "mlx.h"
 # include "mlx_int.h"
 
+# define WINDOW_WIDTH 600
+# define WINDOW_HEIGHT 300
+
+typedef struct	t_data {
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian; //not really sure if necessary
+}	t_data;
+
 #endif
