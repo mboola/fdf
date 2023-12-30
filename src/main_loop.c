@@ -12,9 +12,10 @@
 
 #include "ft_fdf.h"
 
-static int	handle_no_event(void *mlx_data)
+static int	handle_no_event(t_mlx_data *mlx_data)
 {
     /* This function needs to exist, but it is useless for the moment */
+    //mlx_put_image_to_window(mlx_data->mlx, mlx_data->mlx_img.win, img.img, 0, 0);
     return (0);
 }
 
@@ -28,20 +29,19 @@ static int	handle_input(int keys, t_mlx_data *mlx_data)
     return (0);
 }
 
-static void register_hooks(t_mlx_data mlx_data, t_data data)
+static void register_hooks(t_mlx_data mlx_data, t_list *points)
 {
     mlx_loop_hook(mlx_data.mlx, &handle_no_event, &mlx_data);
-    //mlx_hook(mlx_data.mlx_win, KeyPress, KeyPressMask, &handle_input, &mlx_data);
-    mlx_key_hook(mlx_data.mlx_win, &handle_input, &mlx_data);
+    mlx_hook(mlx_data.mlx_win, KeyPress, KeyPressMask, &handle_input, &mlx_data);
+    mlx_string_put(mlx_data.mlx, mlx_data.mlx_win, 100, 100, 255, "test");  //mlx_loop_end(mlx_data->mlx);
 }
 
 /*
  *	This method will initialize all the hooks needed and start the aplication
  */
-int	main_loop(t_mlx_data mlx_data, t_data data)
+int	main_loop(t_mlx_data mlx_data, t_list *points)
 {
-    //first register hooks
-    register_hooks(mlx_data, data);
+	register_hooks(mlx_data, points);
 	mlx_loop(mlx_data.mlx);
 	return (1);
 }

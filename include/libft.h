@@ -66,6 +66,7 @@ int		ft_toupper(int c);
 //ft_converters
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
+int		ft_atoi_err(const char *str, char *err);
 
 //ft_dolst
 t_dlist	*ft_dolstextract_back(t_dlist **lst);
@@ -114,6 +115,7 @@ int		ft_putunsnbr_err(int fd, unsigned int nbr, char *base, int *err);
 
 //ft_str
 char	**ft_split(char const *s, char c);
+void	clear_matrix(char ***mat);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup_free(char **str, size_t newline, char **tmp);
 char	*ft_strdup(const char *s);
