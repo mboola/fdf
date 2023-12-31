@@ -12,11 +12,21 @@
 
 #include "ft_fdf.h"
 
+/*
 static int	clear_data(t_list **points, void *mlx)
 {
 	ft_lstclear(points, clear_point);
 	mlx_destroy_display(mlx);
 	free(mlx);
+	return (0);
+}*/
+
+static int	clear_data(t_mlx_data **mlx_data)
+{
+	ft_lstclear(&((*mlx_data)->points), clear_point);
+	mlx_destroy_display((*mlx_data)->mlx);
+	free((*mlx_data)->mlx);
+	free(*mlx_data);
 	return (0);
 }
 
@@ -32,26 +42,26 @@ static void	print_info(void *info)
 
 int main(int argc, char **argv)
 {
-	t_list		*points;
-	t_mlx_data	mlx_data;
+	t_mlx_data	*mlx_data;
 	t_image		image;
 
-	points = read_data_file(argc, argv);
-	if (points == NULL)
+	mlx_data = malloc(sizeof(t_mlx_data));
+	if (mlx_data == NULL)
 		return (0);
-	ft_lstiter(points, print_info);
-	mlx_data.mlx = mlx_init();
-	if (mlx_data.mlx == NULL)
-		return (clear_data(&points, NULL));
-	mlx_data.mlx_win = mlx_new_window(mlx_data.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
-	if (mlx_data.mlx_win == NULL)
-		return (clear_data(&points, mlx_data.mlx));
-	//image.img = mlx_new_image(mlx_data.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	//image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_len,
-	//							&image.endian);
-	//mlx_destroy_image(mlx_data.mlx, image.img);
-	//ft_lstiter(points, print_info);
-	main_loop(mlx_data, points);
-	mlx_destroy_window(mlx_data.mlx, mlx_data.mlx_win);
-	return (clear_data(&points, mlx_data.mlx));
+	mlx_data->points = read_data_file(argc, argv);
+	if (mlx_data->points == NULL)
+	{
+		free(mlx_data);
+		return (0);
+	}
+	//ft_lstiter(mlx_data->points, print_info);
+	mlx_data->mlx = mlx_init();
+	if (mlx_data->mlx == NULL)
+		return (clear_data(&mlx_data));
+	mlx_data->mlx_win = mlx_new_window(mlx_data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
+	if (mlx_data->mlx_win == NULL)
+		return (clear_data(&mlx_data));
+	main_loop(mlx_data);
+	mlx_destroy_window(mlx_data->mlx, mlx_data->mlx_win);
+	return (clear_data(&mlx_data));
 }

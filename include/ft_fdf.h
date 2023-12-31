@@ -32,14 +32,17 @@ typedef struct	s_image {
 typedef struct	s_mlx_data {
 	void	*mlx;
 	void	*mlx_win;
+	t_list	*points;
+	char	rasterize;
 }	t_mlx_data;
 
 typedef struct  s_point {
 	int	matrix[4][4];
+	int	color;
 }	t_point;
 
 t_list	*read_data_file(int argc, char **argv);
-int		main_loop(t_mlx_data mlx_data, t_list *points);
+int		main_loop(t_mlx_data *mlx_data);
 t_list	*new_point(int row, int col, int num, char *err);
 void	clear_point(void *point);
 

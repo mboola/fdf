@@ -8,10 +8,13 @@ static int	open_file(int argc, char **argv)
 	//TODO: check that file name ends with .fdf
 	if (argc == 1)
 		return (-1);
+	/*
 	fd = open(argv[1], O_DIRECTORY);
 	if (fd != -1)
+	{
+		close(fd);
 		return (-1);
-	close(fd);
+	}*/
 	fd = open(argv[1], O_RDONLY);
 	return (fd);
 }
