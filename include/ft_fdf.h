@@ -29,15 +29,28 @@ typedef struct	s_image {
 	int		endian;
 }	t_image;
 
+typedef double	(*s_rot_function)(double);
+
+struct s_mlx_data;
+
+typedef int (*s_proj_function)(int, struct s_mlx_data *);
+
 typedef struct	s_mlx_data {
-	void	*mlx;
-	void	*mlx_win;
-	t_list	*points;
-	char	rasterize;
+	void			*mlx;
+	void			*mlx_win;
+	t_list			*points;
+	char			rasterize;
+	char			close;
+	int				scale;
+	int				offset[2];
+	s_proj_function projection_matrix[3][3];	//this will offset and scale our points
+	s_rot_function	rotation_x[3][3];			//this will rotate our points in the x axis
+	s_rot_function	rotation_y[3][3];			//this will rotate our points in the y axis
+	s_rot_function	rotation_z[3][3];			//this will rotate our points in the z axis
 }	t_mlx_data;
 
 typedef struct  s_point {
-	int	matrix[4][4];
+	int	vector[3];
 	int	color;
 }	t_point;
 
@@ -45,6 +58,6 @@ t_list	*read_data_file(int argc, char **argv);
 int		main_loop(t_mlx_data *mlx_data);
 t_list	*new_point(int row, int col, int num, char *err);
 void	clear_point(void *point);
-void	rasterize(t_image image, t_list *points);
+void	rasterize(t_image image, t_mlx_data *mlx_data);
 
 #endif

@@ -24,16 +24,14 @@ static int	clear_data(t_mlx_data **mlx_data)
 static void	print_info(void *info)
 {
 	t_point	*point;
-	int		test;
 
 	point = (t_point *)info;
-	ft_printf(1, "X=%d, Y=%d, Z=%d\n", point->matrix[0][0], point->matrix[1][1], point->matrix[2][2]);
+	ft_printf(1, "X=%d, Y=%d, Z=%d\n", point->vector[0], point->vector[1], point->vector[2]);
 }
 
 int main(int argc, char **argv)
 {
 	t_mlx_data	*mlx_data;
-	t_image		image;
 
 	mlx_data = malloc(sizeof(t_mlx_data));
 	if (mlx_data == NULL)
@@ -44,7 +42,7 @@ int main(int argc, char **argv)
 		free(mlx_data);
 		return (0);
 	}
-	//ft_lstiter(mlx_data->points, print_info);
+	ft_lstiter(mlx_data->points, print_info);
 	mlx_data->mlx = mlx_init();
 	if (mlx_data->mlx == NULL)
 		return (clear_data(&mlx_data));

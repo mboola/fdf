@@ -28,9 +28,9 @@ t_list	*new_point(int row, int col, int num, char *err)
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//here I set the X,Y,Z coord, but for the moment I dont know how
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	point->matrix[0][0] = row;
-	point->matrix[1][1] = col;
-	point->matrix[2][2] = num;
+	point->vector[0] = row;
+	point->vector[1] = col;
+	point->vector[2] = num;
 	node = ft_lstnew(point);
 	if (node == NULL)
 	{
