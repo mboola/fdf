@@ -30,7 +30,8 @@ MINILIBX_LINK	=	-L./${MINILIBX_DIR} -lmlx -L./${MINILIBX_DIR} -lmlx_Linux -lXext
 FDF_HEADER	=	${INCLUDE}/ft_fdf.h
 
 #-----HERE GOES ALL THE FILES USED IN THIS PROJECT IN SRC
-SRC_FILES	=	${SRC}/main.c ${SRC}/read_data.c ${SRC}/main_loop.c ${SRC}/point_methods.c
+SRC_FILES	=	${SRC}/main.c ${SRC}/read_data.c ${SRC}/main_loop.c ${SRC}/point_methods.c \
+				${SRC}/rasterize.c
 #-----------------------------
 
 #-----RULE TO GET THE .O COMPILED

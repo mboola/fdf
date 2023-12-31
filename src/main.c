@@ -12,15 +12,6 @@
 
 #include "ft_fdf.h"
 
-/*
-static int	clear_data(t_list **points, void *mlx)
-{
-	ft_lstclear(points, clear_point);
-	mlx_destroy_display(mlx);
-	free(mlx);
-	return (0);
-}*/
-
 static int	clear_data(t_mlx_data **mlx_data)
 {
 	ft_lstclear(&((*mlx_data)->points), clear_point);
@@ -30,7 +21,6 @@ static int	clear_data(t_mlx_data **mlx_data)
 	return (0);
 }
 
-//
 static void	print_info(void *info)
 {
 	t_point	*point;

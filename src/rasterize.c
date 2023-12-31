@@ -28,7 +28,7 @@ void	rasterize(t_image image, t_list *points)
 	{
 		//put pixel
 		point = (t_point *)(points->content);
-		put_pixel(image, point->matrix[0][0], point->matrix[1][1], 0x00FF0000);
+		put_pixel(image, point->matrix[1][1], point->matrix[0][0], 0x00FF0000);
 		points = points->next;
 	}
 }

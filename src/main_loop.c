@@ -14,13 +14,17 @@
 
 static int	handle_no_event(t_mlx_data *mlx_data)
 {
+	t_image	image;
+
 	if (mlx_data->rasterize)
 	{
-		//create a new image and rasterize it
+		image.img = mlx_new_image(mlx_data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+		image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_len, &image.endian);
+		rasterize(image, mlx_data->points);
+		mlx_put_image_to_window(mlx_data->mlx, mlx_data->mlx_win, image.img, 0, 0);
+		free(image.img);
 		mlx_data->rasterize = 0;
 	}
-    /* This function needs to exist, but it is useless for the moment */
-    //mlx_put_image_to_window(mlx_data->mlx, mlx_data->mlx_img.win, img.img, 0, 0);
     return (0);
 }
 
@@ -32,6 +36,8 @@ static int	handle_input(int keys, t_mlx_data *mlx_data)
     if (keys == XK_Escape)
 		//if (mlx_data && mlx_data->mlx != NULL)
     	mlx_loop_end(mlx_data->mlx);
+	//here will be more ifs with rotating and escalating and whatever. when pressed, they will set
+	//mlx_data->rasterize to 1
     return (0);
 }
 
@@ -51,8 +57,3 @@ int	main_loop(t_mlx_data *mlx_data)
 	mlx_loop(mlx_data->mlx);
 	return (1);
 }
-
-//image.img = mlx_new_image(mlx_data.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	//image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_len,
-	//							&image.endian);
-	//mlx_destroy_image(mlx_data.mlx, image.img);

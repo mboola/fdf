@@ -45,5 +45,6 @@ t_list	*read_data_file(int argc, char **argv);
 int		main_loop(t_mlx_data *mlx_data);
 t_list	*new_point(int row, int col, int num, char *err);
 void	clear_point(void *point);
+void	rasterize(t_image image, t_list *points);
 
 #endif
