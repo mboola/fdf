@@ -16,6 +16,8 @@ static int	handle_no_event(t_mlx_data *mlx_data)
 {
 	t_image	image;
 
+	mlx_data->angle_x += 0.1;
+	mlx_data->rasterize = 1;
 	if (mlx_data->close)
 		mlx_loop_end(mlx_data->mlx);
 	else if (mlx_data->rasterize)
@@ -50,40 +52,6 @@ static void register_hooks(t_mlx_data *mlx_data)
     mlx_hook(mlx_data->mlx_win, KeyPress, KeyPressMask, &handle_input, mlx_data);
 }
 
-static int	project_x(int coord, t_mlx_data *mlx_data)
-{
-	return (coord * mlx_data->scale + mlx_data->offset[0]);
-}
-
-static int	project_y(int coord, t_mlx_data *mlx_data)
-{
-	return (coord * mlx_data->scale + mlx_data->offset[1]);
-}
-
-static int	return_zero()
-{
-	return (0);
-}
-
-//not sure if coordinates x and y are OK...
-static void	initialize_projection_matrix(t_mlx_data *mlx_data)
-{
-	mlx_data->projection_matrix[0][0] = project_y;
-	mlx_data->projection_matrix[0][1] = return_zero;
-	mlx_data->projection_matrix[0][2] = return_zero;
-	mlx_data->projection_matrix[1][0] = return_zero;
-	mlx_data->projection_matrix[1][1] = project_x;
-	mlx_data->projection_matrix[1][2] = return_zero;
-	mlx_data->projection_matrix[2][0] = return_zero;
-	mlx_data->projection_matrix[2][1] = return_zero;
-	mlx_data->projection_matrix[2][2] = return_zero;
-}
-
-static void	set_isometric_view(t_mlx_data *mlx_data)
-{
-	//rotation matrices
-}
-
 /*
  *	This method will initialize all the hooks needed and start the aplication
  */
@@ -93,8 +61,11 @@ int	main_loop(t_mlx_data *mlx_data)
 	mlx_data->close = 0;
 	mlx_data->offset[0] = WINDOW_WIDTH / 2;		//TODO: substract to this the num_col / 2
 	mlx_data->offset[1] = WINDOW_HEIGHT / 2;
-	mlx_data->scale = 100; 						//this has a limit. if it tries to put a pixel ouside the window it crashes
-	initialize_projection_matrix(mlx_data);
+	mlx_data->scale = 10; 						//this has a limit. if it tries to put a pixel ouside the window it crashes
+	set_projection(mlx_data);
+	set_rotation_x(mlx_data);
+	set_rotation_y(mlx_data);
+	set_rotation_z(mlx_data);
 	set_isometric_view(mlx_data);
 	register_hooks(mlx_data);
 	mlx_loop(mlx_data->mlx);

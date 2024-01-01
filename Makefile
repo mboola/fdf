@@ -17,10 +17,10 @@ LIBFT			=	${LIBFT_DIR}/libft.a
 #-----COMPILATION FLAGS
 CC				=	cc
 CFLAGS			=	-Wall #-Wextra -Werror
-LIBFLAGS		=	-lXext -lX11 -lm -lz
+LIBFLAGS		=	-lXext -lX11 -lz -lm
 HEADERS			=	-I./${INCLUDE}
 OPTIMIZATION	=	#-O3
-DEBUG			=	-g
+DEBUG			=	#-g
 
 #-----LINKING LIBRARIES
 LIBFT_LINK		=	-L./${LIBFT_DIR} -lft
@@ -29,15 +29,20 @@ MINILIBX_LINK	=	-L./${MINILIBX_DIR} -lmlx -L./${MINILIBX_DIR} -lmlx_Linux -lXext
 #-----FILES
 FDF_HEADER	=	${INCLUDE}/ft_fdf.h
 
+MAIN		=	${SRC}/main
+MATRIX_CONF	=	${SRC}/matrix_configuration
+
 #-----HERE GOES ALL THE FILES USED IN THIS PROJECT IN SRC
-SRC_FILES	=	${SRC}/main.c ${SRC}/read_data.c ${SRC}/main_loop.c ${SRC}/point_methods.c \
-				${SRC}/rasterize.c
+SRC_FILES	=	${MAIN}/main.c ${MAIN}/read_data.c ${MAIN}/main_loop.c ${MAIN}/point_methods.c \
+				${MAIN}/rasterize.c ${MATRIX_CONF}/set_projection.c \
+				${MATRIX_CONF}/set_rotation_x.c ${MATRIX_CONF}/set_rotation_y.c ${MATRIX_CONF}/set_rotation_z.c \
+				${MATRIX_CONF}/set_views.c ${MATRIX_CONF}/get_matrix_rotation.c
 #-----------------------------
 
 #-----RULE TO GET THE .O COMPILED
 OBJ_FILES = ${patsubst %.c,${OBJ_DIR}/%.o,${notdir ${SRC_FILES}}}
 
-${OBJ_DIR}/%.o: ${SRC}/%.c ${FDF_HEADER} Makefile
+${OBJ_DIR}/%.o: ${SRC}/*/%.c ${FDF_HEADER} Makefile
 	$(CC) ${CFLAGS} ${HEADERS} ${OPTIMIZATION} -c $< -o $@ ${DEBUG}
 
 #-----RULES
