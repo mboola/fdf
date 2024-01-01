@@ -20,6 +20,9 @@ static void	put_pixel(t_image image, int x, int y, int color)
 {
 	char	*dst;
 
+	//TODO: check if it is inside the windows
+	if (y > WINDOW_HEIGHT || x > WINDOW_WIDTH)
+		return ;
 	dst = image.addr + (y * image.line_len + x * (image.bpp / 8));
 	*(unsigned int*)dst = color;
 }
@@ -34,8 +37,6 @@ static void	apply_and_draw_projection(t_image image, t_point *point, t_mlx_data 
 	final_point[1] = mlx_data->projection_matrix[1][1](point->vector[1], mlx_data);
 	final_point[2] = 0;
 
-	//TODO: check if it is inside the windows
-	
 	put_pixel(image, final_point[1], final_point[0], 0x00FF0000);	
 }
 

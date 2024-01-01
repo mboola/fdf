@@ -52,19 +52,16 @@ static void register_hooks(t_mlx_data *mlx_data)
 
 static int	project_x(int coord, t_mlx_data *mlx_data)
 {
-	ft_printf(1, "X\n");
 	return (coord * mlx_data->scale + mlx_data->offset[0]);
 }
 
 static int	project_y(int coord, t_mlx_data *mlx_data)
 {
-	ft_printf(1, "Y\n");
 	return (coord * mlx_data->scale + mlx_data->offset[1]);
 }
 
 static int	return_zero()
 {
-	ft_printf(1, "Zero\n");
 	return (0);
 }
 
@@ -96,7 +93,7 @@ int	main_loop(t_mlx_data *mlx_data)
 	mlx_data->close = 0;
 	mlx_data->offset[0] = WINDOW_WIDTH / 2;		//TODO: substract to this the num_col / 2
 	mlx_data->offset[1] = WINDOW_HEIGHT / 2;
-	mlx_data->scale = 10; 						//this has a limit. if it tries to put a pixel ouside the window it crashes
+	mlx_data->scale = 100; 						//this has a limit. if it tries to put a pixel ouside the window it crashes
 	initialize_projection_matrix(mlx_data);
 	set_isometric_view(mlx_data);
 	register_hooks(mlx_data);
