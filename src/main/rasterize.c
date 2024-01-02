@@ -88,7 +88,7 @@ void	rasterize_row(t_point *points_col, t_mlx_data *mlx_data, int rotation_mat[3
 		vector2 = (t_vector2 *)mlx_data->data_to_print.screen_points[row][i];
 		vector2->vector2[0] = vector[0];
 		vector2->vector2[1] = vector[1];
-		ft_printf(1, "X=%d, Y=%d\n", vector[0], vector[1]);
+		//ft_printf(1, "X=%d, Y=%d\n", vector[0], vector[1]);
 		i++;
 	}
 }
@@ -102,8 +102,8 @@ static void	put_row_pixels(t_image image, void **pixels, int n_col)
 	while (i < n_col)
 	{
 		vector = (t_vector2 *)pixels[i];
-		ft_printf(1, "X=%d, Y=%d\n", vector->vector2[0], vector->vector2[1]);
-		put_pixel(image, vector->vector2[0], vector->vector2[1], 0xFF0000);
+		//ft_printf(1, "X=%d, Y=%d\n", vector->vector2[0], vector->vector2[1]);
+		put_pixel(image, vector->vector2[1], vector->vector2[0], 0xFF0000);
 		i++;
 	}
 }
