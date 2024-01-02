@@ -20,7 +20,7 @@ CFLAGS			=	-Wall #-Wextra -Werror
 LIBFLAGS		=	-lXext -lX11 -lz -lm
 HEADERS			=	-I./${INCLUDE}
 OPTIMIZATION	=	#-O3
-DEBUG			=	#-g
+DEBUG			=	-g
 
 #-----LINKING LIBRARIES
 LIBFT_LINK		=	-L./${LIBFT_DIR} -lft

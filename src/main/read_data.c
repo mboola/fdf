@@ -88,6 +88,8 @@ static int	get_color(char *str, char *err)
 
 static char		check_num_correct(char *str)
 {
+	if (*str == '-')
+		str++;
 	while (ft_isdigit(*str))
 		str++;
 	if (*str != '\0' && *str != ',')
@@ -131,13 +133,18 @@ static t_list	*create_points(char **mat, int len, int row, char *err)
 static char	process_line(t_list **lst, char **line, int row)
 {
 	char	**mat;
+	char	*trimmed_line;
 	int		len;
 	t_list	*node_row;
 	char	err;
 
 	err = 0;
-	mat = ft_split(*line, ' ');
+	trimmed_line = ft_strtrim(*line, " \n");
 	free(*line);
+	if (trimmed_line == NULL)
+		return (1);
+	mat = ft_split(trimmed_line, ' ');
+	free(trimmed_line);
 	if (mat == NULL)
 		return (1);
 	len = matlen(mat);
