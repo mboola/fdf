@@ -67,6 +67,7 @@ int		ft_toupper(int c);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 int		ft_atoi_err(const char *str, char *err);
+int		ft_atoi_base(char *str, char *base);
 
 //ft_dolst
 t_dlist	*ft_dolstextract_back(t_dlist **lst);

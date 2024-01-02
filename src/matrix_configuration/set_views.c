@@ -14,7 +14,7 @@
 
 void    set_isometric_view(t_mlx_data *mlx_data)
 {
-	mlx_data->angle_x = 0.1;
+	mlx_data->angle_x = 0;
 	mlx_data->angle_y = 0;
 	mlx_data->angle_z = 0;
 }

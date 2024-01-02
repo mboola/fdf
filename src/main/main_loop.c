@@ -16,8 +16,6 @@ static int	handle_no_event(t_mlx_data *mlx_data)
 {
 	t_image	image;
 
-	mlx_data->angle_x += 0.1;
-	mlx_data->rasterize = 1;
 	if (mlx_data->close)
 		mlx_loop_end(mlx_data->mlx);
 	else if (mlx_data->rasterize)
@@ -37,6 +35,8 @@ static int	handle_no_event(t_mlx_data *mlx_data)
  */
 static int	handle_input(int keys, t_mlx_data *mlx_data)
 {
+	mlx_data->angle_x += 0.1;
+	mlx_data->rasterize = 1;
     if (keys == XK_Escape)
 		mlx_data->close = 1;
 		//if (mlx_data && mlx_data->mlx != NULL)
@@ -61,7 +61,7 @@ int	main_loop(t_mlx_data *mlx_data)
 	mlx_data->close = 0;
 	mlx_data->offset[0] = WINDOW_WIDTH / 2;		//TODO: substract to this the num_col / 2
 	mlx_data->offset[1] = WINDOW_HEIGHT / 2;
-	mlx_data->scale = 10; 						//this has a limit. if it tries to put a pixel ouside the window it crashes
+	mlx_data->scale = 1; 						//this has a limit. if it tries to put a pixel ouside the window it crashes
 	set_projection(mlx_data);
 	set_rotation_x(mlx_data);
 	set_rotation_y(mlx_data);

@@ -23,10 +23,17 @@ static int	clear_data(t_mlx_data **mlx_data)
 
 static void	print_info(void *info)
 {
-	t_point	*point;
+	t_point	*point;	//array of pointers
+	int		i;
 
+	i = 0;
 	point = (t_point *)info;
-	ft_printf(1, "X=%d, Y=%d, Z=%d\n", point->vector[0], point->vector[1], point->vector[2]);
+	while (point[i].vector[0] != -1)
+	{
+		ft_printf(1, "X=%d, Y=%d, Z=%d, ", point[i].vector[0], point[i].vector[1], point[i].vector[2]);
+		i++;
+	}
+	ft_printf(1, "\n");
 }
 
 int main(int argc, char **argv)
@@ -42,7 +49,7 @@ int main(int argc, char **argv)
 		free(mlx_data);
 		return (0);
 	}
-	//ft_lstiter(mlx_data->points, print_info);
+	ft_lstiter(mlx_data->points, print_info);
 	mlx_data->mlx = mlx_init();
 	if (mlx_data->mlx == NULL)
 		return (clear_data(&mlx_data));
