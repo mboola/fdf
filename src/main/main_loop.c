@@ -61,7 +61,7 @@ int	main_loop(t_mlx_data *mlx_data)
 	mlx_data->close = 0;
 	mlx_data->offset[0] = WINDOW_WIDTH / 2;		//TODO: substract to this the num_col / 2
 	mlx_data->offset[1] = WINDOW_HEIGHT / 2;
-	mlx_data->scale = 1; 						//this has a limit. if it tries to put a pixel ouside the window it crashes
+	mlx_data->scale = 20; 						//this has a limit. if it tries to put a pixel ouside the window it crashes
 	set_projection(mlx_data);
 	set_rotation_x(mlx_data);
 	set_rotation_y(mlx_data);

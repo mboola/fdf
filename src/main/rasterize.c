@@ -108,6 +108,91 @@ static void	put_row_pixels(t_image image, void **pixels, int n_col)
 	}
 }
 
+static void	draw_line(t_image image, int p0[2], int p1[2])
+{
+	int	d[2];
+	int	s[2];
+	int	prec1;
+	int	prec2;
+	int	x0;
+	int	y0;
+	//int	e2;
+
+	x0 = p0[0];
+	y0 = p0[1];
+	d[0] = abs(p1[0] - p0[0]);
+	d[1] = abs(p1[1] - p0[1]);
+	if (p0[0] < p1[0])
+		s[0] = 1;
+	else
+		s[0] = -1;
+	if (p0[1] < p1[1])
+		s[1] = 1;
+	else
+		s[1] = -1;
+	if (d[0] > d[1])
+		prec1 = d[0] / 2;
+	else
+		prec1 = -d[1] / 2;
+	while (x0 != p1[0] && y0 != p1[1])
+	{
+		put_pixel(image, x0, y0, 0xFF0000);
+		prec2 = prec1;
+		if (prec2 > -d[0])
+		{
+			prec1 -= d[1];
+			x0 += s[0];
+		}
+		if (prec2 < d[1])
+		{
+			prec1 += d[0];
+			y0 += s[1];
+		}
+	}
+
+}
+
+static void	put_lines(t_image image, t_mlx_data *mlx_data)
+{
+	int	current_vector2[2];
+	int	vector2_right[2];
+	int	vector2_down[2];
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < mlx_data->data_to_print.n_row - 1)
+	{
+		j = 0;
+		while (j < mlx_data->data_to_print.n_col - 1)
+		{
+			current_vector2[0] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i][j])->vector2[0];
+			current_vector2[1] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i][j])->vector2[1];
+			vector2_right[0] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i][j + 1])->vector2[0];
+			vector2_right[1] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i][j + 1])->vector2[1];
+			vector2_down[0] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i + 1][j])->vector2[0];
+			vector2_down[1] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i + 1][j])->vector2[1];
+			draw_line(image, current_vector2, vector2_right);
+			draw_line(image, current_vector2, vector2_down);
+			j++;
+		}
+		vector2_down[0] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i + 1][j])->vector2[0];
+		vector2_down[1] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i + 1][j])->vector2[1];
+		draw_line(image, current_vector2, vector2_down);
+		i++;
+	}
+	j = 0;
+	while (j < mlx_data->data_to_print.n_col - 1)
+	{
+		current_vector2[0] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i][j])->vector2[0];
+		current_vector2[1] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i][j])->vector2[1];
+		vector2_right[0] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i][j + 1])->vector2[0];
+		vector2_right[1] = ((t_vector2 *)mlx_data->data_to_print.screen_points[i][j + 1])->vector2[1];
+		draw_line(image, current_vector2, vector2_right);
+		j++;
+	}
+}
+
 void	rasterize(t_image image, t_mlx_data *mlx_data)
 {
 	t_point	*points_col;
@@ -131,4 +216,5 @@ void	rasterize(t_image image, t_mlx_data *mlx_data)
 		put_row_pixels(image, mlx_data->data_to_print.screen_points[row], mlx_data->data_to_print.n_col);
 		row++;
 	}
+	put_lines(image, mlx_data);
 }

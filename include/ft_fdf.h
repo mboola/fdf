@@ -18,8 +18,8 @@
 # include "mlx_int.h"
 # include <math.h>
 
-# define WINDOW_WIDTH 600
-# define WINDOW_HEIGHT 300
+# define WINDOW_WIDTH 900
+# define WINDOW_HEIGHT 600
 # define WINDOW_NAME "FDF"
 
 typedef struct	s_image {
