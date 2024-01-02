@@ -75,24 +75,60 @@ static void	project(int vec[3], int rot[3][3], t_mlx_data *mlx, int res[3])
 	res[2] = 0;
 }
 
+void	rasterize_row(t_point *points_col, t_mlx_data *mlx_data, int rotation_mat[3][3], int row)
+{
+	int			i;
+	int			vector[3];
+	t_vector2	*vector2;
+
+	i = 0;
+	while (points_col[i].vector[0] != -1)	//while not end of array
+	{
+		project(points_col[i].vector, rotation_mat, mlx_data, vector); //we get two points
+		vector2 = (t_vector2 *)mlx_data->data_to_print.screen_points[row][i];
+		vector2->vector2[0] = vector[0];
+		vector2->vector2[1] = vector[1];
+		ft_printf(1, "X=%d, Y=%d\n", vector[0], vector[1]);
+		i++;
+	}
+}
+
+static void	put_row_pixels(t_image image, void **pixels, int n_col)
+{
+	int			i;
+	t_vector2	*vector;
+
+	i = 0;
+	while (i < n_col)
+	{
+		vector = (t_vector2 *)pixels[i];
+		ft_printf(1, "X=%d, Y=%d\n", vector->vector2[0], vector->vector2[1]);
+		put_pixel(image, vector->vector2[0], vector->vector2[1], 0xFF0000);
+		i++;
+	}
+}
+
 void	rasterize(t_image image, t_mlx_data *mlx_data)
 {
-	t_point	*point;
-	t_list	*points;
+	t_point	*points_col;
+	t_list	*points_row;
+	int		row;
 	int		rotation_mat[3][3];
 	int		result[3];
 
-	points = mlx_data->points;
-	get_mat_rotation(mlx_data, rotation_mat);	//this gets me the rotation matrix
-	//first I should draw the points and then store the coord of each point.
-	//then I should draw a line for each point to connect them.
-	//TODO: change the t_list of points to a t_list of an array of points, and each node is a row
-	//print_matrix(rotation_mat);
-	while (points != NULL)
+	points_row = mlx_data->points;
+	get_mat_rotation(mlx_data, rotation_mat);
+	row = 0;
+	while (points_row != NULL)
 	{
-		point = (t_point *)(points->content);
-		project(point->vector, rotation_mat, mlx_data, result);
-		put_pixel(image, result[1], result[0], 0x00FF0000);
-		points = points->next;
+		rasterize_row((t_point *)(points_row->content), mlx_data, rotation_mat, row);
+		points_row = points_row->next;
+		row++;
+	}
+	row = 0;
+	while (row < mlx_data->data_to_print.n_row)
+	{
+		put_row_pixels(image, mlx_data->data_to_print.screen_points[row], mlx_data->data_to_print.n_col);
+		row++;
 	}
 }

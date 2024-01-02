@@ -95,6 +95,9 @@ int		ft_lstsize(t_list *lst);
 
 //ft_mem
 void	ft_bzero(void *s, size_t n);
+void	ft_free_matstruct(void ****mat, int n_row, int n_col,
+			void (*del)(void *));
+void	***ft_calloc_matstruct(int memsize, int n_row, int n_col);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);

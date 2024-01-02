@@ -30,10 +30,10 @@ static void	print_info(void *info)
 	point = (t_point *)info;
 	while (point[i].vector[0] != -1)
 	{
-		ft_printf(1, "X=%d, Y=%d, Z=%d, ", point[i].vector[0], point[i].vector[1], point[i].vector[2]);
+		ft_printf(1, "X=%d, Y=%d, Z=%d\n", point[i].vector[0], point[i].vector[1], point[i].vector[2]);
 		i++;
 	}
-	ft_printf(1, "\n");
+	//ft_printf(1, "\n");
 }
 
 int main(int argc, char **argv)
@@ -43,13 +43,12 @@ int main(int argc, char **argv)
 	mlx_data = malloc(sizeof(t_mlx_data));
 	if (mlx_data == NULL)
 		return (0);
-	mlx_data->points = read_data_file(argc, argv);
-	if (mlx_data->points == NULL)
+	if (!read_input_file(argc, argv, mlx_data))
 	{
 		free(mlx_data);
 		return (0);
 	}
-	ft_lstiter(mlx_data->points, print_info);
+	//ft_lstiter(mlx_data->points, print_info);
 	mlx_data->mlx = mlx_init();
 	if (mlx_data->mlx == NULL)
 		return (clear_data(&mlx_data));

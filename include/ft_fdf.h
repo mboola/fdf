@@ -36,6 +36,16 @@ struct s_mlx_data;
 
 typedef int (*s_proj_function)(int, struct s_mlx_data *);
 
+typedef struct	s_data_to_print {
+	void	***screen_points;
+	int		n_col;
+	int		n_row;
+}	t_data_to_print;
+
+typedef struct	s_vector2 {
+	int	vector2[2];
+}	t_vector2;
+
 typedef struct	s_mlx_data {
 	void			*mlx;
 	void			*mlx_win;
@@ -51,6 +61,7 @@ typedef struct	s_mlx_data {
 	double			angle_x;
 	double			angle_y;
 	double			angle_z;
+	t_data_to_print	data_to_print;
 }	t_mlx_data;
 
 typedef struct  s_point {
@@ -58,7 +69,7 @@ typedef struct  s_point {
 	int	color;
 }	t_point;
 
-t_list	*read_data_file(int argc, char **argv);
+int		read_input_file(int argc, char **argv, t_mlx_data *mlx_data);
 int		main_loop(t_mlx_data *mlx_data);
 t_list	*new_point(int row, int col, int num, char *err);
 void	clear_point(void *point);

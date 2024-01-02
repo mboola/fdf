@@ -34,7 +34,7 @@ static unsigned char	transform_color(char **str, char *err)
 	char	value[3];
 
 	if (**str == '\0')
-		return (0);
+		return (0xFF);
 	value[0] = **str;
 	(*str)++;
 	if (**str == '\0')
@@ -130,11 +130,11 @@ static t_list	*create_points(char **mat, int len, int row, char *err)
 
 //TODO: when we read a number, there will also be a color. also store that in the point information
 //All lines should be the same len???
-static char	process_line(t_list **lst, char **line, int row)
+static int	process_line(t_list **lst, char **line, int n_row)
 {
 	char	**mat;
 	char	*trimmed_line;
-	int		len;
+	int		n_col;
 	t_list	*node_row;
 	char	err;
 
@@ -142,47 +142,67 @@ static char	process_line(t_list **lst, char **line, int row)
 	trimmed_line = ft_strtrim(*line, " \n");
 	free(*line);
 	if (trimmed_line == NULL)
-		return (1);
+		return (-1);
 	mat = ft_split(trimmed_line, ' ');
 	free(trimmed_line);
 	if (mat == NULL)
-		return (1);
-	len = matlen(mat);
-	node_row = create_points(mat, len, row, &err);
+		return (-1);
+	n_col = matlen(mat);
+	node_row = create_points(mat, n_col, n_row, &err);
 	ft_lstadd_back(lst, node_row);
 	clear_matrix(&mat);
 	if (err)
-		return (1);
-	return (0);
+		return (-1);
+	return (n_col);
 }
 
-t_list	*read_data_file(int argc, char **argv)
+static int	end_read_input_file(int col, t_list **lst, char **line, t_mlx_data *mlx_data)
+{
+	t_vector2	***mat_points;
+
+	if (col != mlx_data->data_to_print.n_col)
+	{
+		ft_lstclear(lst, clear_point);
+		free(*line);
+		return (0);
+	}
+	mlx_data->points = *lst;
+	mat_points = (t_vector2 ***)ft_calloc_matstruct(sizeof(t_vector2),
+		mlx_data->data_to_print.n_row, mlx_data->data_to_print.n_col);
+	if (mat_points == NULL)
+	{
+		ft_lstclear(lst, clear_point);
+		return (0);
+	}
+	mlx_data->data_to_print.screen_points = mat_points;
+	return (1);
+}
+
+int	read_input_file(int argc, char **argv, t_mlx_data *mlx_data)
 {
 	t_list	*lst;
 	char	*line;
 	int		fd;
-	char	err;
+	int		col;
 	int		row;
 
 	fd = open_file(argc, argv);
 	if (fd == -1)
-		return (NULL);
-	err = 0;
-	row = 0;
+		return (0);
 	lst = NULL;
 	line = get_next_line(fd);
-	while (!err && line != NULL)
+	col = process_line(&lst, &line, 0);
+	if (col > 0)
+		mlx_data->data_to_print.n_col = col;
+	row = 1;
+	line = get_next_line(fd);
+	while (col == mlx_data->data_to_print.n_col && line)
 	{
-		err = process_line(&lst, &line, row);
+		col = process_line(&lst, &line, row);
 		row++;
 		line = get_next_line(fd);
 	}
 	close(fd);
-	if (err)
-	{
-		ft_lstclear(&lst, clear_point);
-		free(line);
-		return (NULL);
-	}
-	return (lst);
+	mlx_data->data_to_print.n_row = row;
+	return (end_read_input_file(col, &lst, &line, mlx_data));
 }

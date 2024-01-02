@@ -12,6 +12,7 @@
 
 #include "ft_fdf.h"
 
+//not currently used
 t_list	*new_point(int row, int col, int num, char *err)
 {
 	t_point	*point;
