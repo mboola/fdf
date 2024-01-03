@@ -22,6 +22,8 @@
 # define WINDOW_HEIGHT 600
 # define WINDOW_NAME "FDF"
 
+# define PRECISION 10
+
 typedef struct	s_image {
 	void	*img;
 	char	*addr;
@@ -34,16 +36,17 @@ typedef double	(*s_rot_function)(double);
 
 struct s_mlx_data;
 
-typedef int (*s_proj_function)(int, struct s_mlx_data *);
+typedef int (*s_proj_function)(double, struct s_mlx_data *);
 
 typedef struct	s_data_to_print {
-	void	***screen_points;
+	void	***points;
 	int		n_col;
 	int		n_row;
 }	t_data_to_print;
 
 typedef struct	s_vector2 {
 	int	vector2[2];
+	int	color;
 }	t_vector2;
 
 typedef struct	s_mlx_data {
@@ -61,7 +64,7 @@ typedef struct	s_mlx_data {
 	double			angle_x;
 	double			angle_y;
 	double			angle_z;
-	t_data_to_print	data_to_print;
+	t_data_to_print	pixels;
 }	t_mlx_data;
 
 typedef struct  s_point {
@@ -73,7 +76,11 @@ int		read_input_file(int argc, char **argv, t_mlx_data *mlx_data);
 int		main_loop(t_mlx_data *mlx_data);
 t_list	*new_point(int row, int col, int num, char *err);
 void	clear_point(void *point);
+
 void	rasterize(t_image image, t_mlx_data *mlx_data);
+void	obtain_rotation_matrix(t_mlx_data *mlx_data,
+			double rotation_mat[3][3]);
+void	draw_pixels(t_image image, t_mlx_data *mlx_data);
 
 //matrix_configuration
 void	set_projection(t_mlx_data *mlx_data);
@@ -82,6 +89,5 @@ void	set_rotation_y(t_mlx_data *mlx_data);
 void	set_rotation_z(t_mlx_data *mlx_data);
 void    set_isometric_view(t_mlx_data *mlx_data);
 
-void	get_mat_rotation(t_mlx_data *mlx_data, int rotation_mat[3][3]);
 
 #endif

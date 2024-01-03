@@ -87,7 +87,7 @@ static void	print_matrix(int mat[3][3])
 	}
 }
 
-void	get_mat_rotation(t_mlx_data *mlx_data, int rotation_mat[3][3])
+void	obtain_rotation_matrix(t_mlx_data *mlx_data, double rotation_mat[3][3])
 {
 	double	mat_x[3][3];
 	double	mat_y[3][3];
@@ -95,9 +95,9 @@ void	get_mat_rotation(t_mlx_data *mlx_data, int rotation_mat[3][3])
 	double	mat_res[3][3];
 
 	set_mat(mat_x, mlx_data->rotation_x, mlx_data->angle_x);
-	//set_mat(mat_y, mlx_data->rotation_y, mlx_data->angle_y);
-	//set_mat(mat_z, mlx_data->rotation_z, mlx_data->angle_z);
-	//mult_matrix(mat_x, mat_y, mat_res);
-	//mult_matrix(mat_res, mat_z, mat_x);
-	conv_matdouble_matint(mat_x, rotation_mat);
+	set_mat(mat_y, mlx_data->rotation_y, mlx_data->angle_y);
+	set_mat(mat_z, mlx_data->rotation_z, mlx_data->angle_z);
+	mult_matrix(mat_x, mat_y, mat_res);
+	mult_matrix(mat_res, mat_z, rotation_mat);
+	//conv_matdouble_matint(mat_z, rotation_mat);
 }

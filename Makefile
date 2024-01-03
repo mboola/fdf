@@ -31,12 +31,14 @@ FDF_HEADER	=	${INCLUDE}/ft_fdf.h
 
 MAIN		=	${SRC}/main
 MATRIX_CONF	=	${SRC}/matrix_configuration
+RASTERIZE	=	${SRC}/rasterize
 
 #-----HERE GOES ALL THE FILES USED IN THIS PROJECT IN SRC
 SRC_FILES	=	${MAIN}/main.c ${MAIN}/read_data.c ${MAIN}/main_loop.c ${MAIN}/point_methods.c \
-				${MAIN}/rasterize.c ${MATRIX_CONF}/set_projection.c \
-				${MATRIX_CONF}/set_rotation_x.c ${MATRIX_CONF}/set_rotation_y.c ${MATRIX_CONF}/set_rotation_z.c \
-				${MATRIX_CONF}/set_views.c ${MATRIX_CONF}/get_matrix_rotation.c
+				${MATRIX_CONF}/set_projection.c ${MATRIX_CONF}/set_views.c \
+				${MATRIX_CONF}/obtain_rotation_matrix.c ${MATRIX_CONF}/set_rotation_x.c \
+				${MATRIX_CONF}/set_rotation_y.c ${MATRIX_CONF}/set_rotation_z.c \
+				${RASTERIZE}/rasterize.c ${RASTERIZE}/draw_pixels.c
 #-----------------------------
 
 #-----RULE TO GET THE .O COMPILED

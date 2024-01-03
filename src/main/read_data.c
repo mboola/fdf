@@ -112,12 +112,12 @@ static t_list	*create_points(char **mat, int len, int row, char *err)
 	i = 0;
 	while (!*err && i < len)
 	{
-		points[i].vector[0] = row;
-		points[i].vector[1] = i;
+		points[i].vector[0] = row * PRECISION;
+		points[i].vector[1] = i * PRECISION;
 		points[i].color = get_color(*(mat + i), err);
 		if (*err)
 			return (NULL);
-		points[i].vector[2] = ft_atoi(*(mat + i));
+		points[i].vector[2] = ft_atoi(*(mat + i)) * PRECISION;
 		*err = check_num_correct(*(mat + i));
 		i++;
 	}
@@ -160,7 +160,7 @@ static int	end_read_input_file(int col, t_list **lst, char **line, t_mlx_data *m
 {
 	t_vector2	***mat_points;
 
-	if (col != mlx_data->data_to_print.n_col)
+	if (col != mlx_data->pixels.n_col)
 	{
 		ft_lstclear(lst, clear_point);
 		free(*line);
@@ -168,13 +168,13 @@ static int	end_read_input_file(int col, t_list **lst, char **line, t_mlx_data *m
 	}
 	mlx_data->points = *lst;
 	mat_points = (t_vector2 ***)ft_calloc_matstruct(sizeof(t_vector2),
-		mlx_data->data_to_print.n_row, mlx_data->data_to_print.n_col);
+		mlx_data->pixels.n_row, mlx_data->pixels.n_col);
 	if (mat_points == NULL)
 	{
 		ft_lstclear(lst, clear_point);
 		return (0);
 	}
-	mlx_data->data_to_print.screen_points = mat_points;
+	mlx_data->pixels.points = mat_points;
 	return (1);
 }
 
@@ -193,16 +193,16 @@ int	read_input_file(int argc, char **argv, t_mlx_data *mlx_data)
 	line = get_next_line(fd);
 	col = process_line(&lst, &line, 0);
 	if (col > 0)
-		mlx_data->data_to_print.n_col = col;
+		mlx_data->pixels.n_col = col;
 	row = 1;
 	line = get_next_line(fd);
-	while (col == mlx_data->data_to_print.n_col && line)
+	while (col == mlx_data->pixels.n_col && line)
 	{
 		col = process_line(&lst, &line, row);
 		row++;
 		line = get_next_line(fd);
 	}
 	close(fd);
-	mlx_data->data_to_print.n_row = row;
+	mlx_data->pixels.n_row = row;
 	return (end_read_input_file(col, &lst, &line, mlx_data));
 }
