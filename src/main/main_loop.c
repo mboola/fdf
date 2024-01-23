@@ -32,30 +32,63 @@ static int	handle_no_event(t_mlx_data *mlx_data)
 
 /*
  *  Using mlx_loop_end creates a leak. Not my problem, caused by mlx lib.
+ *	Here we listen if a key that modifies output has been used.
+ *	Or if we end the program.
  */
 static int	handle_input(int keys, t_mlx_data *mlx_data)
 {
-    if (keys == XK_Escape)
+    if (keys == XK_Escape) // or closed clicking X in the windows
 		mlx_data->close = 1;
-	if (keys == XK_a)
+	if (keys == XK_a) //update x rotation
 	{
 		mlx_data->angle_x += 0.1;
 		mlx_data->rasterize = 1;
 	}
-	if (keys == XK_b)
+	if (keys == XK_b) //update y rotation
 	{
 		mlx_data->angle_y += 0.1;
 		mlx_data->rasterize = 1;
 	}
-	if (keys == XK_c)
+	if (keys == XK_c) //update z rotation
 	{
 		mlx_data->angle_z += 0.1;
 		mlx_data->rasterize = 1;
 	}
-		//if (mlx_data && mlx_data->mlx != NULL)
-    	//mlx_loop_end(mlx_data->mlx);
-	//here will be more ifs with rotating and escalating and whatever. when pressed, they will set
-	//mlx_data->rasterize to 1
+	if (keys == XK_d) //update x scale
+	{
+		//mlx_data->angle_z += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_e) //update y scale
+	{
+		//mlx_data->angle_z += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_f) //update z scale
+	{
+		//mlx_data->angle_z += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_g) //update x translation positive
+	{
+		//mlx_data->angle_z += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_h) //update x translation negative
+	{
+		//mlx_data->angle_z += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_i) //update y translation positive
+	{
+		//mlx_data->angle_z += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_j) //update y translation negative
+	{
+		//mlx_data->angle_z += 0.1;
+		mlx_data->rasterize = 1;
+	}
     return (0);
 }
 
@@ -66,20 +99,20 @@ static void register_hooks(t_mlx_data *mlx_data)
 }
 
 /*
- *	This method will initialize all the hooks needed and start the aplication
+ *	This method will initialize all the data needed to rasterize pixels.
+ *	Then it will create a loop giving the end condition to the user.
  */
 int	main_loop(t_mlx_data *mlx_data)
 {
 	mlx_data->rasterize = 1;
 	mlx_data->close = 0;
-	mlx_data->scale = 2;		//this is used like separation between points
-	mlx_data->offset[0] = WINDOW_WIDTH / 2;		//TODO: substract to this the num_col / 2
-	mlx_data->offset[1] = WINDOW_HEIGHT / 2;
-	set_projection(mlx_data);
-	set_rotation_x(mlx_data);
-	set_rotation_y(mlx_data);
-	set_rotation_z(mlx_data);
-	set_isometric_view(mlx_data);
+	mlx_data->scale[0] = 1;
+	mlx_data->scale[1] = 1;
+	mlx_data->scale[2] = 1;
+	mlx_data->offset[0] = WIN_WIDTH / 2;	//calculate the translation so it ca be centered.
+	mlx_data->offset[1] = WIN_HEIGHT / 2;
+	initialize_matrixs(mlx_data);
+	initialize_view(mlx_data);
 	register_hooks(mlx_data);
 	mlx_loop(mlx_data->mlx);
 	return (1);

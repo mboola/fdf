@@ -12,6 +12,9 @@
 
 #include "ft_fdf.h"
 
+/*
+ *	Clears the struct created to run the application.
+ */
 static int	clear_data(t_mlx_data **mlx_data)
 {
 	ft_lstclear(&((*mlx_data)->points), clear_point);
@@ -36,6 +39,11 @@ static void	print_info(void *info)
 	//ft_printf(1, "\n");
 }
 
+/*
+ *	Main function. Reads the file into a matrix of points.
+ *	Creates a struct that will hold all the information to create a window
+ *	and put pixels to it. Clears the struct when ended.
+ */
 int main(int argc, char **argv)
 {
 	t_mlx_data	*mlx_data;
@@ -52,7 +60,8 @@ int main(int argc, char **argv)
 	mlx_data->mlx = mlx_init();
 	if (mlx_data->mlx == NULL)
 		return (clear_data(&mlx_data));
-	mlx_data->mlx_win = mlx_new_window(mlx_data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
+	mlx_data->mlx_win =
+		mlx_new_window(mlx_data->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
 	if (mlx_data->mlx_win == NULL)
 		return (clear_data(&mlx_data));
 	main_loop(mlx_data);
