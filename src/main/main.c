@@ -18,7 +18,7 @@
 static int	clear_data(t_mlx_data **mlx_data)
 {
 	ft_lstclear(&((*mlx_data)->points), clear_point);
-	mlx_destroy_display((*mlx_data)->mlx);
+	//mlx_destroy_display((*mlx_data)->mlx);
 	free((*mlx_data)->mlx);
 	free(*mlx_data);
 	return (0);

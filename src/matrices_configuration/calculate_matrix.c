@@ -12,44 +12,6 @@
 
 #include "ft_fdf.h"
 
-
-static void	conv_matdouble_matint(double mat_double[3][3], int mat_int[3][3])
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < 3)
-	{
-		j = 0;
-		while (j < 3)
-		{
-			mat_int[i][j] = (int)round(mat_double[i][j]);
-			j++;
-		}
-		i++;
-	}
-}
-
-static void	print_matrix(int mat[3][3])
-{
-	int	i;
-	int j;
-
-	i = 0;
-	while (i < 3)
-	{
-		j = 0;
-		while (j < 3)
-		{
-			ft_printf(1, "%d", mat[i][j]);
-			j++;
-		}
-		ft_printf(1, "\n");
-		i++;
-	}
-}
-
 /*
  *	Multiplies two matrices and stores the result in a result matrix.
  */

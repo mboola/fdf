@@ -13,9 +13,34 @@
 #ifndef FT_FDF_H
 # define FT_FDF_H
 
+/*
+ *	Here I define 
+ */
+# ifndef XK_Escape
+#  define XK_Escape 65307 // o 53
+# endif
+
+# ifndef XK_s
+#  define XK_s 1 // o 115 abajo
+# endif
+
+# ifndef XK_w
+#  define XK_w 13 // o 119 arriba
+# endif
+
+# ifndef XK_a
+#  define XK_a 0 // o 97 arriba
+# endif
+
+# ifndef XK_d
+#  define XK_d 2 // o 119 arriba
+# endif
+
+//izquierda 0 o 97
+//derecha es 2 o 100
+
 # include "libft.h"
-# include "mlx.h"
-# include "mlx_int.h"
+# include "../minilibx/mlx.h"
 # include <math.h>
 
 # define WIN_WIDTH 900
@@ -41,9 +66,15 @@ typedef struct	s_image {
 }	t_image;
 
 /*
- *	Alias of a function that returns a function.
+ *	Alias of a function that recieves a double and returns a double.
  */
 typedef double	(*s_func)(double);
+
+/*
+ *	Alias of a function that recieves a double and returns an int.
+ *	Used by the projection matrix.
+ */
+typedef int	(*s_proj)(double);
 
 /*
  *	Point to be printed and the color it will have.
@@ -70,8 +101,7 @@ typedef struct	s_draw_line {
 	int	d[2];
 	int	s[2];
 	int	prec[2];
-	int	x0;
-	int	y0;
+	int	point[2];
 }	t_draw_line;
 
 /*
@@ -90,7 +120,7 @@ typedef struct	s_mlx_data {
 	s_func		rotation_z[3][3];	//matrix with functions to calculate rotation in z axis
 	s_func		mat_scale[3][3];	//scalation of x, y and z matrix
 	s_func		mat_translation[3][3];	//translation of x and y matrix
-	int			mat_proj[3][3];		//projection matrix. used to convert 3d to 2d
+	s_proj		mat_proj[3][3];		//projection matrix. used to convert 3d to 2d
 	double		angle_x;
 	double		angle_y;
 	double		angle_z;

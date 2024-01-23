@@ -59,41 +59,6 @@ static int	handle_input(int keys, t_mlx_data *mlx_data)
 		mlx_data->angle_z += 0.1;
 		mlx_data->rasterize = 1;
 	}
-	if (keys == XK_d) //update x scale
-	{
-		//mlx_data->angle_z += 0.1;
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_e) //update y scale
-	{
-		//mlx_data->angle_z += 0.1;
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_f) //update z scale
-	{
-		//mlx_data->angle_z += 0.1;
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_g) //update x translation positive
-	{
-		//mlx_data->angle_z += 0.1;
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_h) //update x translation negative
-	{
-		//mlx_data->angle_z += 0.1;
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_i) //update y translation positive
-	{
-		//mlx_data->angle_z += 0.1;
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_j) //update y translation negative
-	{
-		//mlx_data->angle_z += 0.1;
-		mlx_data->rasterize = 1;
-	}
     return (0);
 }
 

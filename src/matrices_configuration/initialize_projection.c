@@ -12,12 +12,25 @@
 
 #include "ft_fdf.h"
 
-static int	project_x(double coord, t_mlx_data *mlx_data)
+static int	project(double coord)
 {
-	return ((int)round(coord * mlx_data->scale + mlx_data->offset[0]));
+	return ((int)round(coord));
 }
 
-static int	project_y(double coord, t_mlx_data *mlx_data)
+static int	return_zero()
 {
-	return ((int)round(coord * mlx_data->scale + mlx_data->offset[1]));
+	return (0);
+}
+
+void	initialize_projection(t_mlx_data *mlx_data)
+{
+	mlx_data->mat_proj[0][0] = project;
+	mlx_data->mat_proj[0][1] = return_zero;
+	mlx_data->mat_proj[0][2] = return_zero;
+	mlx_data->mat_proj[1][0] = return_zero;
+	mlx_data->mat_proj[1][1] = project;
+	mlx_data->mat_proj[1][2] = return_zero;
+	mlx_data->mat_proj[2][0] = return_zero;
+	mlx_data->mat_proj[2][1] = return_zero;
+	mlx_data->mat_proj[2][2] = return_zero;
 }
