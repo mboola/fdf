@@ -85,19 +85,18 @@ static void	map_points(t_point *points, t_mlx_data *mlx_data,
 }
 
 /*
- *	This function first converts our current points to the rotation required
- *	and then projects them to the 2D plane (screen). It stores the coords and then
- *	it creates lines uniting those points.
+ *	Calculates the matrix used to convert 3d points to 2d points.
+ *	Once it has all points converted and stored in a matrix of points, we call
+ *	an algorithm to draw the lines between them.
  */
 void	rasterize(t_image image, t_mlx_data *mlx_data)
 {
 	t_list	*points;
+	double	matrix[3][3];
 	int		row;
-	double	rot_matrix[3][3];
-	int		result[3];
 
 	points = mlx_data->points;
-	obtain_rotation_matrix(mlx_data, rot_matrix);
+	calculate_matrix(mlx_data, matrix);
 	row = 0;
 	while (points != NULL)
 	{
@@ -105,5 +104,5 @@ void	rasterize(t_image image, t_mlx_data *mlx_data)
 		points = points->next;
 		row++;
 	}
-	draw_pixels(image, mlx_data);
+	draw_frame_buffer(image, mlx_data->pixels);
 }

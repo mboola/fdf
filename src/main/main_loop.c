@@ -12,6 +12,11 @@
 
 #include "ft_fdf.h"
 
+/*
+ *	This gets executed each frame. It finishes the application if it is
+ *	requested by the user. If not, it checks if points need to be
+ *	rasterized.
+ */
 static int	handle_no_event(t_mlx_data *mlx_data)
 {
 	t_image	image;
@@ -20,7 +25,7 @@ static int	handle_no_event(t_mlx_data *mlx_data)
 		mlx_loop_end(mlx_data->mlx);
 	else if (mlx_data->rasterize)
 	{
-		image.img = mlx_new_image(mlx_data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+		image.img = mlx_new_image(mlx_data->mlx, WIN_WIDTH, WIN_HEIGHT);
 		image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_len, &image.endian);
 		rasterize(image, mlx_data);
 		mlx_put_image_to_window(mlx_data->mlx, mlx_data->mlx_win, image.img, 0, 0);
@@ -99,20 +104,31 @@ static void register_hooks(t_mlx_data *mlx_data)
 }
 
 /*
+ *	This initializes the scale, the translation (offset)
+ *	and sets the flag to be rasterized.
+ *	TODO: calculate offset to it is centered
+ */
+static void	initialize_data(t_mlx_data *mlx_data)
+{
+	mlx_data->scale[0] = 1;
+	mlx_data->scale[1] = 1;
+	mlx_data->scale[2] = 1;
+	mlx_data->offset[0] = WIN_WIDTH / 2;
+	mlx_data->offset[1] = WIN_HEIGHT / 2;
+	mlx_data->offset[2] = 0;
+	mlx_data->rasterize = 1;
+	mlx_data->close = 0;
+}
+
+/*
  *	This method will initialize all the data needed to rasterize pixels.
  *	Then it will create a loop giving the end condition to the user.
  */
 int	main_loop(t_mlx_data *mlx_data)
 {
-	mlx_data->rasterize = 1;
-	mlx_data->close = 0;
-	mlx_data->scale[0] = 1;
-	mlx_data->scale[1] = 1;
-	mlx_data->scale[2] = 1;
-	mlx_data->offset[0] = WIN_WIDTH / 2;	//calculate the translation so it ca be centered.
-	mlx_data->offset[1] = WIN_HEIGHT / 2;
-	initialize_matrixs(mlx_data);
+	initialize_matrices(mlx_data);
 	initialize_view(mlx_data);
+	initialize_data(mlx_data);
 	register_hooks(mlx_data);
 	mlx_loop(mlx_data->mlx);
 	return (1);

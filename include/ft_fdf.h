@@ -46,7 +46,16 @@ typedef struct	s_image {
 typedef double	(*s_func)(double);
 
 /*
- *	I just dont remember what is this.
+ *	Point to be printed and the color it will have.
+ */
+typedef struct	s_vector2 {
+	int	point[2];
+	int	color;
+}	t_vector2;
+
+/*
+ *	This stores the information to print. A matrix of points (x, y)
+ *	where a point should be printed.
  */
 typedef struct	s_buffer {
 	void	***points;
@@ -55,12 +64,15 @@ typedef struct	s_buffer {
 }	t_buffer;
 
 /*
- *	I just dont remember what is this.
+ *	Used in the algorithm to calculate where to put pixels when drawing a line.
  */
-typedef struct	s_vector2 {
-	int	vector2[2];
-	int	color;
-}	t_vector2;
+typedef struct	s_draw_line {
+	int	d[2];
+	int	s[2];
+	int	prec[2];
+	int	x0;
+	int	y0;
+}	t_draw_line;
 
 /*
  *	Struct with all the information of the program.
@@ -72,7 +84,7 @@ typedef struct	s_mlx_data {
 	char		rasterize;	//flag to know if we need to resterize the image.
 	char		close;		//flag to know if we need to close the program.
 	double		scale[3];	//scale x, y and z of the points.
-	int			offset[2];	//translation x and y of the points.
+	int			offset[3];	//translation x and y of the points.
 	s_func		rotation_x[3][3];	//matrix with functions to calculate rotation in x axis
 	s_func		rotation_y[3][3];	//matrix with functions to calculate rotation in y axis
 	s_func		rotation_z[3][3];	//matrix with functions to calculate rotation in z axis
@@ -82,7 +94,7 @@ typedef struct	s_mlx_data {
 	double		angle_x;
 	double		angle_y;
 	double		angle_z;
-	t_buffer	pixels;	//information used to print pixels to the screen (I guess)
+	t_buffer	pixels;	//information used to print pixels to the screen
 }	t_mlx_data;
 
 /*
