@@ -92,8 +92,8 @@ static void	initialize_data(t_mlx_data *mlx_data)
 int	main_loop(t_mlx_data *mlx_data)
 {
 	initialize_matrices(mlx_data);
-	initialize_view(mlx_data);
 	initialize_data(mlx_data);
+	initialize_view(mlx_data);
 	register_hooks(mlx_data);
 	mlx_loop(mlx_data->mlx);
 	return (1);

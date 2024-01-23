@@ -6,7 +6,7 @@ static int	open_file(int argc, char **argv)
 	int	fd;
 
 	//TODO: check that file name ends with .fdf
-	if (argc == 1)
+	if (argc != 2)
 		return (-1);
 	/*
 	fd = open(argv[1], O_DIRECTORY);
@@ -112,12 +112,12 @@ static t_list	*create_points(char **mat, int len, int row, char *err)
 	i = 0;
 	while (!*err && i < len)
 	{
-		points[i].vector[0] = row * PRECISION;
-		points[i].vector[1] = i * PRECISION;
+		points[i].vector[0] = row;
+		points[i].vector[1] = i;
 		points[i].color = get_color(*(mat + i), err);
 		if (*err)
 			return (NULL);
-		points[i].vector[2] = ft_atoi(*(mat + i)) * PRECISION;
+		points[i].vector[2] = ft_atoi(*(mat + i));
 		*err = check_num_correct(*(mat + i));
 		i++;
 	}
@@ -135,7 +135,7 @@ static int	process_line(t_list **lst, char **line, int n_row)
 	char	**mat;
 	char	*trimmed_line;
 	int		n_col;
-	t_list	*node_row;
+	t_list	*row_points;
 	char	err;
 
 	err = 0;
@@ -147,10 +147,10 @@ static int	process_line(t_list **lst, char **line, int n_row)
 	free(trimmed_line);
 	if (mat == NULL)
 		return (-1);
-	n_col = matlen(mat);
-	node_row = create_points(mat, n_col, n_row, &err);
-	ft_lstadd_back(lst, node_row);
-	clear_matrix(&mat);
+	n_col = ft_matlen(mat);
+	row_points = create_points(mat, n_col, n_row, &err);
+	ft_lstadd_back(lst, row_points);
+	ft_matclear(&mat);
 	if (err)
 		return (-1);
 	return (n_col);
@@ -178,6 +178,10 @@ static int	end_read_input_file(int col, t_list **lst, char **line, t_mlx_data *m
 	return (1);
 }
 
+/*
+ *	Reads the data from the file passed as argv. Checks if input is correct.
+ *	It reads lines from the file and processes them. 
+ */
 int	read_input_file(int argc, char **argv, t_mlx_data *mlx_data)
 {
 	t_list	*lst;

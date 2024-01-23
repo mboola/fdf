@@ -14,12 +14,12 @@
 
 static void	convert_vector2(void **vector2, int vector[2], int *color)
 {
-	t_vector2	*vector;
+	t_vector2	*tmp;
 
-	vector = (t_vector2 *)vector2;
-	vector[0] = vector->vector2[0];
-	vector[1] = vector->vector2[1];
-	*color = vector->color;
+	tmp = (t_vector2 *)vector2;
+	vector[0] = tmp->coord[0];
+	vector[1] = tmp->coord[1];
+	*color = tmp->color;
 }
 
 /*
@@ -35,15 +35,15 @@ static void	draw_segments(t_image image, t_buffer pixels, int i, int j)
 	int	colors[2];
 
 	convert_vector2(pixels.points[i][j], current_point, &colors[0]);
-	draw_point(image, current_point, current_color);
+	draw_point(image, current_point, colors[0]);
 	if (i < pixels.n_row - 1)
 	{
-		get_vector2(pixels.points[i + 1][j], point_down, &colors[1]);
+		convert_vector2(pixels.points[i + 1][j], point_down, &colors[1]);
 		draw_line(image, current_point, point_down, colors);
 	}
 	if (j < pixels.n_col - 1)
 	{
-		get_vector2(pixels.points[i][j + 1], point_right, &colors[1]);
+		convert_vector2(pixels.points[i][j + 1], point_right, &colors[1]);
 		draw_line(image, current_point, point_right, colors);
 	}
 }

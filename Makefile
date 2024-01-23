@@ -22,7 +22,7 @@ OBJ_DIR		=	objects
 #------------------------------------------------------------------------------
 #	STATIC LIBRARIES
 #------------------------------------------------------------------------------
-MINILIBX_DIR	=	minilibx
+MINILIBX_DIR	=	minilibx-linux
 MINILIBX		=	${MINILIBX_DIR}/libmlx.a
 MINILIBX_LINUX	=	${MINILIBX_DIR}/libmlx_Linux.a
 
@@ -56,7 +56,7 @@ MAIN		=	${SRC}/main/
 MATRIX_CONF	=	${SRC}/matrices_configuration/
 RASTERIZE	=	${SRC}/rasterize/
 
-MAIN_FILES			=	main.c main_loop.c read_data.c
+MAIN_FILES			=	main.c main_loop.c read_input_file.c
 MATRIX_CONF_FILES	=	calculate_matrix.c initialize_matrices.c initialize_projection.c \
 						initialize_trans_scale.c set_rotation_x.c set_rotation_y.c \
 						set_rotation_z.c
@@ -80,7 +80,7 @@ all: ${LIB_DIR} ${OBJ_DIR} ${MINILIBX} ${LIBFT} ${NAME}
 
 ${NAME}: ${OBJ_FILES}
 	@echo "Compilating fdf."
-	${CC} ${OBJ_FILES} ${LIBFT_LINK} ${MINILIBX_LINK_MAC} -o $@ ${DEBUG}
+	${CC} ${OBJ_FILES} ${LIBFT_LINK} ${MINILIBX_LINK_LINUX} -o $@ ${DEBUG}
 
 ${MINILIBX}:
 	@echo "Compilating minilibx."

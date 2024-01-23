@@ -12,6 +12,7 @@
 
 #include "ft_fdf.h"
 
+/*
 static void	print_matrix(int mat[3][3])
 {
 	int	i;
@@ -30,6 +31,7 @@ static void	print_matrix(int mat[3][3])
 		i++;
 	}
 }
+*/
 
 /*
  *	Calculates the matrix used to convert 3d points to 2d points.

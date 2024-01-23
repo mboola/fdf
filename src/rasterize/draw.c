@@ -18,7 +18,8 @@ static void	calculate_values(int p_0[2], int p_f[2], t_draw_line *info)
 	info->d[1] = abs(p_f[1] - p_0[1]);
 	info->s[0] = (p_0[0] < p_f[0]) + (p_0[0] >= p_f[0]) * -1;
 	info->s[1] = (p_0[1] < p_f[1]) + (p_0[1] >= p_f[1]) * -1;
-	info->prec[0] = (d[0] > d[1]) * (d[0] / 2) + (d[0] <= d[1]) * (-d[1] / 2);
+	info->prec[0] = (info->d[0] > info->d[1]) * (info->d[0] / 2)
+		+ (info->d[0] <= info->d[1]) * (-info->d[1] / 2);
 	info->point[0] = p_0[0];
 	info->point[1] = p_0[1];
 }

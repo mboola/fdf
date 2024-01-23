@@ -13,34 +13,10 @@
 #ifndef FT_FDF_H
 # define FT_FDF_H
 
-/*
- *	Here I define 
- */
-# ifndef XK_Escape
-#  define XK_Escape 65307 // o 53
-# endif
-
-# ifndef XK_s
-#  define XK_s 1 // o 115 abajo
-# endif
-
-# ifndef XK_w
-#  define XK_w 13 // o 119 arriba
-# endif
-
-# ifndef XK_a
-#  define XK_a 0 // o 97 arriba
-# endif
-
-# ifndef XK_d
-#  define XK_d 2 // o 119 arriba
-# endif
-
-//izquierda 0 o 97
-//derecha es 2 o 100
-
-# include "libft.h"
-# include "../minilibx/mlx.h"
+# include "../ft_libft/include/libft.h"
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
+# include "key_definitions.h"
 # include <math.h>
 
 # define WIN_WIDTH 900
@@ -80,7 +56,7 @@ typedef int	(*s_proj)(double);
  *	Point to be printed and the color it will have.
  */
 typedef struct	s_vector2 {
-	int	point[2];
+	int	coord[2];
 	int	color;
 }	t_vector2;
 
@@ -114,7 +90,7 @@ typedef struct	s_mlx_data {
 	char		rasterize;	//flag to know if we need to resterize the image.
 	char		close;		//flag to know if we need to close the program.
 	double		scale[3];	//scale x, y and z of the points.
-	int			offset[3];	//translation x and y of the points.
+	double		offset[3];	//translation x and y of the points.
 	s_func		rotation_x[3][3];	//matrix with functions to calculate rotation in x axis
 	s_func		rotation_y[3][3];	//matrix with functions to calculate rotation in y axis
 	s_func		rotation_z[3][3];	//matrix with functions to calculate rotation in z axis
@@ -136,17 +112,15 @@ typedef struct  s_point {
 }	t_point;
 
 /*
- *	Functions to run the program.
+ *	Read data from file functions.
  */
+int		read_input_file(int argc, char **argv, t_mlx_data *mlx_data);
+
+
 int		read_input_file(int argc, char **argv, t_mlx_data *mlx_data);
 int		main_loop(t_mlx_data *mlx_data);
 t_list	*new_point(int row, int col, int num, char *err);
 void	clear_point(void *point);
-
-void	rasterize(t_image image, t_mlx_data *mlx_data);
-void	obtain_rotation_matrix(t_mlx_data *mlx_data,
-			double rotation_mat[3][3]);
-void	draw_pixels(t_image image, t_mlx_data *mlx_data);
 
 /*
  *	Matrices configuration. Used at start of the program.
@@ -158,5 +132,21 @@ void	initialize_translation(t_mlx_data *mlx_data);
 void	set_rotation_x(t_mlx_data *mlx_data);
 void	set_rotation_y(t_mlx_data *mlx_data);
 void	set_rotation_z(t_mlx_data *mlx_data);
+
+/*
+ *	Initializes the angles to rasterize from.
+ */
+void	initialize_view(t_mlx_data *mlx_data);
+
+/*
+ *	Rasterization functions.
+ */
+void	rasterize(t_image image, t_mlx_data *mlx_data);
+void	calculate_matrix(t_mlx_data *mlx_data, double result_mat[3][3]);
+void	convert_points(t_point *points, t_mlx_data *mlx_data,
+    double mat[3][3], int row);
+void	draw_frame_buffer(t_image image, t_buffer pixels);
+void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2]);
+void	draw_point(t_image image, int coord[2], int color);
 
 #endif
