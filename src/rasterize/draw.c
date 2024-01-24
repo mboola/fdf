@@ -35,7 +35,7 @@ void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2])
 	calculate_values(p_0, p_f, &info);
 	while (info.point[0] != p_f[0] && info.point[1] != p_f[1])
 	{
-		draw_point(image, info.point, 0xFF0000);
+		draw_point(image, info.point, color[0]);
 		info.prec[1] = info.prec[0];
 		if (info.prec[1] > -info.d[0])
 		{

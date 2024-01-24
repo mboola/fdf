@@ -12,6 +12,11 @@
 
 #include "ft_fdf.h"
 
+void	clear_point(void *point)
+{
+	free(point);
+}
+
 /*
  *	Clears the struct created to run the application.
  */
@@ -24,6 +29,7 @@ static int	clear_data(t_mlx_data **mlx_data)
 	return (0);
 }
 
+/*
 static void	print_info(void *info)
 {
 	t_point	*point;	//array of pointers
@@ -37,7 +43,7 @@ static void	print_info(void *info)
 		i++;
 	}
 	//ft_printf(1, "\n");
-}
+}*/
 
 /*
  *	Main function. Reads the file into a matrix of points.

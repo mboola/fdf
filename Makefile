@@ -33,7 +33,7 @@ LIBFT			=	${LIBFT_DIR}/libft.a
 #	COMPILATION FLAGS
 #------------------------------------------------------------------------------
 CC				=	cc
-CFLAGS			=	-Wall #-Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 LINUX_LINK_FLG	=	-lXext -lX11 -lz -lm
 MAC_LINK_FLG	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 HEADERS			=	-I./${INCLUDE} -I./${MINILIBX_DIR}
@@ -59,7 +59,7 @@ RASTERIZE	=	${SRC}/rasterize/
 MAIN_FILES			=	main.c main_loop.c read_input_file.c
 MATRIX_CONF_FILES	=	calculate_matrix.c initialize_matrices.c initialize_projection.c \
 						initialize_trans_scale.c set_rotation_x.c set_rotation_y.c \
-						set_rotation_z.c
+						set_rotation_z.c initialize_view.c
 RASTERIZE_FILES		=	convert_points.c draw_frame_buffer.c draw.c rasterize.c
 
 SRC_FILES	=	${MAIN_FILES} ${MATRIX_CONF_FILES} ${RASTERIZE_FILES}

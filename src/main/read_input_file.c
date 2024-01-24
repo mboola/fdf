@@ -19,16 +19,6 @@ static int	open_file(int argc, char **argv)
 	return (fd);
 }
 
-static size_t	matlen(char **mat)
-{
-	size_t	i;
-
-	i = 0;
-	while (*(mat + i) != NULL)
-		i++;
-	return (i);
-}
-
 static unsigned char	transform_color(char **str, char *err)
 {
 	char	value[3];
@@ -128,8 +118,10 @@ static t_list	*create_points(char **mat, int len, int row, char *err)
 	return (node_row);
 }
 
-//TODO: when we read a number, there will also be a color. also store that in the point information
-//All lines should be the same len???
+/*
+ *	Converts a line from the file into data, controlling correct intput.
+ *	Adds an array of points into a linked list.
+ */
 static int	process_line(t_list **lst, char **line, int n_row)
 {
 	char	**mat;
@@ -147,34 +139,36 @@ static int	process_line(t_list **lst, char **line, int n_row)
 	free(trimmed_line);
 	if (mat == NULL)
 		return (-1);
-	n_col = ft_matlen(mat);
+	n_col = ft_matlen((void **)mat);
+	if (n_col == 0)
+		return (-1);
 	row_points = create_points(mat, n_col, n_row, &err);
 	ft_lstadd_back(lst, row_points);
-	ft_matclear(&mat);
+	ft_matclear((void ***)&mat);
 	if (err)
 		return (-1);
 	return (n_col);
 }
 
-static int	end_read_input_file(int col, t_list **lst, char **line, t_mlx_data *mlx_data)
+static int	assign_values(int col, t_list **lst, char **line, t_mlx_data *mlx)
 {
 	t_vector2	***mat_points;
 
-	if (col != mlx_data->pixels.n_col)
+	if (col != mlx->pixels.n_col)
 	{
 		ft_lstclear(lst, clear_point);
 		free(*line);
 		return (0);
 	}
-	mlx_data->points = *lst;
+	mlx->points = *lst;
 	mat_points = (t_vector2 ***)ft_calloc_matstruct(sizeof(t_vector2),
-		mlx_data->pixels.n_row, mlx_data->pixels.n_col);
+		mlx->pixels.n_row, mlx->pixels.n_col);
 	if (mat_points == NULL)
 	{
 		ft_lstclear(lst, clear_point);
 		return (0);
 	}
-	mlx_data->pixels.points = mat_points;
+	mlx->pixels.points = (void ***)mat_points;
 	return (1);
 }
 
@@ -196,8 +190,9 @@ int	read_input_file(int argc, char **argv, t_mlx_data *mlx_data)
 	lst = NULL;
 	line = get_next_line(fd);
 	col = process_line(&lst, &line, 0);
-	if (col > 0)
-		mlx_data->pixels.n_col = col;
+	if (col < 0)
+		return (0);
+	mlx_data->pixels.n_col = col;
 	row = 1;
 	line = get_next_line(fd);
 	while (col == mlx_data->pixels.n_col && line)
@@ -208,5 +203,5 @@ int	read_input_file(int argc, char **argv, t_mlx_data *mlx_data)
 	}
 	close(fd);
 	mlx_data->pixels.n_row = row;
-	return (end_read_input_file(col, &lst, &line, mlx_data));
+	return (assign_values(col, &lst, &line, mlx_data));
 }
