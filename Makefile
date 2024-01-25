@@ -38,7 +38,7 @@ LINUX_LINK_FLG	=	-lXext -lX11 -lz -lm
 MAC_LINK_FLG	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 HEADERS			=	-I./${INCLUDE} -I./${MINILIBX_DIR}
 OPTIMIZATION	=	#-O3
-DEBUG			=	#-g
+DEBUG			=	-g
 
 #------------------------------------------------------------------------------
 #	LINKING LIBRARIES

@@ -152,7 +152,7 @@ static int	process_line(t_list **lst, char **line, int n_row)
 
 static int	assign_values(int col, t_list **lst, char **line, t_mlx_data *mlx)
 {
-	t_vector2	***mat_points;
+	void	**mat_points;
 
 	if (col != mlx->pixels.n_col)
 	{
@@ -161,14 +161,13 @@ static int	assign_values(int col, t_list **lst, char **line, t_mlx_data *mlx)
 		return (0);
 	}
 	mlx->points = *lst;
-	mat_points = (t_vector2 ***)ft_calloc_matstruct(sizeof(t_vector2),
-		mlx->pixels.n_row, mlx->pixels.n_col);
+	mat_points = ft_calloc_matstruct(sizeof(t_vector2), mlx->pixels.n_row, mlx->pixels.n_col);
 	if (mat_points == NULL)
 	{
 		ft_lstclear(lst, clear_point);
 		return (0);
 	}
-	mlx->pixels.points = (void ***)mat_points;
+	mlx->pixels.points = mat_points;
 	return (1);
 }
 

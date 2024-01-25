@@ -65,7 +65,7 @@ typedef struct	s_vector2 {
  *	where a point should be printed.
  */
 typedef struct	s_buffer {
-	void	***points;
+	void	**points;
 	int		n_col;
 	int		n_row;
 }	t_buffer;

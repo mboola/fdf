@@ -12,14 +12,11 @@
 
 #include "ft_fdf.h"
 
-static void	convert_vector2(void **vector2, int vector[2], int *color)
+static void	convert_vector2(t_vector2 vector2, int vector[2], int *color)
 {
-	t_vector2	*tmp;
-
-	tmp = (t_vector2 *)vector2;
-	vector[0] = tmp->coord[0];
-	vector[1] = tmp->coord[1];
-	*color = tmp->color;
+	vector[0] = vector2.coord[0];
+	vector[1] = vector2.coord[1];
+	*color = vector2.color;
 }
 
 /*
@@ -29,22 +26,25 @@ static void	convert_vector2(void **vector2, int vector[2], int *color)
  */
 static void	draw_segments(t_image image, t_buffer pixels, int i, int j)
 {
-	int	current_point[2];
-	int	point_right[2];
-	int	point_down[2];
-	int	colors[2];
+	int			current_point[2];
+	int			point_right[2];
+	int			point_down[2];
+	int			colors[2];
+	t_vector2	*arr;
 
-	convert_vector2(pixels.points[i][j], current_point, &colors[0]);
+	arr = (t_vector2 *)(pixels.points[i]);
+	convert_vector2(arr[j], current_point, &colors[0]);
 	draw_point(image, current_point, colors[0]);
-	if (i < pixels.n_row - 1)
-	{
-		convert_vector2(pixels.points[i + 1][j], point_down, &colors[1]);
-		draw_line(image, current_point, point_down, colors);
-	}
 	if (j < pixels.n_col - 1)
 	{
-		convert_vector2(pixels.points[i][j + 1], point_right, &colors[1]);
+		convert_vector2(arr[j + 1], point_right, &colors[1]);
 		draw_line(image, current_point, point_right, colors);
+	}
+	if (i < pixels.n_row - 1)
+	{
+		arr = (t_vector2 *)(pixels.points[i + 1]);
+		convert_vector2(arr[j], point_down, &colors[1]);
+		draw_line(image, current_point, point_down, colors);
 	}
 }
 

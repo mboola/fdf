@@ -53,21 +53,24 @@ static void	mul_and_project(int point[3], double mat[3][3],
  *	Recieves an array of 3d points and converts them to points from our current
  *	vision point. It then projects them into our 2d screen.
  */
-void	convert_points(t_point *points, t_mlx_data *mlx_data,
+void	convert_points(t_point *points_3d, t_mlx_data *mlx_data,
 	double mat[3][3], int row)
 {
 	int			i;
 	int			coord[3];
-	t_vector2	*vector2;
+	t_vector2	vector2;
+	t_vector2	*mem;
 
 	i = 0;
-	while (points[i].vector[0] != -1)	//while not end of array
+	while (points_3d[i].vector[0] != -1)	//while not end of array
 	{
-		mul_and_project(points[i].vector, mat, mlx_data->mat_proj, coord);
-		vector2 = (t_vector2 *)mlx_data->pixels.points[row][i];
-		vector2->coord[0] = coord[0];
-		vector2->coord[1] = coord[1];
-		vector2->color = points[i].color;
+		mul_and_project(points_3d[i].vector, mat, mlx_data->mat_proj, coord);
+		vector2.coord[0] = coord[0];
+		vector2.coord[1] = coord[1];
+		vector2.color = points_3d[i].color;
+		mem = (t_vector2 *)(mlx_data->pixels.points[row]);
+		mem[i] = vector2;
+		//vector2 = (t_vector2)mlx_data->pixels.points[row][i];
 		//ft_printf(1, "X=%d, Y=%d\n", vector[0], vector[1]);
 		i++;
 	}
