@@ -89,12 +89,6 @@ typedef struct	s_draw_line {
 	int	point[2];
 }	t_draw_line;
 
-typedef struct	s_rot_fix {
-	double		offset_correction[3];	//translation x and y of the points.
-	double		h;
-	double		angle;
-}	t_rot_fix;
-
 /*
  *	Struct with all the information of the program.
  */
@@ -106,7 +100,6 @@ typedef struct	s_mlx_data {
 	char		close;		//flag to know if we need to close the program.
 	double		scale[3];	//scale x, y and z of the points.
 	double		offset[3];	//translation x and y of the points.
-	double		offset_correction[3];	//translation x and y of the points.
 	s_func		rotation_x[4][4];	//matrix with functions to calculate rotation in x axis
 	s_func		rotation_y[4][4];	//matrix with functions to calculate rotation in y axis
 	s_func		rotation_z[4][4];	//matrix with functions to calculate rotation in z axis
@@ -118,7 +111,6 @@ typedef struct	s_mlx_data {
 	double		angle_y;
 	double		angle_z;
 	t_buffer	pixels;	//information used to print pixels to the screen
-	t_rot_fix	rotation_fix;
 }	t_mlx_data;
 
 /*

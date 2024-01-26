@@ -14,9 +14,9 @@
 
 static void	initialize_isometric(t_mlx_data *mlx_data)
 {
-	mlx_data->angle_x = 3.141593;
+	mlx_data->angle_x = 0;
 	mlx_data->angle_y = 0;
-	mlx_data->angle_z = 1.57;
+	mlx_data->angle_z = 0;
 }
 
 static void	initialize_conic(t_mlx_data *mlx_data)
@@ -24,21 +24,6 @@ static void	initialize_conic(t_mlx_data *mlx_data)
 	mlx_data->angle_x = 0;
 	mlx_data->angle_y = 0;
 	mlx_data->angle_z = 0;
-}
-
-static void	initialize_rotation_correction(t_mlx_data *mlx_data)
-{
-	t_rot_fix	correction;
-	int			x;
-	int			y;
-	
-	y = mlx_data->pixels.n_row;
-	x = mlx_data->pixels.n_col;
-	correction.angle = atan(y / x);
-	correction.h = y / sin(correction.angle);
-	mlx_data->rotation_fix = correction;
-
-	calculate_center(mlx_data);
 }
 
 static void	set_scale(t_mlx_data *mlx_data)
@@ -62,6 +47,11 @@ static void	set_scale(t_mlx_data *mlx_data)
 	mlx_data->scale[0] = scale;
 	mlx_data->scale[1] = scale;
 	mlx_data->scale[2] = scale;
+	x = x * mlx_data->scale[0];
+	y = y * mlx_data->scale[1];
+	mlx_data->offset[0] = (WIN_WIDTH / 2) - x / 2;
+	mlx_data->offset[1] = (WIN_HEIGHT / 2) - y / 2;
+	mlx_data->offset[2] = 0;
 }
 
 void	initialize_view(t_mlx_data *mlx_data)
@@ -71,8 +61,4 @@ void	initialize_view(t_mlx_data *mlx_data)
 	else
 		initialize_isometric(mlx_data);
 	set_scale(mlx_data);
-	initialize_rotation_correction(mlx_data);
-	mlx_data->offset[0] = 0;
-	mlx_data->offset[1] = 0;
-	mlx_data->offset[2] = 0;
 }

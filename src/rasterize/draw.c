@@ -69,6 +69,6 @@ void	draw_point(t_image image, int coord[2], int color)
 	if (coord[1] >= WIN_HEIGHT || coord[1] < 0 
 		|| coord[0] >= WIN_WIDTH || coord[0] < 0)
 		return ;
-	dst = image.addr + (coord[1] * image.line_len + coord[0] * (image.bpp / 8));
+	dst = image.addr + (coord[0] * image.line_len + coord[1] * (image.bpp / 8));
 	*(unsigned int*)dst = color;
 }

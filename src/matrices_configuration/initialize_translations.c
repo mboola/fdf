@@ -46,23 +46,3 @@ void	initialize_translation(t_mlx_data *mlx_data)
 	mlx_data->mat_translation[3][2] = return_zero;
 	mlx_data->mat_translation[3][3] = return_one;
 }
-
-void	initialize_translation_correction(t_mlx_data *mlx_data)
-{
-	mlx_data->mat_translation_correction[0][0] = return_one;
-	mlx_data->mat_translation_correction[0][1] = return_zero;
-	mlx_data->mat_translation_correction[0][2] = return_zero;
-	mlx_data->mat_translation_correction[0][3] = return_value;
-	mlx_data->mat_translation_correction[1][0] = return_zero;
-	mlx_data->mat_translation_correction[1][1] = return_one;
-	mlx_data->mat_translation_correction[1][2] = return_zero;
-	mlx_data->mat_translation_correction[1][3] = return_value;
-	mlx_data->mat_translation_correction[2][0] = return_zero;
-	mlx_data->mat_translation_correction[2][1] = return_zero;
-	mlx_data->mat_translation_correction[2][2] = return_one;
-	mlx_data->mat_translation_correction[2][3] = return_value;
-	mlx_data->mat_translation_correction[3][0] = return_zero;
-	mlx_data->mat_translation_correction[3][1] = return_zero;
-	mlx_data->mat_translation_correction[3][2] = return_zero;
-	mlx_data->mat_translation_correction[3][3] = return_one;
-}
