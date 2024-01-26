@@ -14,14 +14,18 @@
 
 static void	calculate_values(int p_0[2], int p_f[2], t_draw_line *info)
 {
-	info->d[0] = abs(p_f[0] - p_0[0]);
-	info->d[1] = abs(p_f[1] - p_0[1]);
-	info->s[0] = (p_0[0] < p_f[0]) + (p_0[0] >= p_f[0]) * -1;
-	info->s[1] = (p_0[1] < p_f[1]) + (p_0[1] >= p_f[1]) * -1;
-	info->prec[0] = (info->d[0] > info->d[1]) * (info->d[0] / 2)
-		+ (info->d[0] <= info->d[1]) * (-info->d[1] / 2);
-	info->point[0] = p_0[0];
-	info->point[1] = p_0[1];
+	t_draw_line	b;
+
+	b.x0 = p_0[0];
+	b.y0 = p_0[1];
+	b.dx = abs(p_f[0] - b.x0);
+	b.sx = (b.x0 < p_f[0]) + (b.x0 >= p_f[0]) * -1;
+	b.dy = -abs(p_f[1] - b.y0);
+	b.sy = (b.y0 < p_f[1]) + (b.y0 >= p_f[1]) * -1;
+	b.error = b.dx + b.dy;
+	b.point[0] = b.x0;
+	b.point[1] = b.y0;
+	info[0] = b;
 }
 
 /*
@@ -30,23 +34,27 @@ static void	calculate_values(int p_0[2], int p_f[2], t_draw_line *info)
  */
 void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2])
 {
-	t_draw_line	info;
+	t_draw_line	b;
 
-	calculate_values(p_0, p_f, &info);
-	while (info.point[0] != p_f[0] && info.point[1] != p_f[1])
+	calculate_values(p_0, p_f, &b);
+	while (1)
 	{
-		draw_point(image, info.point, color[0]);
-		info.prec[1] = info.prec[0];
-		if (info.prec[1] > -info.d[0])
+		draw_point(image, b.point, color[0]);
+		if (b.x0 == p_f[0] && b.y0 == p_f[1])
+			break;
+		b.error2 = 2 * b.error;
+		if (b.error2 >= b.dy && b.x0 != p_f[0])
 		{
-			info.prec[0] -= info.d[1];
-			info.point[0] += info.s[0];
+			b.error += b.dy;
+			b.x0 += b.sx;
 		}
-		if (info.prec[1] < info.d[1])
+		if (b.error2 <= b.dx && b.y0 != p_f[1])
 		{
-			info.prec[0] += info.d[0];
-			info.point[1] += info.s[1];
+			b.error += b.dx;
+			b.y0 += b.sy;
 		}
+		b.point[0] = b.x0;
+		b.point[1] = b.y0;	
 	}
 }
 

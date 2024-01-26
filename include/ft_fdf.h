@@ -74,9 +74,14 @@ typedef struct	s_buffer {
  *	Used in the algorithm to calculate where to put pixels when drawing a line.
  */
 typedef struct	s_draw_line {
-	int	d[2];
-	int	s[2];
-	int	prec[2];
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	error;
+	int	error2;
+	int	x0;
+	int	y0;
 	int	point[2];
 }	t_draw_line;
 
