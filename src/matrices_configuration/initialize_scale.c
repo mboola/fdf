@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_scale.c                                        :+:      :+:    :+:   */
+/*   initialize_scale.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -25,26 +25,6 @@ static double	return_zero()
 static double	return_value(double value)
 {
 	return (value);
-}
-
-void	initialize_translation(t_mlx_data *mlx_data)
-{
-	mlx_data->mat_translation[0][0] = return_one;
-	mlx_data->mat_translation[0][1] = return_zero;
-	mlx_data->mat_translation[0][2] = return_zero;
-	mlx_data->mat_translation[0][3] = return_value;
-	mlx_data->mat_translation[1][0] = return_zero;
-	mlx_data->mat_translation[1][1] = return_one;
-	mlx_data->mat_translation[1][2] = return_zero;
-	mlx_data->mat_translation[1][3] = return_value;
-	mlx_data->mat_translation[2][0] = return_zero;
-	mlx_data->mat_translation[2][1] = return_zero;
-	mlx_data->mat_translation[2][2] = return_zero;
-	mlx_data->mat_translation[2][3] = return_value;
-	mlx_data->mat_translation[3][0] = return_zero;
-	mlx_data->mat_translation[3][1] = return_zero;
-	mlx_data->mat_translation[3][2] = return_zero;
-	mlx_data->mat_translation[3][3] = return_one;
 }
 
 void	initialize_scale(t_mlx_data *mlx_data)

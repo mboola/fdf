@@ -100,11 +100,13 @@ typedef struct	s_mlx_data {
 	char		close;		//flag to know if we need to close the program.
 	double		scale[3];	//scale x, y and z of the points.
 	double		offset[3];	//translation x and y of the points.
+	double		offset_correction[3];	//translation x and y of the points.
 	s_func		rotation_x[4][4];	//matrix with functions to calculate rotation in x axis
 	s_func		rotation_y[4][4];	//matrix with functions to calculate rotation in y axis
 	s_func		rotation_z[4][4];	//matrix with functions to calculate rotation in z axis
 	s_func		mat_scale[4][4];	//scalation of x, y and z matrix
 	s_func		mat_translation[4][4];	//translation of x and y matrix
+	s_func		mat_translation_correction[4][4];	//translation of x and y matrix
 	s_proj		mat_proj[4][4];		//projection matrix. used to convert 3d to 2d
 	double		angle_x;
 	double		angle_y;
@@ -138,6 +140,7 @@ void	initialize_matrices(t_mlx_data *mlx_data);
 void	initialize_projection(t_mlx_data *mlx_data);
 void	initialize_scale(t_mlx_data *mlx_data);
 void	initialize_translation(t_mlx_data *mlx_data);
+void	initialize_translation_correction(t_mlx_data *mlx_data);
 void	set_rotation_x(t_mlx_data *mlx_data);
 void	set_rotation_y(t_mlx_data *mlx_data);
 void	set_rotation_z(t_mlx_data *mlx_data);
@@ -158,6 +161,8 @@ void	draw_frame_buffer(t_image image, t_buffer pixels);
 void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2]);
 void	draw_point(t_image image, int coord[2], int color);
 
-void	update_angle(double *angle, double increment);
+void	update_angle_x(t_mlx_data *mlx_data, double increment);
+void	update_angle_y(t_mlx_data *mlx_data, double increment);
+void	update_angle_z(t_mlx_data *mlx_data, double increment);
 
 #endif

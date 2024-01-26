@@ -28,4 +28,5 @@ void	initialize_matrices(t_mlx_data *mlx_data)
 	initialize_rotation(mlx_data);
 	initialize_scale(mlx_data);
 	initialize_translation(mlx_data);
+	initialize_translation_correction(mlx_data);
 }
