@@ -93,8 +93,8 @@ void	print_matrix(double result_mat[4][4])
 }
 
 /*
- *	It firsts translates the points, rotate them x,y,z and finally scale them.
- *	Stores the result in result_mat.
+ *	It firsts rotates the points in each axis, scale them 
+ *	and finally translate them. Stores the result in result_mat.
  */
 void	calculate_matrix(t_mlx_data *mlx_data, double result_mat[4][4])
 {
@@ -102,13 +102,13 @@ void	calculate_matrix(t_mlx_data *mlx_data, double result_mat[4][4])
 	double	mat_b[4][4];
 	double	mat_c[4][4];
 
-	set_mat_arr(mat_a, mlx_data->mat_translation, mlx_data->offset);
-	set_mat(mat_b, mlx_data->rotation_x, mlx_data->angle_x);
+	set_mat(mat_a, mlx_data->rotation_x, mlx_data->angle_x);
+	set_mat(mat_b, mlx_data->rotation_y, mlx_data->angle_y);
 	mul_mat(mat_a, mat_b, mat_c);
-	set_mat(mat_a, mlx_data->rotation_y, mlx_data->angle_y);
-	mul_mat(mat_a, mat_c, mat_b);
 	set_mat(mat_a, mlx_data->rotation_z, mlx_data->angle_z);
-	mul_mat(mat_a, mat_b, mat_c);
+	mul_mat(mat_a, mat_c, mat_b);
 	set_mat_arr(mat_a, mlx_data->mat_scale, mlx_data->scale);
+	mul_mat(mat_a, mat_b, mat_c);
+	set_mat_arr(mat_a, mlx_data->mat_translation, mlx_data->offset);
 	mul_mat(mat_a, mat_c, result_mat);
 }

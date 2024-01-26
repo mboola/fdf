@@ -28,13 +28,31 @@ static void	initialize_conic(t_mlx_data *mlx_data)
 
 static void	set_scale(t_mlx_data *mlx_data)
 {
-	mlx_data->scale[0] = 30;
-	mlx_data->scale[1] = 30;
-	mlx_data->scale[2] = 30;
-	//y = mlx_data->pixels.n_row;
-	//set this values correctly
-	mlx_data->offset[0] = 5;
-	mlx_data->offset[1] = 5;
+	int	x;
+	int	y;
+	int	k;
+	int	n;
+	int	scale;
+
+	x = mlx_data->pixels.n_col;
+	y = mlx_data->pixels.n_row;
+	k = (WIN_WIDTH / 5) * 3;
+	n = (WIN_HEIGHT / 5) * 3;
+	if (k / x > n / y)
+		scale = n / y;
+	else
+		scale = k / x;
+	if (scale <= 0)
+		scale = 0.1;
+	mlx_data->scale[0] = scale;
+	mlx_data->scale[1] = scale;
+	mlx_data->scale[2] = scale;
+
+	x = x * mlx_data->scale[0];
+	y = y * mlx_data->scale[1];
+
+	mlx_data->offset[0] = (WIN_WIDTH / 2) - (x / 2);
+	mlx_data->offset[1] = (WIN_HEIGHT / 2) - (y / 2);
 	mlx_data->offset[2] = 0;
 }
 
