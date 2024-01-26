@@ -65,9 +65,9 @@ void	convert_points(t_point *points_3d, t_mlx_data *mlx_data,
 	i = 0;
 	while (points_3d[i].vector[0] != -1)	//while not end of array
 	{
-		printf("Point before: %d, %d, %d\n", points_3d[i].vector[0], points_3d[i].vector[1], points_3d[i].vector[2]);
+		//printf("Point before: %d, %d, %d\n", points_3d[i].vector[0], points_3d[i].vector[1], points_3d[i].vector[2]);
 		mul_and_project(points_3d[i].vector, mat, mlx_data->mat_proj, coord);
-		printf("Point after: %d, %d\n", coord[0], coord[1]);
+		//printf("Point after: %d, %d\n", coord[0], coord[1]);
 		vector2.coord[0] = coord[0];
 		vector2.coord[1] = coord[1];
 		vector2.color = points_3d[i].color;

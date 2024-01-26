@@ -14,9 +14,9 @@
 
 static void	initialize_isometric(t_mlx_data *mlx_data)
 {
-	mlx_data->angle_x = 0.7;
-	mlx_data->angle_y = 0.35;
-	mlx_data->angle_z = 0;
+	mlx_data->angle_x = 0;
+	mlx_data->angle_y = 0;
+	mlx_data->angle_z = 0.785;
 }
 
 static void	initialize_conic(t_mlx_data *mlx_data)
@@ -47,10 +47,8 @@ static void	set_scale(t_mlx_data *mlx_data)
 	mlx_data->scale[0] = scale;
 	mlx_data->scale[1] = scale;
 	mlx_data->scale[2] = scale;
-
 	x = x * mlx_data->scale[0];
 	y = y * mlx_data->scale[1];
-
 	mlx_data->offset[0] = (WIN_WIDTH / 2) - (x / 2);
 	mlx_data->offset[1] = (WIN_HEIGHT / 2) - (y / 2);
 	mlx_data->offset[2] = 0;

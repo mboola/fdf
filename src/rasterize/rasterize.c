@@ -55,6 +55,6 @@ void	rasterize(t_image image, t_mlx_data *mlx_data)
 		points = points->next;
 		row++;
 	}
-	print_points(mlx_data->pixels.points, mlx_data->pixels.n_col);
+	//print_points(mlx_data->pixels.points, mlx_data->pixels.n_col);
 	draw_frame_buffer(image, mlx_data->pixels);
 }

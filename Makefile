@@ -59,7 +59,7 @@ RASTERIZE	=	${SRC}/rasterize/
 MAIN_FILES			=	main.c main_loop.c read_input_file.c
 MATRIX_CONF_FILES	=	calculate_matrix.c initialize_matrices.c initialize_projection.c \
 						initialize_trans_scale.c set_rotation_x.c set_rotation_y.c \
-						set_rotation_z.c initialize_view.c
+						set_rotation_z.c initialize_view.c update_values.c
 RASTERIZE_FILES		=	convert_points.c draw_frame_buffer.c draw.c rasterize.c
 
 SRC_FILES	=	${MAIN_FILES} ${MATRIX_CONF_FILES} ${RASTERIZE_FILES}

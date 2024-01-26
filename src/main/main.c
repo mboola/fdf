@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 		free(mlx_data);
 		return (0);
 	}
-	ft_lstiter(mlx_data->points, print_info);
+	//ft_lstiter(mlx_data->points, print_info);
 	mlx_data->mlx = mlx_init();
 	if (mlx_data->mlx == NULL)
 		return (clear_data(&mlx_data));

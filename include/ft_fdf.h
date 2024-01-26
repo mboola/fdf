@@ -27,7 +27,11 @@
  *	Constant used to choose the view. 0 means isometric. Other means conic.
  */
 # ifndef VIEW
-#  define VIEW 1
+#  define VIEW 0
+# endif
+
+# ifndef MAX_ANGLE
+#  define MAX_ANGLE 360
 # endif
 
 /*
@@ -153,5 +157,7 @@ void	convert_points(t_point *points, t_mlx_data *mlx_data,
 void	draw_frame_buffer(t_image image, t_buffer pixels);
 void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2]);
 void	draw_point(t_image image, int coord[2], int color);
+
+void	update_angle(double *angle, double increment);
 
 #endif
