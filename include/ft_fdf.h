@@ -89,6 +89,12 @@ typedef struct	s_draw_line {
 	int	point[2];
 }	t_draw_line;
 
+typedef struct	s_rot_fix {
+	double		offset_correction[3];	//translation x and y of the points.
+	double		h;
+	double		angle;
+}	t_rot_fix;
+
 /*
  *	Struct with all the information of the program.
  */
@@ -112,6 +118,7 @@ typedef struct	s_mlx_data {
 	double		angle_y;
 	double		angle_z;
 	t_buffer	pixels;	//information used to print pixels to the screen
+	t_rot_fix	rotation_fix;
 }	t_mlx_data;
 
 /*
@@ -164,5 +171,6 @@ void	draw_point(t_image image, int coord[2], int color);
 void	update_angle_x(t_mlx_data *mlx_data, double increment);
 void	update_angle_y(t_mlx_data *mlx_data, double increment);
 void	update_angle_z(t_mlx_data *mlx_data, double increment);
+void	calculate_center(t_mlx_data *mlx_data);
 
 #endif

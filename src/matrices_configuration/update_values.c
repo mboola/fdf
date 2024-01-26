@@ -12,6 +12,22 @@
 
 #include "ft_fdf.h"
 
+void	calculate_center(t_mlx_data *mlx_data)
+{
+	double	angle;
+	double	x;
+	double	y;
+
+	angle = mlx_data->angle_z + mlx_data->rotation_fix.angle;
+	x = cos(angle) * mlx_data->rotation_fix.h;
+	y = sin(angle) * mlx_data->rotation_fix.h;
+	x = x * mlx_data->scale[0];
+	y = y * mlx_data->scale[1];
+	mlx_data->offset_correction[0] = (WIN_WIDTH / 2) - x / 2;
+	mlx_data->offset_correction[1] = (WIN_HEIGHT / 2) - y / 2;
+	mlx_data->offset_correction[2] = 0;
+}
+
 void	update_angle_x(t_mlx_data *mlx_data, double increment)
 {
 	int	tmp;
@@ -55,7 +71,5 @@ void	update_angle_z(t_mlx_data *mlx_data, double increment)
 	}
 	else
 		mlx_data->angle_z += increment;
-	//here i calculate the offset_translation
-	//mlx_data->offset_correction[0] += 10; 
-	//mlx_data->offset_correction[1] += 10; 
+	calculate_center(mlx_data);
 }
