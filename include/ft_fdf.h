@@ -27,7 +27,7 @@
  *	Constant used to choose the view. 0 means isometric. Other means conic.
  */
 # ifndef VIEW
-#  define VIEW 0
+#  define VIEW 1
 # endif
 
 /*
@@ -91,12 +91,12 @@ typedef struct	s_mlx_data {
 	char		close;		//flag to know if we need to close the program.
 	double		scale[3];	//scale x, y and z of the points.
 	double		offset[3];	//translation x and y of the points.
-	s_func		rotation_x[3][3];	//matrix with functions to calculate rotation in x axis
-	s_func		rotation_y[3][3];	//matrix with functions to calculate rotation in y axis
-	s_func		rotation_z[3][3];	//matrix with functions to calculate rotation in z axis
-	s_func		mat_scale[3][3];	//scalation of x, y and z matrix
-	s_func		mat_translation[3][3];	//translation of x and y matrix
-	s_proj		mat_proj[3][3];		//projection matrix. used to convert 3d to 2d
+	s_func		rotation_x[4][4];	//matrix with functions to calculate rotation in x axis
+	s_func		rotation_y[4][4];	//matrix with functions to calculate rotation in y axis
+	s_func		rotation_z[4][4];	//matrix with functions to calculate rotation in z axis
+	s_func		mat_scale[4][4];	//scalation of x, y and z matrix
+	s_func		mat_translation[4][4];	//translation of x and y matrix
+	s_proj		mat_proj[4][4];		//projection matrix. used to convert 3d to 2d
 	double		angle_x;
 	double		angle_y;
 	double		angle_z;
@@ -107,7 +107,7 @@ typedef struct	s_mlx_data {
  *	Struct used to store data of points.
  */
 typedef struct  s_point {
-	int	vector[3];
+	int	vector[4];
 	int	color;
 }	t_point;
 
@@ -142,9 +142,9 @@ void	initialize_view(t_mlx_data *mlx_data);
  *	Rasterization functions.
  */
 void	rasterize(t_image image, t_mlx_data *mlx_data);
-void	calculate_matrix(t_mlx_data *mlx_data, double result_mat[3][3]);
+void	calculate_matrix(t_mlx_data *mlx_data, double result_mat[4][4]);
 void	convert_points(t_point *points, t_mlx_data *mlx_data,
-    double mat[3][3], int row);
+    double mat[4][4], int row);
 void	draw_frame_buffer(t_image image, t_buffer pixels);
 void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2]);
 void	draw_point(t_image image, int coord[2], int color);

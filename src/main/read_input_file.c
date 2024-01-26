@@ -108,6 +108,7 @@ static t_list	*create_points(char **mat, int len, int row, char *err)
 		if (*err)
 			return (NULL);
 		points[i].vector[2] = ft_atoi(*(mat + i));
+		points[i].vector[3] = 1;
 		*err = check_num_correct(*(mat + i));
 		i++;
 	}

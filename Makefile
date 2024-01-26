@@ -33,7 +33,7 @@ LIBFT			=	${LIBFT_DIR}/libft.a
 #	COMPILATION FLAGS
 #------------------------------------------------------------------------------
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall #-Wextra -Werror
 LINUX_LINK_FLG	=	-lXext -lX11 -lz -lm
 MAC_LINK_FLG	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 HEADERS			=	-I./${INCLUDE} -I./${MINILIBX_DIR}

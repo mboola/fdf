@@ -16,7 +16,7 @@ static void	convert_vector2(t_vector2 vector2, int vector[2], int *color)
 {
 	vector[0] = vector2.coord[0];
 	vector[1] = vector2.coord[1];
-	*color = vector2.color;
+	*color = 0xFFFFFF;//vector2.color;
 }
 
 /*

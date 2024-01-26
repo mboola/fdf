@@ -12,26 +12,28 @@
 
 #include "ft_fdf.h"
 
-/*
-static void	print_matrix(int mat[3][3])
+static void	print_points(void **points, int col)
 {
+	t_vector2	*arr;
+	t_vector2	coord;
 	int	i;
 	int j;
 
 	i = 0;
-	while (i < 3)
+	while (points[i] != NULL)
 	{
+		arr = (t_vector2 *)points[i];
 		j = 0;
-		while (j < 3)
+		while (j < col)
 		{
-			ft_printf(1, "%d", mat[i][j]);
+			coord = arr[j];
+			ft_printf(1, "(%d,%d) ", coord.coord[0], coord.coord[1]);
 			j++;
 		}
 		ft_printf(1, "\n");
 		i++;
 	}
 }
-*/
 
 /*
  *	Calculates the matrix used to convert 3d points to 2d points.
@@ -41,7 +43,7 @@ static void	print_matrix(int mat[3][3])
 void	rasterize(t_image image, t_mlx_data *mlx_data)
 {
 	t_list	*points;
-	double	matrix[3][3];
+	double	matrix[4][4];
 	int		row;
 
 	points = mlx_data->points;
@@ -53,5 +55,6 @@ void	rasterize(t_image image, t_mlx_data *mlx_data)
 		points = points->next;
 		row++;
 	}
+	print_points(mlx_data->pixels.points, mlx_data->pixels.n_col);
 	draw_frame_buffer(image, mlx_data->pixels);
 }

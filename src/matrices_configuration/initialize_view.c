@@ -26,10 +26,23 @@ static void	initialize_conic(t_mlx_data *mlx_data)
 	mlx_data->angle_z = 0;
 }
 
+static void	set_scale(t_mlx_data *mlx_data)
+{
+	mlx_data->scale[0] = 30;
+	mlx_data->scale[1] = 30;
+	mlx_data->scale[2] = 30;
+	//y = mlx_data->pixels.n_row;
+	//set this values correctly
+	mlx_data->offset[0] = 5;
+	mlx_data->offset[1] = 5;
+	mlx_data->offset[2] = 0;
+}
+
 void	initialize_view(t_mlx_data *mlx_data)
 {
 	if (VIEW)
 		initialize_conic(mlx_data);
 	else
 		initialize_isometric(mlx_data);
+	set_scale(mlx_data);
 }

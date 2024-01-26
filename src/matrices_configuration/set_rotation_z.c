@@ -32,10 +32,17 @@ void	set_rotation_z(t_mlx_data *mlx_data)
 	mlx_data->rotation_z[0][0] = cos;
 	mlx_data->rotation_z[0][1] = negative_sin;
 	mlx_data->rotation_z[0][2] = return_zero;
+	mlx_data->rotation_z[0][3] = return_zero;
 	mlx_data->rotation_z[1][0] = sin;
 	mlx_data->rotation_z[1][1] = cos;
 	mlx_data->rotation_z[1][2] = return_zero;
+	mlx_data->rotation_z[1][3] = return_zero;
 	mlx_data->rotation_z[2][0] = return_zero;
 	mlx_data->rotation_z[2][1] = return_zero;
 	mlx_data->rotation_z[2][2] = return_one;
+	mlx_data->rotation_z[2][3] = return_zero;
+	mlx_data->rotation_z[3][0] = return_zero;
+	mlx_data->rotation_z[3][1] = return_zero;
+	mlx_data->rotation_z[3][2] = return_zero;
+	mlx_data->rotation_z[3][3] = return_one;
 }
