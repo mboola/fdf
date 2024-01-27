@@ -49,8 +49,8 @@ static void	set_scale(t_mlx_data *mlx_data)
 	mlx_data->scale[2] = scale;
 	x = x * mlx_data->scale[0];
 	y = y * mlx_data->scale[1];
-	mlx_data->offset[0] = (WIN_WIDTH / 2) - x / 2;
-	mlx_data->offset[1] = (WIN_HEIGHT / 2) - y / 2;
+	mlx_data->offset[0] = 0;//WIN_WIDTH / 2;//(WIN_WIDTH / 2);// - (x / 2);
+	mlx_data->offset[1] = 0;//WIN_HEIGHT / 2;//(WIN_HEIGHT / 2);// - (y / 2);
 	mlx_data->offset[2] = 0;
 }
 

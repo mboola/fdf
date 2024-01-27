@@ -62,29 +62,27 @@ static int	handle_input(int keys, t_mlx_data *mlx_data)
 	}
 	if (keys == XK_d) //update z rotation
 	{
-		mlx_data->angle_x = 0;
-		mlx_data->angle_y = 0;
-		mlx_data->angle_z = 0;
+		mlx_data->scale[1] += 1;
 		mlx_data->rasterize = 1;
 	}
 	if (keys == XK_Up)
 	{
-		mlx_data->offset[1]--;
+		mlx_data->offset[0]--;
 		mlx_data->rasterize = 1;
 	}
 	if (keys == XK_Down)
 	{
-		mlx_data->offset[1]++;
+		mlx_data->offset[0]++;
 		mlx_data->rasterize = 1;
 	}
 	if (keys == XK_Left)
 	{
-		mlx_data->offset[0]--;
+		mlx_data->offset[1]--;
 		mlx_data->rasterize = 1;
 	}
 	if (keys == XK_Right)
 	{
-		mlx_data->offset[0]++;
+		mlx_data->offset[1]++;
 		mlx_data->rasterize = 1;
 	}
     return (0);
