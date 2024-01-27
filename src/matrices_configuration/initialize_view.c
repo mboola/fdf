@@ -14,9 +14,9 @@
 
 static void	initialize_isometric(t_mlx_data *mlx_data)
 {
-	mlx_data->angle_x = 51.05;
-	mlx_data->angle_y = 13.6;
-	mlx_data->angle_z = 25.40;
+	mlx_data->angle_x = 19.35;// 51.05;
+	mlx_data->angle_y = 13.15;//13.6;
+	mlx_data->angle_z = 25.75;//25.40;
 }
 
 static void	initialize_conic(t_mlx_data *mlx_data)
