@@ -36,6 +36,154 @@ static int	handle_no_event(t_mlx_data *mlx_data)
     return (0);
 }
 
+static void	check_traslation(int keys, t_mlx_data *mlx_data)
+{
+	if (keys == XK_w)
+	{
+		mlx_data->offset[0] -= mlx_data->scale[0];
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_s)
+	{
+		mlx_data->offset[0] += mlx_data->scale[0];
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_a)
+	{
+		mlx_data->offset[1] -= mlx_data->scale[0];
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_d)
+	{
+		mlx_data->offset[1] += mlx_data->scale[0];
+		mlx_data->rasterize = 1;
+	}
+}
+
+static void	check_rotation(int keys, t_mlx_data *mlx_data)
+{
+	if (keys == XK_z) //update x rotation
+	{
+		update_angle_x(mlx_data, 0.05);
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_x) //update x rotation
+	{
+		update_angle_x(mlx_data, -0.05);
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_c) //update x rotation
+	{
+		update_angle_y(mlx_data, 0.05);
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_v) //update x rotation
+	{
+		update_angle_y(mlx_data, -0.05);
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_b) //update x rotation
+	{
+		update_angle_z(mlx_data, 0.05);
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_n) //update x rotation
+	{
+		update_angle_z(mlx_data, -0.05);
+		mlx_data->rasterize = 1;
+	}
+}
+
+static void	check_scale(int keys, t_mlx_data *mlx_data)
+{
+	if (keys == XK_Up) //update z rotation
+	{
+		mlx_data->scale[0]++;
+		mlx_data->scale[1]++;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_Down) //update z rotation
+	{
+		mlx_data->scale[0]--;
+		mlx_data->scale[1]--;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_Left)
+	{
+		mlx_data->distorsion -= 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_Right)
+	{
+		mlx_data->distorsion += 0.1;
+		mlx_data->rasterize = 1;
+	}
+}
+
+static void	check_view(int keys, t_mlx_data *mlx_data)
+{
+	if (keys == XK_p)
+	{
+		mlx_data->view_values.top += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_o)
+	{
+		mlx_data->view_values.top -= 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_i)
+	{
+		mlx_data->view_values.down += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_u)
+	{
+		mlx_data->view_values.down -= 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_l)
+	{
+		mlx_data->view_values.left += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_k)
+	{
+		mlx_data->view_values.left -= 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_j)
+	{
+		mlx_data->view_values.right += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_h)
+	{
+		mlx_data->view_values.right -= 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_g)
+	{
+		mlx_data->view_values.near += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_f)
+	{
+		mlx_data->view_values.near -= 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_e)
+	{
+		mlx_data->view_values.far += 0.1;
+		mlx_data->rasterize = 1;
+	}
+	if (keys == XK_r)
+	{
+		mlx_data->view_values.far -= 0.1;
+		mlx_data->rasterize = 1;
+	}
+}
+
 /*
  *  Using mlx_loop_end creates a leak. Not my problem, caused by mlx lib.
  *	Here we listen if a key that modifies output has been used.
@@ -45,46 +193,12 @@ static int	handle_input(int keys, t_mlx_data *mlx_data)
 {
     if (keys == XK_Escape) // or closed clicking X in the windows
 		mlx_data->close = 1;
-	if (keys == XK_a) //update x rotation
+	else
 	{
-		update_angle_x(mlx_data, 0.05);
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_b) //update y rotation
-	{
-		update_angle_y(mlx_data, 0.05);
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_c) //update z rotation
-	{
-		update_angle_z(mlx_data, 0.001);
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_d) //update z rotation
-	{
-		mlx_data->scale[0]++;
-		mlx_data->scale[1]++;
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_Up)
-	{
-		mlx_data->offset[0]--;
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_Down)
-	{
-		mlx_data->offset[0]++;
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_Left)
-	{
-		mlx_data->offset[1]--;
-		mlx_data->rasterize = 1;
-	}
-	if (keys == XK_Right)
-	{
-		mlx_data->offset[1]++;
-		mlx_data->rasterize = 1;
+		check_traslation(keys, mlx_data);
+		check_rotation(keys, mlx_data);
+		check_scale(keys, mlx_data);
+		check_view(keys, mlx_data);
 	}
     return (0);
 }

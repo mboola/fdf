@@ -122,13 +122,14 @@ typedef struct	s_mlx_data {
 	double		angle_z;
 	t_buffer	pixels;	//information used to print pixels to the screen
 	t_view		view_values;
+	double		distorsion;
 }	t_mlx_data;
 
 /*
  *	Struct used to store data of points.
  */
 typedef struct  s_point {
-	int	vector[4];
+	int	vector[3];
 	int	color;
 }	t_point;
 

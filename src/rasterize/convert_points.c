@@ -78,19 +78,19 @@ static void set_mat(double mat[4][4], s_proj proj[4][4], t_view view)
 static void	mul_and_project(int point[4], double mat[4][4],
 		t_mlx_data *mlx_data, int res[4])
 {
-	double	new_point[4];
+	double	raw_point[4];
+	double	point_to_project[4];
 	double	projected_point[4];
 	double	mat_proj[4][4];
-	double	real_point[4];
 
-	real_point[0] = (double) point[0];
-	real_point[1] = (double) point[1];
-	real_point[2] = (double) point[2];
-	real_point[3] = 0.9;
+	raw_point[0] = (double) point[0];
+	raw_point[1] = (double) point[1];
+	raw_point[2] = (double) point[2];
+	raw_point[3] = mlx_data->distorsion;
 
 	set_mat(mat_proj, mlx_data->mat_proj, mlx_data->view_values);
-	multiply_matrix_double(mat, real_point, new_point);
-	multiply_matrix_double(mat_proj, new_point, projected_point);
+	multiply_matrix_double(mat, raw_point, point_to_project);
+	multiply_matrix_double(mat_proj, point_to_project, projected_point);
 
 	res[0] = (int) projected_point[0];
 	res[1] = (int) projected_point[1];

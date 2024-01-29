@@ -14,6 +14,7 @@
 
 static void	initialize_isometric(t_mlx_data *mlx_data)
 {
+	mlx_data->distorsion = 1;
 	mlx_data->conic = 0;
 	mlx_data->angle_x = 0.6154729074;
 	mlx_data->angle_y = 0.7853981634;
@@ -22,6 +23,7 @@ static void	initialize_isometric(t_mlx_data *mlx_data)
 
 static void	initialize_conic(t_mlx_data *mlx_data)
 {
+	mlx_data->distorsion = 0.9;
 	mlx_data->conic = 1;
 	mlx_data->angle_x = 0;
 	mlx_data->angle_y = 0;
