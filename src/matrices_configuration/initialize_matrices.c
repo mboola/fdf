@@ -24,7 +24,8 @@ static void	initialize_rotation(t_mlx_data *mlx_data)
  */
 void	initialize_matrices(t_mlx_data *mlx_data)
 {
-	initialize_projection(mlx_data);
+	//initialize_projection(mlx_data);
+	initialize_conic_projection(mlx_data);
 	initialize_rotation(mlx_data);
 	initialize_scale(mlx_data);
 	initialize_translation(mlx_data);

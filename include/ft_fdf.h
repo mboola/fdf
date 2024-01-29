@@ -50,11 +50,20 @@ typedef struct	s_image {
  */
 typedef double	(*s_func)(double);
 
+typedef struct	s_view {
+	double	right;
+	double	left;
+	double	top;
+	double	down;
+	double	far;
+	double	near;
+}	t_view;
+
 /*
- *	Alias of a function that recieves a double and returns an int.
+ *	Alias of a function that recieves a view and returns a double.
  *	Used by the projection matrix.
  */
-typedef int	(*s_proj)(double);
+typedef double	(*s_proj)(t_view);
 
 /*
  *	Point to be printed and the color it will have.
@@ -98,6 +107,7 @@ typedef struct	s_mlx_data {
 	t_list		*points;
 	char		rasterize;	//flag to know if we need to resterize the image.
 	char		close;		//flag to know if we need to close the program.
+	char		conic;
 	double		scale[3];	//scale x, y and z of the points.
 	double		offset[3];	//translation x and y of the points.
 	s_func		rotation_x[4][4];	//matrix with functions to calculate rotation in x axis
@@ -111,6 +121,7 @@ typedef struct	s_mlx_data {
 	double		angle_y;
 	double		angle_z;
 	t_buffer	pixels;	//information used to print pixels to the screen
+	t_view		view_values;
 }	t_mlx_data;
 
 /*
@@ -163,6 +174,7 @@ void	draw_point(t_image image, int coord[2], int color);
 void	update_angle_x(t_mlx_data *mlx_data, double increment);
 void	update_angle_y(t_mlx_data *mlx_data, double increment);
 void	update_angle_z(t_mlx_data *mlx_data, double increment);
-void	calculate_center(t_mlx_data *mlx_data);
+
+void	initialize_conic_projection(t_mlx_data *mlx_data);
 
 #endif

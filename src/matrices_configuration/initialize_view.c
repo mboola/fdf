@@ -14,6 +14,7 @@
 
 static void	initialize_isometric(t_mlx_data *mlx_data)
 {
+	mlx_data->conic = 0;
 	mlx_data->angle_x = 0.6154729074;
 	mlx_data->angle_y = 0.7853981634;
 	mlx_data->angle_z = 0.52;
@@ -21,6 +22,7 @@ static void	initialize_isometric(t_mlx_data *mlx_data)
 
 static void	initialize_conic(t_mlx_data *mlx_data)
 {
+	mlx_data->conic = 1;
 	mlx_data->angle_x = 0;
 	mlx_data->angle_y = 0;
 	mlx_data->angle_z = 0;
@@ -69,7 +71,19 @@ static void	set_translation(t_mlx_data *mlx_data)
 	mlx_data->offset[0] = WIN_HEIGHT / 2 - y;
 	mlx_data->offset[1] = WIN_WIDTH / 2 - x;
 	mlx_data->offset[2] = 0;
+}
 
+static void	set_view_values(t_mlx_data *mlx_data)
+{
+	t_view	view;
+
+	view.top = 5;
+	view.down = 1;
+	view.left = -2;
+	view.right = 2;
+	view.far = 10;
+	view.near = 2;
+	mlx_data->view_values = view;
 }
 
 void	initialize_view(t_mlx_data *mlx_data)
@@ -80,4 +94,5 @@ void	initialize_view(t_mlx_data *mlx_data)
 		initialize_isometric(mlx_data);
 	set_scale(mlx_data);
 	set_translation(mlx_data);
+	set_view_values(mlx_data);
 }
