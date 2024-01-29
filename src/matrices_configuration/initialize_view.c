@@ -54,16 +54,19 @@ static void	set_translation(t_mlx_data *mlx_data)
 	double	x;
 	double	y;
 	int	h;
-	int	angle;
+	double	angle;
+	double	total_angle;
 
 	x = (double) mlx_data->pixels.n_col;
 	y = (double) mlx_data->pixels.n_row;
 	angle = atan(y / x);
-
-	
+	h = (y * sin(angle)) / 2;
+	total_angle = angle + mlx_data->angle_z;
+	x = sin(total_angle) * h;
+	y = cos(total_angle) * h;
 	x = x * mlx_data->scale[0];
 	y = y * mlx_data->scale[1];
-	mlx_data->offset[0] = WIN_HEIGHT / 2 - y
+	mlx_data->offset[0] = WIN_HEIGHT / 2 - y;
 	mlx_data->offset[1] = WIN_WIDTH / 2 - x;
 	mlx_data->offset[2] = 0;
 

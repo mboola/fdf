@@ -28,33 +28,6 @@ static void	calculate_values(int p_0[2], int p_f[2], t_draw_line *info)
 	info[0] = b;
 }
 
-static int	ini_degrad(double col_var[3], int color[2], t_draw_line info)
-{
-	int		red_variation;
-	int		green_variation;
-	int		blue_variation;
-	double	h;
-	
-	red_variation = (color[1] & 0xFF0000) - (color[0] & 0xFF0000);
-	green_variation = (color[1] & 0x00FF00) - (color[0] & 0x00FF00);
-	blue_variation = (color[1] & 0x0000FF) - (color[0] & 0x0000FF);
-	h = sqrt(info.dx * info.dx + info.dy * info.dy);
-	if (h = 0)
-		h = 1;
-	col_var[0] = 0 + red_variation / h;
-	col_var[1] = 0 + green_variation / h;
-	col_var[2] = 0 + blue_variation / h;
-	return (color[0]);
-}
-
-static int	convert_rgb(unsigned char red, unsigned char green, unsigned blue)
-{
-	return (red << 16 | green << 8 | blue);
-}
-
-static int	update_color(int *curr_color, double col_var[3])
-{
-}
 
 /*
  *	Algorithm that puts pixels between points.
@@ -63,14 +36,11 @@ static int	update_color(int *curr_color, double col_var[3])
 void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2])
 {
 	t_draw_line		b;
-	double			color_var[3];
-	int				current_color;
 
 	calculate_values(p_0, p_f, &b);
-	current_color = ini_degrad(color_var, color, p_0, p_f);
 	while (1)
 	{
-		draw_point(image, b.point, update_color(&current_color, color_var));
+		draw_point(image, b.point, color[0]);
 		if (b.x0 == p_f[0] && b.y0 == p_f[1])
 			break;
 		b.error2 = 2 * b.error;
