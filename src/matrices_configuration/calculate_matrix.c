@@ -92,18 +92,6 @@ void	print_matrix(double result_mat[4][4])
 	}
 }
 
-static void	mirror_z_axis(double mat_result[4][4])
-{
-	int i;
-
-	i = 0;
-	while (i < 4)
-	{
-		mat_result[i][2] = -mat_result[i][2];
-		i++;
-	}
-}
-
 /*
  *	It firsts rotates the points in each axis, scale them 
  *	and finally translate them. Stores the result in result_mat.
@@ -123,5 +111,4 @@ void	calculate_matrix(t_mlx_data *mlx_data, double result_mat[4][4])
 	mul_mat(mat_a, mat_b, mat_c);
 	set_mat_arr(mat_a, mlx_data->mat_translation, mlx_data->offset);
 	mul_mat(mat_a, mat_c, result_mat);
-	mirror_z_axis(result_mat);
 }

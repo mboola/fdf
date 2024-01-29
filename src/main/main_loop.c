@@ -57,7 +57,7 @@ static int	handle_input(int keys, t_mlx_data *mlx_data)
 	}
 	if (keys == XK_c) //update z rotation
 	{
-		update_angle_z(mlx_data, 0.05);
+		update_angle_z(mlx_data, 0.001);
 		mlx_data->rasterize = 1;
 	}
 	if (keys == XK_d) //update z rotation
