@@ -47,11 +47,26 @@ static void	set_scale(t_mlx_data *mlx_data)
 	mlx_data->scale[0] = scale;
 	mlx_data->scale[1] = scale;
 	mlx_data->scale[2] = scale;
+}
+
+static void	set_translation(t_mlx_data *mlx_data)
+{
+	double	x;
+	double	y;
+	int	h;
+	int	angle;
+
+	x = (double) mlx_data->pixels.n_col;
+	y = (double) mlx_data->pixels.n_row;
+	angle = atan(y / x);
+
+	
 	x = x * mlx_data->scale[0];
 	y = y * mlx_data->scale[1];
-	mlx_data->offset[0] = WIN_HEIGHT / 2 - (y / 2);
-	mlx_data->offset[1] = WIN_WIDTH / 2 - (x / 2);
+	mlx_data->offset[0] = WIN_HEIGHT / 2 - y
+	mlx_data->offset[1] = WIN_WIDTH / 2 - x;
 	mlx_data->offset[2] = 0;
+
 }
 
 void	initialize_view(t_mlx_data *mlx_data)
@@ -61,4 +76,5 @@ void	initialize_view(t_mlx_data *mlx_data)
 	else
 		initialize_isometric(mlx_data);
 	set_scale(mlx_data);
+	set_translation(mlx_data);
 }
