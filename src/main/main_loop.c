@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
-
 /*
+*
  *	This gets executed each frame. It finishes the application if it is
  *	requested by the user. If not, it checks if points need to be
  *	rasterized.
- */
+ *
 static int	handle_no_event(t_mlx_data *mlx_data)
 {
 	t_image	image;
@@ -184,11 +184,11 @@ static void	check_view(int keys, t_mlx_data *mlx_data)
 	}
 }
 
-/*
+*
  *  Using mlx_loop_end creates a leak. Not my problem, caused by mlx lib.
  *	Here we listen if a key that modifies output has been used.
  *	Or if we end the program.
- */
+ *
 static int	handle_input(int keys, t_mlx_data *mlx_data)
 {
     if (keys == XK_Escape) // or closed clicking X in the windows
@@ -209,10 +209,10 @@ static void register_hooks(t_mlx_data *mlx_data)
     mlx_hook(mlx_data->mlx_win, KeyPress, KeyPressMask, &handle_input, mlx_data);
 }
 
-/*
+*
  *	This method will initialize all the data needed to rasterize pixels.
  *	Then it will create a loop giving the end condition to the user.
- */
+ *
 int	main_loop(t_mlx_data *mlx_data)
 {
 	initialize_matrices(mlx_data);
@@ -223,3 +223,4 @@ int	main_loop(t_mlx_data *mlx_data)
 	mlx_loop(mlx_data->mlx);
 	return (1);
 }
+*/

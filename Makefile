@@ -34,7 +34,7 @@ LIBFT			=	${LIBFT_DIR}/libft.a
 #------------------------------------------------------------------------------
 CC				=	cc
 CFLAGS			=	-Wall #-Wextra -Werror
-LINUX_LINK_FLG	=	-lXext -lX11 -lm #-lz
+LINUX_LINK_FLG	=	-lXext -lX11 -lm -lz
 MAC_LINK_FLG	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 HEADERS			=	-I./${INCLUDE} -I./${MINILIBX_DIR}
 OPTIMIZATION	=	#-O3
@@ -55,15 +55,19 @@ FDF_HEADER	=	${INCLUDE}/ft_fdf.h
 MAIN		=	${SRC}/main/
 MATRIX_CONF	=	${SRC}/matrices_configuration/
 RASTERIZE	=	${SRC}/rasterize/
+READ_INPUT	=	${SRC}/read_input/
 
-MAIN_FILES			=	main.c main_loop.c read_input_file.c
-MATRIX_CONF_FILES	=	calculate_matrix.c initialize_matrices.c initialize_projection.c \
+CLEAR_STRUCTS		=	clear_structs.c
+MAIN_FILES			=	main.c main_loop.c
+MATRIX_CONF_FILES	=	
+#calculate_matrix.c initialize_matrices.c initialize_projection.c \
 						initialize_scale.c set_rotation_x.c set_rotation_y.c \
 						set_rotation_z.c initialize_view.c update_values.c initialize_translations.c \
 						initialize_conic_projection.c
-RASTERIZE_FILES		=	convert_points.c draw_frame_buffer.c draw.c rasterize.c
+RASTERIZE_FILES		=	#convert_points.c draw_frame_buffer.c draw.c rasterize.c
+READ_INPUT			=	convert_shape.c create_points.c read_input.c
 
-SRC_FILES	=	${MAIN_FILES} ${MATRIX_CONF_FILES} ${RASTERIZE_FILES}
+SRC_FILES	=	${CLEAR_STRUCTS} ${MAIN_FILES} ${MATRIX_CONF_FILES} ${RASTERIZE_FILES} ${READ_INPUT}
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------

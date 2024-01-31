@@ -12,29 +12,32 @@
 
 #include "ft_fdf.h"
 
-void	clear_point(void *point)
-{
-	free(point);
-}
-
 /*
  *	Clears the struct created to run the application.
  */
-static int	clear_data(t_mlx_data **mlx_data)
+static void	clear_data(t_ctrl_prgrm **data)
 {
-	ft_lstclear(&((*mlx_data)->points), clear_point);
-	mlx_destroy_display((*mlx_data)->mlx);
-	free((*mlx_data)->mlx);
-	free(*mlx_data);
-	return (0);
+	clear_space((*data)->space);
+	//ft_lstclear(&((*mlx_data)->points), clear_point);
+	//mlx_destroy_window(mlx_data->mlx, mlx_data->mlx_win);
+	//mlx_destroy_display((*mlx_data)->mlx);
+	//free((*data)->mlx);
+	free(*data);
+	exit(0);
 }
 
-
-static void	print_info(void *info)
+static void	print_info(t_shape *shape)
 {
-	t_point	*point;	//array of pointers
+	t_list	*points;	//array of pointers
+	t_point	*point;
 	int		i;
 
+	points = shape->points;
+	while (points != NULL)
+	{
+
+		points = points->next;
+	}
 	i = 0;
 	point = (t_point *)info;
 	while (point[i].vector[0] != -1)
@@ -52,25 +55,23 @@ static void	print_info(void *info)
  */
 int main(int argc, char **argv)
 {
-	t_mlx_data	*mlx_data;
+	t_ctrl_prgrm	*data;
 
-	mlx_data = malloc(sizeof(t_mlx_data));
-	if (mlx_data == NULL)
+	data = ft_calloc(sizeof(t_ctrl_prgrm), 1);
+	if (data == NULL)
 		return (0);
-	if (!read_input_file(argc, argv, mlx_data))
-	{
-		free(mlx_data);
-		return (0);
-	}
-	//ft_lstiter(mlx_data->points, print_info);
-	mlx_data->mlx = mlx_init();
-	if (mlx_data->mlx == NULL)
-		return (clear_data(&mlx_data));
-	mlx_data->mlx_win =
-		mlx_new_window(mlx_data->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
-	if (mlx_data->mlx_win == NULL)
-		return (clear_data(&mlx_data));
-	main_loop(mlx_data);
-	mlx_destroy_window(mlx_data->mlx, mlx_data->mlx_win);
-	return (clear_data(&mlx_data));
+	if (!read_input(argc, argv, data))
+		clear_data(&data);
+	ft_lstiter((t_shape)(data->space.shapes->content), print_info);
+	//data->mlx = mlx_init();
+	//if (data->mlx == NULL)
+	//	clear_data(&data);
+	//data->mlx_win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
+	//if (data->mlx_win == NULL)
+	//	clear_data(&data);
+	//main_loop(mlx_data);
+	//mlx_destroy_window(mlx_data->mlx, mlx_data->mlx_win);
+	//return (clear_data(&mlx_data));
+	clear_data(&data);
+	return (0);
 }
