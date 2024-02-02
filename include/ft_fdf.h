@@ -138,7 +138,7 @@ typedef struct	s_space {
 }	t_space;
 
 typedef struct	s_ctrl_prgrm {
-	t_space		space;
+	t_space		*space;
 	void		*mlx;
 	void		*mlx_win;
 	char		rasterize;
@@ -158,7 +158,7 @@ t_list	*create_points(char **mat, int n_col, int n_row);
 void	clear_buffer(void *data);
 void	clear_point(void *data);
 void	clear_shape(void *data);
-void	clear_space(t_space space);
+void	clear_space(t_space *space);
 /*
 int		read_input_file(int argc, char **argv, t_mlx_data *mlx_data);
 

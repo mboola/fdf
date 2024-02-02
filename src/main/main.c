@@ -17,7 +17,7 @@
  */
 static void	clear_data(t_ctrl_prgrm **data)
 {
-	clear_space((*data)->space);
+	//clear_space((*data)->space);
 	//ft_lstclear(&((*mlx_data)->points), clear_point);
 	//mlx_destroy_window(mlx_data->mlx, mlx_data->mlx_win);
 	//mlx_destroy_display((*mlx_data)->mlx);
@@ -61,8 +61,8 @@ int main(int argc, char **argv)
 	data = ft_calloc(sizeof(t_ctrl_prgrm), 1);
 	if (data == NULL)
 		return (0);
-	read_input(argc, argv, data);
-	//clear_space(data->space);
+	if (read_input(argc, argv, data) != 1)
+		clear_space(&(data->space));
 	free(data);
 	//if (!read_input(argc, argv, data))
 	//	clear_data(&data);

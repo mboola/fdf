@@ -21,6 +21,7 @@ void	clear_buffer(void *data)
 		ft_matclear((void ***)&(buffer->points));
 }
 
+//works
 void	clear_point(void *data)
 {
 	t_point	*point;
@@ -29,6 +30,7 @@ void	clear_point(void *data)
 	free(point);
 }
 
+//works. buffer needs testing
 void	clear_shape(void *data)
 {
 	t_shape	**shape;
@@ -39,7 +41,7 @@ void	clear_shape(void *data)
 	free(*shape);
 }
 
-void	clear_space(t_space space)
+void	clear_space(t_space *space)
 {
-	ft_lstclear(&(space.shapes), clear_shape);
+	ft_lstclear(&(space->shapes), clear_shape);
 }

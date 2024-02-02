@@ -17,24 +17,31 @@
  */
 int	read_input(int argc, char **argv, t_ctrl_prgrm *data)
 {
-	t_list	*lst;
 	t_list	*node;
 	t_shape	*shape;
+	t_space	*space;
 
 	if (argc != 2)
 		return (0);
+	space = ft_calloc(sizeof(t_space), 1);
+	if (space == NULL)
+		return (0);
 	shape = convert_shape(argv[1]);
 	if (shape == NULL)
+	{
+		free(space);
 		return (0);
+	}
 	node = ft_lstnew(&shape);
 	if (node == NULL)
 	{
+		free(space);
 		clear_shape((void *)&shape);
 		return (0);
 	}
-	lst = NULL;
-	ft_lstadd_back(&lst, node);
-	ft_lstclear(&lst, clear_shape);
-	//data->space.shapes = lst;
+	ft_lstadd_back(&(space->shapes), node);
+	data->space = space;
+	clear_space(data->space);
+	free(space);
 	return (1);
 }
