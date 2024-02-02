@@ -31,12 +31,12 @@ void	clear_point(void *data)
 
 void	clear_shape(void *data)
 {
-	t_shape	*shape;
+	t_shape	**shape;
 
-	shape = (t_shape *)data;
-	ft_lstclear(&(shape->points), clear_point);
+	shape = (t_shape **)data;
+	ft_lstclear(&((*shape)->points), clear_point);
 	//clear_buffer(shape->buffer);
-	free(data);
+	free(*shape);
 }
 
 void	clear_space(t_space space)

@@ -52,12 +52,7 @@ MINILIBX_LINK_MAC	=	-L./${MINILIBX_DIR} -lmlx -L./${MINILIBX_DIR} ${MAC_LINK_FLG
 #------------------------------------------------------------------------------
 FDF_HEADER	=	${INCLUDE}/ft_fdf.h
 
-MAIN		=	${SRC}/main/
-MATRIX_CONF	=	${SRC}/matrices_configuration/
-RASTERIZE	=	${SRC}/rasterize/
-READ_INPUT	=	${SRC}/read_input/
-
-CLEAR_STRUCTS		=	clear_structs.c
+CLEAR_STRUCTS_FILES	=	clear_structs.c
 MAIN_FILES			=	main.c main_loop.c
 MATRIX_CONF_FILES	=	
 #calculate_matrix.c initialize_matrices.c initialize_projection.c \
@@ -67,7 +62,7 @@ MATRIX_CONF_FILES	=
 RASTERIZE_FILES		=	#convert_points.c draw_frame_buffer.c draw.c rasterize.c
 READ_INPUT			=	convert_shape.c create_points.c read_input.c
 
-SRC_FILES	=	${CLEAR_STRUCTS} ${MAIN_FILES} ${MATRIX_CONF_FILES} ${RASTERIZE_FILES} ${READ_INPUT}
+SRC_FILES	=	${CLEAR_STRUCTS_FILES} ${MAIN_FILES} ${MATRIX_CONF_FILES} ${RASTERIZE_FILES} ${READ_INPUT}
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------

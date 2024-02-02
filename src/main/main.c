@@ -25,6 +25,7 @@ static void	clear_data(t_ctrl_prgrm **data)
 	free(*data);
 	exit(0);
 }
+/*
 
 static void	print_info(t_shape *shape)
 {
@@ -46,7 +47,7 @@ static void	print_info(t_shape *shape)
 		i++;
 	}
 	//ft_printf(1, "\n");
-}
+}*/
 
 /*
  *	Main function. Reads the file into a matrix of points.
@@ -60,9 +61,12 @@ int main(int argc, char **argv)
 	data = ft_calloc(sizeof(t_ctrl_prgrm), 1);
 	if (data == NULL)
 		return (0);
-	if (!read_input(argc, argv, data))
-		clear_data(&data);
-	ft_lstiter((t_shape)(data->space.shapes->content), print_info);
+	read_input(argc, argv, data);
+	//clear_space(data->space);
+	free(data);
+	//if (!read_input(argc, argv, data))
+	//	clear_data(&data);
+	//ft_lstiter((t_shape)(data->space.shapes->content), print_info);
 	//data->mlx = mlx_init();
 	//if (data->mlx == NULL)
 	//	clear_data(&data);
@@ -72,6 +76,6 @@ int main(int argc, char **argv)
 	//main_loop(mlx_data);
 	//mlx_destroy_window(mlx_data->mlx, mlx_data->mlx_win);
 	//return (clear_data(&mlx_data));
-	clear_data(&data);
+	//clear_data(&data);
 	return (0);
 }

@@ -26,15 +26,15 @@ int	read_input(int argc, char **argv, t_ctrl_prgrm *data)
 	shape = convert_shape(argv[1]);
 	if (shape == NULL)
 		return (0);
-	node = ft_lstnew(shape);
+	node = ft_lstnew(&shape);
 	if (node == NULL)
 	{
-		ft_lstclear(&(shape->points), clear_point);
-		free(shape);
+		clear_shape((void *)&shape);
 		return (0);
 	}
 	lst = NULL;
 	ft_lstadd_back(&lst, node);
-	data->space.shapes = lst;
+	ft_lstclear(&lst, clear_shape);
+	//data->space.shapes = lst;
 	return (1);
 }

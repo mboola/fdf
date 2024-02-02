@@ -76,6 +76,7 @@ static t_point	new_point(int col, int row, char *z)
 	point.vector[1] = col;
 	point.vector[2] = ft_atoi(z);
 	point.color = convert_color(z);
+	//printf("Vector: %d, %d, %d; Color: %d\n", point.vector[0], point.vector[1], point.vector[2], point.color);
 	return (point);
 }
 
