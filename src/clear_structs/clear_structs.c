@@ -33,15 +33,15 @@ void	clear_point(void *data)
 //works. buffer needs testing
 void	clear_shape(void *data)
 {
-	t_shape	**shape;
+	t_shape	*shape;
 
-	shape = (t_shape **)data;
-	ft_lstclear(&((*shape)->points), clear_point);
+	shape = (t_shape *)data;
+	ft_lstclear(&(shape->points), clear_point);
 	//clear_buffer(shape->buffer);
-	free(*shape);
+	free(shape);
 }
 
-void	clear_space(t_space *space)
+void	clear_space(t_space space)
 {
-	ft_lstclear(&(space->shapes), clear_shape);
+	ft_lstclear(&(space.shapes), clear_shape);
 }

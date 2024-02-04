@@ -115,7 +115,7 @@ typedef struct	s_buffer {
 }	t_buffer;
 
 typedef struct	s_shape {
-	t_buffer	buffer;
+	t_buffer	*buffer;
 	t_list		*points;
 	float		angle_x;
 	float		angle_y;
@@ -138,7 +138,7 @@ typedef struct	s_space {
 }	t_space;
 
 typedef struct	s_ctrl_prgrm {
-	t_space		*space;
+	t_space		space;
 	void		*mlx;
 	void		*mlx_win;
 	char		rasterize;
@@ -148,7 +148,7 @@ typedef struct	s_ctrl_prgrm {
 //-----------------------------------------------------------------------------
 //	FUNCTIONS
 //-----------------------------------------------------------------------------
-int		read_input(int argc, char **argv, t_ctrl_prgrm *data);
+t_list	*read_input(int argc, char **argv);
 t_shape	*convert_shape(char *file);
 t_list	*create_points(char **mat, int n_col, int n_row);
 
@@ -158,7 +158,9 @@ t_list	*create_points(char **mat, int n_col, int n_row);
 void	clear_buffer(void *data);
 void	clear_point(void *data);
 void	clear_shape(void *data);
-void	clear_space(t_space *space);
+void	clear_space(t_space space);
+
+void	initialize_shape(t_shape *shape, t_list *lst);
 /*
 int		read_input_file(int argc, char **argv, t_mlx_data *mlx_data);
 

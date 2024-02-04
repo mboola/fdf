@@ -57,13 +57,26 @@ static void	print_info(t_shape *shape)
 int main(int argc, char **argv)
 {
 	t_ctrl_prgrm	*data;
+	t_list			*shape;
+	int				i;
 
 	data = ft_calloc(sizeof(t_ctrl_prgrm), 1);
 	if (data == NULL)
 		return (0);
-	if (read_input(argc, argv, data) != 1)
-		clear_space(&(data->space));
+	shape = read_input(argc, argv);
+	if (shape == NULL)
+	{
+		free(data);
+		return (0);
+	}
+	data->space.shapes = shape;
+
+	clear_space(data->space);
+
+	//THIS THROWS LEAK
+	//ft_lstclear(&shape, clear_shape);
 	free(data);
+
 	//if (!read_input(argc, argv, data))
 	//	clear_data(&data);
 	//ft_lstiter((t_shape)(data->space.shapes->content), print_info);

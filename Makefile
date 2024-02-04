@@ -52,7 +52,7 @@ MINILIBX_LINK_MAC	=	-L./${MINILIBX_DIR} -lmlx -L./${MINILIBX_DIR} ${MAC_LINK_FLG
 #------------------------------------------------------------------------------
 FDF_HEADER	=	${INCLUDE}/ft_fdf.h
 
-CLEAR_STRUCTS_FILES	=	clear_structs.c
+CLEAR_STRUCTS_FILES	=	clear_structs.c shape_operations.c
 MAIN_FILES			=	main.c main_loop.c
 MATRIX_CONF_FILES	=	
 #calculate_matrix.c initialize_matrices.c initialize_projection.c \

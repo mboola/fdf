@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_input.c                                       :+:      :+:    :+:   */
+/*   convert_shape.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,44 @@
 
 #include "ft_fdf.h"
 
-/*
- *	Read the file.
- */
-t_list	*read_input(int argc, char **argv)
+static void	initialize_mat(double mat[4][4])
 {
-	t_list	*node;
-	t_shape	*shape;
+	int	i;
+	int	j;
 
-	if (argc != 2)
-		return (NULL);
-	shape = convert_shape(argv[1]);
-	if (shape == NULL)
-		return (NULL);
-	node = ft_lstnew(shape);
-	if (node == NULL)
+	i = 0;
+	while (i < 4)
 	{
-		clear_shape((void *)shape);
-		return (NULL);
+		j = 0;
+		while (j < 4)
+		{
+			mat[i][j] = 0;
+			j++;
+		}
+		i++;
 	}
-	//ft_lstclear(&node, clear_shape);
-	return (node);
+}
+
+static void	initialize_arr(double arr[3])
+{
+	int	i;
+
+	i = 0;
+	while (i < 3)
+	{
+		arr[i] = 0;
+		i++;
+	}
+}
+
+void	initialize_shape(t_shape *shape, t_list *lst)
+{
+	shape->points = lst;
+	shape->buffer = NULL;
+	shape->angle_x = 0;
+	shape->angle_y = 0;
+	shape->angle_z = 0;
+	initialize_arr(shape->scale);
+	initialize_arr(shape->translate);
+	initialize_mat(shape->transformation_matrix);
 }
