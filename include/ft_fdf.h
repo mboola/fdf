@@ -133,8 +133,8 @@ typedef struct	s_space {
 	t_mat_funct	rotation_x[4][4];
 	t_mat_funct	rotation_y[4][4];
 	t_mat_funct	rotation_z[4][4];
-	t_mat_funct	scale[4][4];
-	t_mat_funct	transform[4][4];
+	t_mat_funct	scalation[4][4];
+	t_mat_funct	translation[4][4];
 }	t_space;
 
 typedef struct	s_ctrl_prgrm {
@@ -160,7 +160,23 @@ void	clear_point(void *data);
 void	clear_shape(void *data);
 void	clear_space(t_space space);
 
-t_shape	*initialize_shape(t_shape *shape, t_list *lst);
+//-----------------------------------------------------------------------------
+//	MAIN LOOP FUNCTIONS
+//-----------------------------------------------------------------------------
+void	main_loop(t_ctrl_prgrm *data);
+
+//-----------------------------------------------------------------------------
+//	INITIALIZE DATA FUNCTIONS 
+//-----------------------------------------------------------------------------
+t_shape	*init_shape(t_shape *shape, t_list *lst);
+void	init_matrices(t_space space);
+void	set_rotation_x(t_mat_funct rotation_x[4][4]);
+void	set_rotation_y(t_mat_funct rotation_y[4][4]);
+void	set_rotation_z(t_mat_funct rotation_z[4][4]);
+void	init_scalation(t_mat_funct scalation[4][4]);
+void	init_translation(t_mat_funct translation[4][4]);
+void	init_camera(t_camera camera);
+
 /*
 int		read_input_file(int argc, char **argv, t_mlx_data *mlx_data);
 

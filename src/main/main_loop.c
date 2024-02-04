@@ -209,18 +209,17 @@ static void register_hooks(t_mlx_data *mlx_data)
     mlx_hook(mlx_data->mlx_win, KeyPress, KeyPressMask, &handle_input, mlx_data);
 }
 
-*
+/*
  *	This method will initialize all the data needed to rasterize pixels.
  *	Then it will create a loop giving the end condition to the user.
- *
-int	main_loop(t_mlx_data *mlx_data)
+ */
+void	main_loop(t_ctrl_prgrm *data)
 {
-	initialize_matrices(mlx_data);
-	mlx_data->rasterize = 1;
-	mlx_data->close = 0;
-	initialize_view(mlx_data);
-	register_hooks(mlx_data);
-	mlx_loop(mlx_data->mlx);
-	return (1);
+	init_matrices(data->space);
+	init_camera(data->space.camera);
+	data->rasterize = 1;
+	data->close = 0;
+	//initialize_view(mlx_data);
+	//register_hooks(mlx_data);
+	//mlx_loop(mlx_data->mlx);
 }
-*/

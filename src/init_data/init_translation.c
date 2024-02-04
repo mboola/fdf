@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_scale.c                                 :+:      :+:    :+:   */
+/*   initialize_translations.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -27,22 +27,22 @@ static double	return_value(double value)
 	return (value);
 }
 
-void	initialize_scale(t_mlx_data *mlx_data)
+void	init_translation(t_mat_funct translation[4][4])
 {
-	mlx_data->mat_scale[0][0] = return_value;
-	mlx_data->mat_scale[0][1] = return_zero;
-	mlx_data->mat_scale[0][2] = return_zero;
-	mlx_data->mat_scale[0][3] = return_zero;
-	mlx_data->mat_scale[1][0] = return_zero;
-	mlx_data->mat_scale[1][1] = return_value;
-	mlx_data->mat_scale[1][2] = return_zero;
-	mlx_data->mat_scale[1][3] = return_zero;
-	mlx_data->mat_scale[2][0] = return_zero;
-	mlx_data->mat_scale[2][1] = return_zero;
-	mlx_data->mat_scale[2][2] = return_value;
-	mlx_data->mat_scale[2][3] = return_zero;
-	mlx_data->mat_scale[3][0] = return_zero;
-	mlx_data->mat_scale[3][1] = return_zero;
-	mlx_data->mat_scale[3][2] = return_zero;
-	mlx_data->mat_scale[3][3] = return_one;
+	translation[0][0] = return_one;
+	translation[0][1] = return_zero;
+	translation[0][2] = return_zero;
+	translation[0][3] = return_value;
+	translation[1][0] = return_zero;
+	translation[1][1] = return_one;
+	translation[1][2] = return_zero;
+	translation[1][3] = return_value;
+	translation[2][0] = return_zero;
+	translation[2][1] = return_zero;
+	translation[2][2] = return_one;
+	translation[2][3] = return_value;
+	translation[3][0] = return_zero;
+	translation[3][1] = return_zero;
+	translation[3][2] = return_zero;
+	translation[3][3] = return_one;
 }

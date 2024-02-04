@@ -12,21 +12,19 @@
 
 #include "ft_fdf.h"
 
-static void	initialize_rotation(t_mlx_data *mlx_data)
+static void	init_rotation_matrices(t_space space)
 {
-	set_rotation_x(mlx_data);
-	set_rotation_y(mlx_data);
-	set_rotation_z(mlx_data);
+	set_rotation_x(space.rotation_x);
+	set_rotation_y(space.rotation_y);
+	set_rotation_z(space.rotation_z);
 }
 
 /*
  *	Initializes the matrices.
  */
-void	initialize_matrices(t_mlx_data *mlx_data)
+void	init_matrices(t_space space)
 {
-	//initialize_projection(mlx_data);
-	initialize_conic_projection(mlx_data);
-	initialize_rotation(mlx_data);
-	initialize_scale(mlx_data);
-	initialize_translation(mlx_data);
+	init_rotation_matrices(space);
+	init_scalation(space.scalation);
+	init_translation(space.translation);
 }

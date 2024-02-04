@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_shape.c                                    :+:      :+:    :+:   */
+/*   initialize_matrices.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/26 10:45:14 by mpovill-          #+#    #+#             */
-/*   Updated: 2023/12/26 11:42:52 by mpovill-         ###   ########.fr       */
+/*   Created: 2024/01/01 18:18:20 by mpovill-          #+#    #+#             */
+/*   Updated: 2024/01/01 18:18:20 by mpovill-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
+
 
 static t_buffer	*initialize_buffer(t_list *lst)
 {
@@ -44,7 +45,7 @@ static t_buffer	*initialize_buffer(t_list *lst)
 	return (buffer);
 }
 
-t_shape	*initialize_shape(t_shape *shape, t_list *lst)
+t_shape	*init_shape(t_shape *shape, t_list *lst)
 {
 	t_buffer	*buffer;
 

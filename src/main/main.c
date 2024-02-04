@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 	data->mlx_win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
 	if (data->mlx_win == NULL)
 		clear_data(&data);
-	//main_loop(mlx_data);
+	main_loop(data);
 	clear_data(&data);
 	return (0);
 }

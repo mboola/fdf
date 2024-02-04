@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_translations.c                          :+:      :+:    :+:   */
+/*   initialize_scalation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -27,22 +27,22 @@ static double	return_value(double value)
 	return (value);
 }
 
-void	initialize_translation(t_mlx_data *mlx_data)
+void	init_scalation(t_mat_funct scalation[4][4])
 {
-	mlx_data->mat_translation[0][0] = return_one;
-	mlx_data->mat_translation[0][1] = return_zero;
-	mlx_data->mat_translation[0][2] = return_zero;
-	mlx_data->mat_translation[0][3] = return_value;
-	mlx_data->mat_translation[1][0] = return_zero;
-	mlx_data->mat_translation[1][1] = return_one;
-	mlx_data->mat_translation[1][2] = return_zero;
-	mlx_data->mat_translation[1][3] = return_value;
-	mlx_data->mat_translation[2][0] = return_zero;
-	mlx_data->mat_translation[2][1] = return_zero;
-	mlx_data->mat_translation[2][2] = return_one;
-	mlx_data->mat_translation[2][3] = return_value;
-	mlx_data->mat_translation[3][0] = return_zero;
-	mlx_data->mat_translation[3][1] = return_zero;
-	mlx_data->mat_translation[3][2] = return_zero;
-	mlx_data->mat_translation[3][3] = return_one;
+	scalation[0][0] = return_value;
+	scalation[0][1] = return_zero;
+	scalation[0][2] = return_zero;
+	scalation[0][3] = return_zero;
+	scalation[1][0] = return_zero;
+	scalation[1][1] = return_value;
+	scalation[1][2] = return_zero;
+	scalation[1][3] = return_zero;
+	scalation[2][0] = return_zero;
+	scalation[2][1] = return_zero;
+	scalation[2][2] = return_value;
+	scalation[2][3] = return_zero;
+	scalation[3][0] = return_zero;
+	scalation[3][1] = return_zero;
+	scalation[3][2] = return_zero;
+	scalation[3][3] = return_one;
 }
