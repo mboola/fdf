@@ -117,7 +117,7 @@ t_shape	*convert_shape(char *file)
 			shape = NULL;
 		}
 		else
-			initialize_shape(shape, lst);
+			shape = initialize_shape(shape, lst);
 	}
 	close(fd);
 	return (shape);

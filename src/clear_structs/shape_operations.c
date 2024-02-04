@@ -12,44 +12,55 @@
 
 #include "ft_fdf.h"
 
-static void	initialize_mat(double mat[4][4])
+static t_buffer	*initialize_buffer(t_list *lst)
 {
-	int	i;
-	int	j;
+	t_buffer	*buffer;
+	t_list		*node;
+	t_point		*arr;
+	int			i;
 
+	buffer = malloc(sizeof(t_buffer));
+	if (buffer == NULL)
+		return (NULL);
+	node = lst;
 	i = 0;
-	while (i < 4)
+	while (node != NULL)
 	{
-		j = 0;
-		while (j < 4)
-		{
-			mat[i][j] = 0;
-			j++;
-		}
 		i++;
+		node = node->next;
 	}
+	buffer->n_row = i;
+	arr = (t_point *)lst->content;
+	i = 0;
+	while (arr[i].vector[0] != -1)
+		i++;
+	buffer->n_col = i;
+	buffer->points = ft_calloc_matstruct(sizeof(t_projected), buffer->n_row, buffer->n_col);
+	if (buffer->points == NULL)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	//printf("Buffer size col %d and row %d\n", buffer->n_col, buffer->n_row);
+	return (buffer);
 }
 
-static void	initialize_arr(double arr[3])
+t_shape	*initialize_shape(t_shape *shape, t_list *lst)
 {
-	int	i;
+	t_buffer	*buffer;
 
-	i = 0;
-	while (i < 3)
+	buffer = initialize_buffer(lst);
+	if (buffer == NULL)
 	{
-		arr[i] = 0;
-		i++;
+		//clear shape
+		ft_lstclear(&lst, clear_point);
+		free(shape);
+		return (NULL);
 	}
-}
-
-void	initialize_shape(t_shape *shape, t_list *lst)
-{
 	shape->points = lst;
-	shape->buffer = NULL;
+	shape->buffer = buffer;
 	shape->angle_x = 0;
 	shape->angle_y = 0;
 	shape->angle_z = 0;
-	initialize_arr(shape->scale);
-	initialize_arr(shape->translate);
-	initialize_mat(shape->transformation_matrix);
+	return (shape);
 }

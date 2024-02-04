@@ -12,13 +12,11 @@
 
 #include "ft_fdf.h"
 
-void	clear_buffer(void *data)
+//works
+void	clear_buffer(t_buffer *buffer)
 {
-	t_buffer	*buffer;
-
-	buffer = (t_buffer *)buffer;
-	if (buffer->points != NULL)
-		ft_matclear((void ***)&(buffer->points));
+	ft_matclear(&(buffer->points));
+	free(buffer);
 }
 
 //works
@@ -30,17 +28,18 @@ void	clear_point(void *data)
 	free(point);
 }
 
-//works. buffer needs testing
+//works
 void	clear_shape(void *data)
 {
 	t_shape	*shape;
 
 	shape = (t_shape *)data;
 	ft_lstclear(&(shape->points), clear_point);
-	//clear_buffer(shape->buffer);
+	clear_buffer(shape->buffer);
 	free(shape);
 }
 
+//works
 void	clear_space(t_space space)
 {
 	ft_lstclear(&(space.shapes), clear_shape);

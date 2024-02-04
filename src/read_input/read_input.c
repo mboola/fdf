@@ -31,6 +31,5 @@ t_list	*read_input(int argc, char **argv)
 		clear_shape((void *)shape);
 		return (NULL);
 	}
-	//ft_lstclear(&node, clear_shape);
 	return (node);
 }
