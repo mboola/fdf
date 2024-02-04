@@ -41,7 +41,6 @@ static t_buffer	*initialize_buffer(t_list *lst)
 		free(buffer);
 		return (NULL);
 	}
-	//printf("Buffer size col %d and row %d\n", buffer->n_col, buffer->n_row);
 	return (buffer);
 }
 
@@ -52,7 +51,6 @@ t_shape	*initialize_shape(t_shape *shape, t_list *lst)
 	buffer = initialize_buffer(lst);
 	if (buffer == NULL)
 	{
-		//clear shape
 		ft_lstclear(&lst, clear_point);
 		free(shape);
 		return (NULL);
