@@ -25,7 +25,9 @@ static int	handle_no_event(t_ctrl_prgrm *data)
 	{
 		printf("Rasterizing.\n");
 		vblank_buffer(data);
+		printf("a\n");
 		rasterize(data);
+		printf("z\n");
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->image.img, 0, 0);
 		data->rasterize = 0;
 	}
@@ -55,7 +57,7 @@ static void register_hooks(t_ctrl_prgrm *data)
  */
 void	main_loop(t_ctrl_prgrm *data)
 {
-	init_matrices(data->space);
+	init_matrices(data);
 	init_camera(data->space.camera);
 	data->rasterize = 1;
 	data->close = 0;

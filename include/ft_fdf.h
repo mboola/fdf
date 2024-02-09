@@ -170,7 +170,7 @@ void	main_loop(t_ctrl_prgrm *data);
 //	INITIALIZE DATA FUNCTIONS 
 //-----------------------------------------------------------------------------
 t_shape	*init_shape(t_shape *shape, t_list *lst);
-void	init_matrices(t_space space);
+void	init_matrices(t_ctrl_prgrm *data);
 void	set_rotation_x(t_mat_funct rotation_x[4][4]);
 void	set_rotation_y(t_mat_funct rotation_y[4][4]);
 void	set_rotation_z(t_mat_funct rotation_z[4][4]);

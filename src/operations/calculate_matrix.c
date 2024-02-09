@@ -98,18 +98,19 @@ void	print_matrix(double result_mat[4][4])
  */
 void	calculate_matrix(t_ctrl_prgrm *data, t_shape *shape)
 {
+	t_space	space;
 	double	mat_a[4][4];
 	double	mat_b[4][4];
 	double	mat_c[4][4];
 
-	set_mat(mat_a, data->space.rotation_x, shape->angle_x);
-	print_matrix(mat_a);
-	set_mat(mat_b, data->space.rotation_y, shape->angle_y);
+	space = data->space;
+	set_mat(mat_a, space.rotation_x, shape->angle_x);
+	set_mat(mat_b, space.rotation_y, shape->angle_y);
 	mul_mat(mat_a, mat_b, mat_c);
-	set_mat(mat_a, data->space.rotation_z, shape->angle_z);
+	set_mat(mat_a, space.rotation_z, shape->angle_z);
 	mul_mat(mat_a, mat_c, mat_b);
-	set_mat_arr(mat_a, data->space.scalation, shape->scale);
+	set_mat_arr(mat_a, space.scalation, shape->scale);
 	mul_mat(mat_a, mat_b, mat_c);
-	set_mat_arr(mat_a, data->space.translation, shape->translate);
+	set_mat_arr(mat_a, space.translation, shape->translate);
 	mul_mat(mat_a, mat_c, shape->transformation_matrix);
 }

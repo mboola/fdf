@@ -42,8 +42,9 @@ static void	rasterize_shape(t_ctrl_prgrm *data, t_shape *shape)
 	t_list	*points;
 	int		row;
 
-	points = shape->points;
+	printf("c\n");
 	calculate_matrix(data, shape);
+	points = shape->points;
 	row = 0;
 	while (points != NULL)
 	{
@@ -68,6 +69,7 @@ void	rasterize(t_ctrl_prgrm *data)
 	shapes = data->space.shapes;
 	while (shapes != NULL)
 	{
+		printf("b\n");
 		shape = (t_shape *)(shapes->content);
 		if (shape != NULL)
 			rasterize_shape(data, shape);
