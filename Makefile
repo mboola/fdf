@@ -57,15 +57,15 @@ MAIN_FILES			=	main.c main_loop.c
 INIT_DATA			=	init_matrices.c init_scalation.c init_translation.c \
 						set_rotation_x.c set_rotation_y.c set_rotation_z.c \
 						init_shape.c
-MATRIX_CONF_FILES	=	
+OPERATIONS			=	calculate_matrix.c
 #calculate_matrix.c initialize_matrices.c initialize_projection.c \
 						initialize_scale.c initialize_view.c \
 						update_values.c initialize_translations.c \
 						initialize_conic_projection.c
-RASTERIZE_FILES		=	init_camera.c #convert_points.c draw_frame_buffer.c draw.c rasterize.c
+RASTERIZE_FILES		=	init_camera.c rasterize.c draw.c buffer_points.c #convert_points.c draw_frame_buffer.c draw.c
 READ_INPUT			=	convert_shape.c create_points.c read_input.c
 
-SRC_FILES	=	${CLEAR_STRUCTS_FILES} ${MAIN_FILES} ${INIT_DATA} ${MATRIX_CONF_FILES} ${RASTERIZE_FILES} ${READ_INPUT}
+SRC_FILES	=	${CLEAR_STRUCTS_FILES} ${MAIN_FILES} ${INIT_DATA} ${OPERATIONS} ${RASTERIZE_FILES} ${READ_INPUT}
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------

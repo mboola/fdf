@@ -17,12 +17,26 @@
  */
 static void	clear_data(t_ctrl_prgrm **data)
 {
+	if ((*data)->image.img != NULL)
+		free((*data)->image.img);
 	mlx_destroy_window((*data)->mlx, (*data)->mlx_win);
 	mlx_destroy_display((*data)->mlx);
 	free((*data)->mlx);
 	clear_space((*data)->space);
 	free(*data);
 	exit(0);
+}
+
+static char	mlx_reserve_image(t_ctrl_prgrm *data)
+{
+	t_image	image;
+
+	image.img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (image.img == NULL)
+		return (0);
+	image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_len, &image.endian);
+	data->image = image;
+	return (1);
 }
 
 /*
@@ -50,6 +64,8 @@ int main(int argc, char **argv)
 		clear_data(&data);
 	data->mlx_win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
 	if (data->mlx_win == NULL)
+		clear_data(&data);
+	if (!mlx_reserve_image(data))
 		clear_data(&data);
 	main_loop(data);
 	clear_data(&data);

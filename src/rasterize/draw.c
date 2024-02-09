@@ -73,3 +73,19 @@ void	draw_point(t_image image, int coord[2], int color)
 	dst = image.addr + (coord[0] * image.line_len + coord[1] * (image.bpp / 8));
 	*(unsigned int*)dst = color;
 }
+
+void	vblank_buffer(t_ctrl_prgrm *data)
+{
+	char	*dst;
+	int		i;
+	t_image	image;
+
+	image = data->image;
+	i = 0;
+	while (i < WIN_HEIGHT * data->image.line_len + WIN_WIDTH * (data->image.bpp / 8))
+	{
+		dst = image.addr + i;
+		*(unsigned int*)dst = 0x0;
+		i++;
+	}
+}

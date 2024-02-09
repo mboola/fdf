@@ -14,7 +14,7 @@
 
 /*
  *  We get the new point.
- */
+ *
 static void	multiply_matrix(double mat[4][4], int point[4], double point_p[4])
 {
 	int	i;
@@ -32,7 +32,7 @@ static void	multiply_matrix(double mat[4][4], int point[4], double point_p[4])
 		}
 		i++;
 	}
-}
+}*/
 
 static void	multiply_matrix_double(double mat[4][4], double point[4], double point_p[4])
 {
@@ -53,7 +53,7 @@ static void	multiply_matrix_double(double mat[4][4], double point[4], double poi
 	}
 }
 
-static void set_mat(double mat[4][4], s_proj proj[4][4], t_view view)
+static void set_mat(double mat[4][4], t_proj proj[4][4], t_view view)
 {
 	int	i;
 	int	j;
@@ -76,7 +76,7 @@ static void set_mat(double mat[4][4], s_proj proj[4][4], t_view view)
  *	We then project it.
  */
 static void	mul_and_project(int point[4], double mat[4][4],
-		t_mlx_data *mlx_data, int res[4])
+		t_camera camera, int res[4])
 {
 	double	raw_point[4];
 	double	point_to_project[4];
@@ -86,9 +86,9 @@ static void	mul_and_project(int point[4], double mat[4][4],
 	raw_point[0] = (double) point[0];
 	raw_point[1] = (double) point[1];
 	raw_point[2] = (double) point[2];
-	raw_point[3] = mlx_data->distorsion;
+	raw_point[3] = 1;
 
-	set_mat(mat_proj, mlx_data->mat_proj, mlx_data->view_values);
+	set_mat(mat_proj, camera.projection_matrix, camera.view);
 	multiply_matrix_double(mat, raw_point, point_to_project);
 	multiply_matrix_double(mat_proj, point_to_project, projected_point);
 
@@ -102,24 +102,24 @@ static void	mul_and_project(int point[4], double mat[4][4],
  *	Recieves an array of 3d points and converts them to points from our current
  *	vision point. It then projects them into our 2d screen.
  */
-void	convert_points(t_point *points_3d, t_mlx_data *mlx_data,
-	double mat[4][4], int row)
+void	buffer_points(t_point *points_3d, t_shape *shape, t_ctrl_prgrm *data,
+	int row)
 {
 	int			i;
 	int			coord[4];
-	t_vector2	vector2;
-	t_vector2	*mem;
+	t_projected	vector2;
+	t_projected	*mem;
 
 	i = 0;
 	while (points_3d[i].vector[0] != -1)	//while not end of array
 	{
 		//printf("Point before: %d, %d, %d\n", points_3d[i].vector[0], points_3d[i].vector[1], points_3d[i].vector[2]);
-		mul_and_project(points_3d[i].vector, mat, mlx_data, coord);
+		mul_and_project(points_3d[i].vector, shape->transformation_matrix, data->space.camera, coord);
 		//printf("Point after: %d, %d\n", coord[0], coord[1]);
 		vector2.coord[0] = coord[0];
 		vector2.coord[1] = coord[1];
 		vector2.color = points_3d[i].color;
-		mem = (t_vector2 *)(mlx_data->pixels.points[row]);
+		mem = (t_projected *)(shape->buffer->points[row]);
 		mem[i] = vector2;
 		//ft_printf(1, "X=%d, Y=%d\n", vector[0], vector[1]);
 		i++;

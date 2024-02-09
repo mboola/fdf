@@ -139,6 +139,7 @@ typedef struct	s_space {
 
 typedef struct	s_ctrl_prgrm {
 	t_space		space;
+	t_image		image;
 	void		*mlx;
 	void		*mlx_win;
 	char		rasterize;
@@ -177,6 +178,22 @@ void	init_scalation(t_mat_funct scalation[4][4]);
 void	init_translation(t_mat_funct translation[4][4]);
 void	init_camera(t_camera camera);
 
+//-----------------------------------------------------------------------------
+//	RASTERIZE FUNCTIONS 
+//-----------------------------------------------------------------------------
+void	rasterize(t_ctrl_prgrm *data);
+void	vblank_buffer(t_ctrl_prgrm *data);
+
+void	buffer_points(t_point *points_3d, t_shape *shape, t_ctrl_prgrm *data,
+	int row);
+	
+void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2]);
+void	draw_point(t_image image, int coord[2], int color);
+
+//-----------------------------------------------------------------------------
+//	MATRIX OPERATIONS FUNCTIONS 
+//-----------------------------------------------------------------------------
+void	calculate_matrix(t_ctrl_prgrm *data, t_shape *shape);
 /*
 int		read_input_file(int argc, char **argv, t_mlx_data *mlx_data);
 

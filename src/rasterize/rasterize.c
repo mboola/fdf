@@ -12,6 +12,7 @@
 
 #include "ft_fdf.h"
 
+/*
 static void	print_points(void **points, int col)
 {
 	t_vector2	*arr;
@@ -34,27 +35,42 @@ static void	print_points(void **points, int col)
 		i++;
 	}
 }
+*/
+
+static void	rasterize_shape(t_ctrl_prgrm *data, t_shape *shape)
+{
+	t_list	*points;
+	int		row;
+
+	points = shape->points;
+	calculate_matrix(data, shape);
+	row = 0;
+	while (points != NULL)
+	{
+		buffer_points((t_point *)(points->content), shape, data, row);
+		points = points->next;
+		row++;
+	}
+	//print_points(mlx_data->pixels.points, mlx_data->pixels.n_col);
+	//draw_frame_buffer(data->image, shape->buffer);
+}
 
 /*
  *	Calculates the matrix used to convert 3d points to 2d points.
  *	Once it has all points converted and stored in a matrix of points, we call
  *	an algorithm to draw the lines between them.
  */
-void	rasterize(t_image image, t_mlx_data *mlx_data)
+void	rasterize(t_ctrl_prgrm *data)
 {
-	t_list	*points;
-	double	matrix[4][4];
-	int		row;
+	t_list	*shapes;
+	t_shape	*shape;
 
-	points = mlx_data->points;
-	calculate_matrix(mlx_data, matrix);
-	row = 0;
-	while (points != NULL)
+	shapes = data->space.shapes;
+	while (shapes != NULL)
 	{
-		convert_points((t_point *)(points->content), mlx_data, matrix, row);
-		points = points->next;
-		row++;
+		shape = (t_shape *)(shapes->content);
+		if (shape != NULL)
+			rasterize_shape(data, shape);
+		shapes = shapes->next;
 	}
-	//print_points(mlx_data->pixels.points, mlx_data->pixels.n_col);
-	draw_frame_buffer(image, mlx_data->pixels);
 }
