@@ -12,7 +12,7 @@
 
 #include "ft_fdf.h"
 
-static void	convert_vector2(t_vector2 vector2, int vector[2], int *color)
+static void	convert_vector2(t_projected vector2, int vector[2], int *color)
 {
 	vector[0] = vector2.coord[0];
 	vector[1] = vector2.coord[1];
@@ -24,25 +24,25 @@ static void	convert_vector2(t_vector2 vector2, int vector[2], int *color)
  *	the lower point and current point. Connects points. It also creates
  *	a color degradate between points.
  */
-static void	draw_segments(t_image image, t_buffer pixels, int i, int j)
+static void	draw_segments(t_image image, t_buffer *pixels, int i, int j)
 {
 	int			current_point[2];
 	int			point_right[2];
 	int			point_down[2];
 	int			colors[2];
-	t_vector2	*arr;
+	t_projected	*arr;
 
-	arr = (t_vector2 *)(pixels.points[i]);
+	arr = (t_projected *)(pixels->points[i]);
 	convert_vector2(arr[j], current_point, &colors[0]);
 	draw_point(image, current_point, colors[0]);
-	if (j < pixels.n_col - 1)
+	if (j < pixels->n_col - 1)
 	{
 		convert_vector2(arr[j + 1], point_right, &colors[1]);
 		draw_line(image, current_point, point_right, colors);
 	}
-	if (i < pixels.n_row - 1)
+	if (i < pixels->n_row - 1)
 	{
-		arr = (t_vector2 *)(pixels.points[i + 1]);
+		arr = (t_projected *)(pixels->points[i + 1]);
 		convert_vector2(arr[j], point_down, &colors[1]);
 		draw_line(image, current_point, point_down, colors);
 	}
@@ -51,16 +51,16 @@ static void	draw_segments(t_image image, t_buffer pixels, int i, int j)
 /*
  *	Draws the lines between points for each coord (x, y) in points.
  */
-void	draw_frame_buffer(t_image image, t_buffer pixels)
+void	draw_frame_buffer(t_image image, t_buffer *pixels)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < pixels.n_row)
+	while (i < pixels->n_row)
 	{
 		j = 0;
-		while (j < pixels.n_col)
+		while (j < pixels->n_col)
 		{
 			draw_segments(image, pixels, i, j);
 			j++;

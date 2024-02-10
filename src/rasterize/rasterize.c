@@ -53,7 +53,7 @@ static void	rasterize_shape(t_ctrl_prgrm *data, t_shape *shape)
 		row++;
 	}
 	//print_points(mlx_data->pixels.points, mlx_data->pixels.n_col);
-	//draw_frame_buffer(data->image, shape->buffer);
+	draw_frame_buffer(data->image, shape->buffer);
 }
 
 /*

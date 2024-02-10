@@ -62,7 +62,7 @@ OPERATIONS			=	calculate_matrix.c
 						initialize_scale.c initialize_view.c \
 						update_values.c initialize_translations.c \
 						initialize_conic_projection.c
-RASTERIZE_FILES		=	init_camera.c rasterize.c draw.c buffer_points.c #convert_points.c draw_frame_buffer.c draw.c
+RASTERIZE_FILES		=	init_camera.c rasterize.c draw.c buffer_points.c draw_frame_buffer.c
 READ_INPUT			=	convert_shape.c create_points.c read_input.c
 
 SRC_FILES	=	${CLEAR_STRUCTS_FILES} ${MAIN_FILES} ${INIT_DATA} ${OPERATIONS} ${RASTERIZE_FILES} ${READ_INPUT}

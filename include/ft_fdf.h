@@ -138,12 +138,13 @@ typedef struct	s_space {
 }	t_space;
 
 typedef struct	s_ctrl_prgrm {
-	t_space		space;
-	t_image		image;
-	void		*mlx;
-	void		*mlx_win;
-	char		rasterize;
-	char		close;
+	t_space	space;
+	t_image	image;
+	void	*mlx;
+	void	*mlx_win;
+	char	rasterize;
+	char	close;
+	t_list	*shape_selected;
 }	t_ctrl_prgrm;
 
 //-----------------------------------------------------------------------------
@@ -189,6 +190,7 @@ void	buffer_points(t_point *points_3d, t_shape *shape, t_ctrl_prgrm *data,
 	
 void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2]);
 void	draw_point(t_image image, int coord[2], int color);
+void	draw_frame_buffer(t_image image, t_buffer *pixels);
 
 //-----------------------------------------------------------------------------
 //	MATRIX OPERATIONS FUNCTIONS 

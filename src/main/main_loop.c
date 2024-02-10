@@ -42,7 +42,25 @@ static int	handle_keys(int keys, t_ctrl_prgrm *data)
 {
     if (keys == XK_Escape)
 		data->close = 1;
-    return (0);
+	else if (keys == XK_Tab)
+	{
+		data->shape_selected = data->shape_selected->next;
+		if (data->shape_selected == NULL)
+			data->shape_selected = data->space.shapes;
+	}
+	else if (keys == XK_a)
+	{
+		((t_shape *)(data->shape_selected->content))->scale[0]++;
+		((t_shape *)(data->shape_selected->content))->scale[1]++;
+		data->rasterize = 1;
+	}
+	else if (keys == XK_b)
+	{
+		((t_shape *)(data->shape_selected->content))->scale[0]--;
+		((t_shape *)(data->shape_selected->content))->scale[1]--;
+		data->rasterize = 1;
+	}
+	return (0);
 }
 
 static void register_hooks(t_ctrl_prgrm *data)
@@ -61,6 +79,7 @@ void	main_loop(t_ctrl_prgrm *data)
 	init_camera(&(data->space.camera));	//set projection
 	data->rasterize = 1;
 	data->close = 0;
+	data->shape_selected = data->space.shapes;	//set the first and only shape
 	//initialize_view(mlx_data);
 	register_hooks(data);
 	mlx_loop(data->mlx);
