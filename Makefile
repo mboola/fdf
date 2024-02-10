@@ -56,7 +56,7 @@ CLEAR_STRUCTS_FILES	=	clear_structs.c
 MAIN_FILES			=	main.c main_loop.c
 INIT_DATA			=	init_matrices.c init_scalation.c init_translation.c \
 						set_rotation_x.c set_rotation_y.c set_rotation_z.c \
-						init_shape.c init_camera.c
+						init_shape.c init_view.c init_projection.c
 OPERATIONS			=	calculate_matrix.c
 RASTERIZE_FILES		=	rasterize.c draw.c buffer_points.c draw_frame_buffer.c
 READ_INPUT			=	read_input.c create_points.c

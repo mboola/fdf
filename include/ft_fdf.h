@@ -172,7 +172,9 @@ void	set_rotation_y(t_mat_funct rotation_y[4][4]);
 void	set_rotation_z(t_mat_funct rotation_z[4][4]);
 void	init_scalation(t_mat_funct scalation[4][4]);
 void	init_translation(t_mat_funct translation[4][4]);
-void	init_camera(t_camera *camera);
+void	init_view(t_ctrl_prgrm *data);
+
+void	init_projection(t_proj projection_matrix[4][4]);
 
 //-----------------------------------------------------------------------------
 //	RASTERIZE FUNCTIONS 
