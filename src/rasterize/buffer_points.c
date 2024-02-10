@@ -76,7 +76,7 @@ static void set_mat(double mat[4][4], t_proj proj[4][4], t_view view)
  *	We then project it.
  */
 static void	mul_and_project(int point[4], double mat[4][4],
-		t_camera camera, int res[4])
+		t_camera *camera, int res[4])
 {
 	double	raw_point[4];
 	double	point_to_project[4];
@@ -88,7 +88,7 @@ static void	mul_and_project(int point[4], double mat[4][4],
 	raw_point[2] = (double) point[2];
 	raw_point[3] = 1;
 
-	set_mat(mat_proj, camera.projection_matrix, camera.view);
+	set_mat(mat_proj, camera->projection_matrix, camera->view);
 	multiply_matrix_double(mat, raw_point, point_to_project);
 	multiply_matrix_double(mat_proj, point_to_project, projected_point);
 
@@ -114,7 +114,7 @@ void	buffer_points(t_point *points_3d, t_shape *shape, t_ctrl_prgrm *data,
 	while (points_3d[i].vector[0] != -1)	//while not end of array
 	{
 		//printf("Point before: %d, %d, %d\n", points_3d[i].vector[0], points_3d[i].vector[1], points_3d[i].vector[2]);
-		mul_and_project(points_3d[i].vector, shape->transformation_matrix, data->space.camera, coord);
+		mul_and_project(points_3d[i].vector, shape->transformation_matrix, &(data->space.camera), coord);
 		//printf("Point after: %d, %d\n", coord[0], coord[1]);
 		vector2.coord[0] = coord[0];
 		vector2.coord[1] = coord[1];

@@ -12,19 +12,19 @@
 
 #include "ft_fdf.h"
 
-static void	init_rotation_matrices(t_ctrl_prgrm *data)
+static void	init_rotation_matrices(t_space *space)
 {
-	set_rotation_x(data->space.rotation_x);
-	set_rotation_y(data->space.rotation_y);
-	set_rotation_z(data->space.rotation_z);
+	set_rotation_x(space->rotation_x);
+	set_rotation_y(space->rotation_y);
+	set_rotation_z(space->rotation_z);
 }
 
 /*
  *	Initializes the matrices.
  */
-void	init_matrices(t_ctrl_prgrm *data)
+void	init_matrices(t_space *space)
 {
-	init_rotation_matrices(data);
-	init_scalation(data->space.scalation);
-	init_translation(data->space.translation);
+	init_rotation_matrices(space);
+	init_scalation(space->scalation);
+	init_translation(space->translation);
 }
