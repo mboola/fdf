@@ -42,5 +42,5 @@ void	clear_shape(void *data)
 //works
 void	clear_space(t_space space)
 {
-	ft_lstclear(&(space.shapes), clear_shape);
+	clear_shape(space.shape);
 }

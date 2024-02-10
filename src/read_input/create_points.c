@@ -36,7 +36,8 @@ static unsigned char	transform_color(char **str, char *err)
 	return (0);
 }
 
-static int	convert_rgb(unsigned char red, unsigned char green, unsigned blue)
+static int	convert_rgb(unsigned char red, unsigned char green,
+	unsigned char blue)
 {
 	return (red << 16 | green << 8 | blue);
 }
@@ -76,7 +77,6 @@ static t_point	new_point(int col, int row, char *z)
 	point.vector[1] = col;
 	point.vector[2] = ft_atoi(z);
 	point.color = convert_color(z);
-	//printf("Vector: %d, %d, %d; Color: %d\n", point.vector[0], point.vector[1], point.vector[2], point.color);
 	return (point);
 }
 

@@ -92,18 +92,9 @@ static void	mul_and_project(int cartesian_coord[3], double mat[4][4],
 	multiply_matrix_double(mat, homogeneous_coordinates, point_to_project);
 	multiply_matrix_double(mat_proj, point_to_project, projected_point);
 
-	if (projected_point[3] != 1)
-	{
-		normalized[0] = (int) (projected_point[0] / projected_point[3]);
-		normalized[1] = (int) (projected_point[1] / projected_point[3]);
-		normalized[2] = (int) (projected_point[2] / projected_point[3]);
-	}
-	else
-	{
-		normalized[0] = (int) projected_point[0];
-		normalized[1] = (int) projected_point[1];
-		normalized[2] = (int) projected_point[2];
-	}
+	normalized[0] = (int) projected_point[0];
+	normalized[1] = (int) projected_point[1];
+	normalized[2] = (int) projected_point[2];
 }
 
 /*

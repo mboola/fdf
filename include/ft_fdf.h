@@ -97,11 +97,6 @@ typedef double	(*t_proj)(t_view);
 typedef struct	s_camera {
 	t_view	view;
 	t_proj	projection_matrix[4][4];
-	float	angle_x;
-	float	angle_y;
-	float	angle_z;
-	double	translate[3];
-	double	transformation_matrix[4][4];
 	char	homogeneous_coord;
 }	t_camera;
 
@@ -118,7 +113,6 @@ typedef struct	s_buffer {
 typedef struct	s_shape {
 	t_buffer	*buffer;
 	t_list		*points;
-	int			center[2];
 	float		angle_x;
 	float		angle_y;
 	float		angle_z;
@@ -130,7 +124,7 @@ typedef struct	s_shape {
 typedef double	(*t_mat_funct)(double);
 
 typedef struct	s_space {
-	t_list		*shapes;
+	t_shape		*shape;
 	t_camera	camera;
 	t_mat_funct	rotation_x[4][4];
 	t_mat_funct	rotation_y[4][4];
@@ -147,14 +141,12 @@ typedef struct	s_ctrl_prgrm {
 	char	rasterize;
 	char	close;
 	char	reverse;
-	t_list	*shape_selected;
 }	t_ctrl_prgrm;
 
 //-----------------------------------------------------------------------------
-//	FUNCTIONS
+//	FUNCTIONS READ INPUT FROM FILE
 //-----------------------------------------------------------------------------
-t_list	*read_input(int argc, char **argv);
-t_shape	*convert_shape(char *file);
+t_shape	*read_input(char *file);
 t_list	*create_points(char **mat, int n_col, int n_row);
 
 //-----------------------------------------------------------------------------

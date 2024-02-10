@@ -34,7 +34,8 @@ static char	mlx_reserve_image(t_ctrl_prgrm *data)
 	image.img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (image.img == NULL)
 		return (0);
-	image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_len, &image.endian);
+	image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_len,
+			&image.endian);
 	data->image = image;
 	return (1);
 }
@@ -44,21 +45,21 @@ static char	mlx_reserve_image(t_ctrl_prgrm *data)
  *	Creates a struct that will hold all the information to create a window
  *	and put pixels to it. Clears the struct when ended.
  */
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_ctrl_prgrm	*data;
-	t_list			*shape;
 
+	if (argc != 2)
+		return (0);
 	data = ft_calloc(sizeof(t_ctrl_prgrm), 1);
 	if (data == NULL)
 		return (0);
-	shape = read_input(argc, argv);
-	if (shape == NULL)
+	data->space.shape = read_input(argv[1]);
+	if (data->space.shape == NULL)
 	{
 		free(data);
 		return (0);
 	}
-	data->space.shapes = shape;
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		clear_data(&data);
