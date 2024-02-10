@@ -144,6 +144,7 @@ typedef struct	s_ctrl_prgrm {
 	void	*mlx_win;
 	char	rasterize;
 	char	close;
+	char	reverse;
 	t_list	*shape_selected;
 }	t_ctrl_prgrm;
 

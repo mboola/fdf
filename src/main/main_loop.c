@@ -34,6 +34,57 @@ static int	handle_no_event(t_ctrl_prgrm *data)
     return (0);
 }
 
+static void	check_shape(int keys, t_ctrl_prgrm *data)
+{
+	if (keys == XK_z)
+	{
+		((t_shape *)(data->shape_selected->content))->angle_x += 0.1;
+		data->rasterize = 1;
+	}
+	else if (keys == XK_x)
+	{
+		((t_shape *)(data->shape_selected->content))->angle_x -= 0.1;
+		data->rasterize = 1;
+	}
+	else if (keys == XK_w)
+	{
+		((t_shape *)(data->shape_selected->content))->translate[0]--;
+		data->rasterize = 1;
+	}
+	else if (keys == XK_s)
+	{
+		((t_shape *)(data->shape_selected->content))->translate[0]++;
+		data->rasterize = 1;
+	}
+	else if (keys == XK_a)
+	{
+		((t_shape *)(data->shape_selected->content))->translate[1]--;
+		data->rasterize = 1;
+	}
+	else if (keys == XK_d)
+	{
+		((t_shape *)(data->shape_selected->content))->translate[1]++;
+		data->rasterize = 1;
+	}
+	else if (keys == XK_q)
+	{
+		((t_shape *)(data->shape_selected->content))->scale[0]++;
+		((t_shape *)(data->shape_selected->content))->scale[1]++;
+		data->rasterize = 1;
+	}
+	else if (keys == XK_e)
+	{
+		((t_shape *)(data->shape_selected->content))->scale[0]--;
+		((t_shape *)(data->shape_selected->content))->scale[1]--;
+		data->rasterize = 1;
+	}
+}
+
+static void	check_camera(int keys, t_ctrl_prgrm *data)
+{
+
+}
+
 /*
  *	Here we listen if a key that modifies output has been used.
  *	Or if we end the program.
@@ -48,17 +99,12 @@ static int	handle_keys(int keys, t_ctrl_prgrm *data)
 		if (data->shape_selected == NULL)
 			data->shape_selected = data->space.shapes;
 	}
-	else if (keys == XK_a)
+	else if (keys == XK_r)
+		data->reverse = data->reverse * -1;
+	else
 	{
-		((t_shape *)(data->shape_selected->content))->scale[0]++;
-		((t_shape *)(data->shape_selected->content))->scale[1]++;
-		data->rasterize = 1;
-	}
-	else if (keys == XK_b)
-	{
-		((t_shape *)(data->shape_selected->content))->scale[0]--;
-		((t_shape *)(data->shape_selected->content))->scale[1]--;
-		data->rasterize = 1;
+		check_camera(keys, data);
+		check_shape(keys, data);
 	}
 	return (0);
 }
@@ -79,6 +125,7 @@ void	main_loop(t_ctrl_prgrm *data)
 	init_camera(&(data->space.camera));	//set projection
 	data->rasterize = 1;
 	data->close = 0;
+	data->reverse = 0;
 	data->shape_selected = data->space.shapes;	//set the first and only shape
 	//initialize_view(mlx_data);
 	register_hooks(data);
