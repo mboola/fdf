@@ -102,6 +102,7 @@ typedef struct	s_camera {
 	float	angle_z;
 	double	translate[3];
 	double	transformation_matrix[4][4];
+	char	homogeneous_coord;
 }	t_camera;
 
 /*
@@ -117,6 +118,7 @@ typedef struct	s_buffer {
 typedef struct	s_shape {
 	t_buffer	*buffer;
 	t_list		*points;
+	int			center[2];
 	float		angle_x;
 	float		angle_y;
 	float		angle_z;

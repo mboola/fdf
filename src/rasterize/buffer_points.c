@@ -75,27 +75,35 @@ static void set_mat(double mat[4][4], t_proj proj[4][4], t_view view)
  *	We multiply our point to the matrix to get the new coordenates.
  *	We then project it.
  */
-static void	mul_and_project(int point[4], double mat[4][4],
-		t_camera *camera, int res[4])
+static void	mul_and_project(int cartesian_coord[3], double mat[4][4],
+		t_camera *camera, int normalized[3])
 {
-	double	raw_point[4];
+	double	homogeneous_coordinates[4];
 	double	point_to_project[4];
 	double	projected_point[4];
 	double	mat_proj[4][4];
 
-	raw_point[0] = (double) point[0];
-	raw_point[1] = (double) point[1];
-	raw_point[2] = (double) point[2];
-	raw_point[3] = 1;
+	homogeneous_coordinates[0] = (double) cartesian_coord[0];
+	homogeneous_coordinates[1] = (double) cartesian_coord[1];
+	homogeneous_coordinates[2] = (double) cartesian_coord[2];
+	homogeneous_coordinates[3] = camera->homogeneous_coord;
 
 	set_mat(mat_proj, camera->projection_matrix, camera->view);
-	multiply_matrix_double(mat, raw_point, point_to_project);
+	multiply_matrix_double(mat, homogeneous_coordinates, point_to_project);
 	multiply_matrix_double(mat_proj, point_to_project, projected_point);
 
-	res[0] = (int) projected_point[0];
-	res[1] = (int) projected_point[1];
-	res[2] = 0;
-	res[3] = 0;
+	if (projected_point[3] != 1)
+	{
+		normalized[0] = (int) (projected_point[0] / projected_point[3]);
+		normalized[1] = (int) (projected_point[1] / projected_point[3]);
+		normalized[2] = (int) (projected_point[2] / projected_point[3]);
+	}
+	else
+	{
+		normalized[0] = (int) projected_point[0];
+		normalized[1] = (int) projected_point[1];
+		normalized[2] = (int) projected_point[2];
+	}
 }
 
 /*
@@ -106,7 +114,7 @@ void	buffer_points(t_point *points_3d, t_shape *shape, t_ctrl_prgrm *data,
 	int row)
 {
 	int			i;
-	int			coord[4];
+	int			coord[3];
 	t_projected	vector2;
 	t_projected	*mem;
 

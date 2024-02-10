@@ -46,6 +46,7 @@ static void init_projection(t_proj projection_matrix[4][4])
 void	init_camera(t_camera *camera)
 {
 	init_projection(camera->projection_matrix);
+	camera->homogeneous_coord = 1;
 	camera->angle_x = 0;
 	camera->angle_y = 0;
 	camera->angle_z = 0;
