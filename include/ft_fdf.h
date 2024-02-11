@@ -147,8 +147,7 @@ t_list	*create_points(char **mat, int n_col, int n_row);
 //-----------------------------------------------------------------------------
 void	clear_buffer(t_buffer *buffer);
 void	clear_point(void *data);
-void	clear_shape(void *data);
-void	clear_space(t_space space);
+void	clear_shape(t_shape *shape);
 
 //-----------------------------------------------------------------------------
 //	MAIN LOOP FUNCTIONS

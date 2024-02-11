@@ -17,12 +17,17 @@
  */
 static void	clear_data(t_ctrl_prgrm **data)
 {
-	if ((*data)->image.img != NULL)
-		free((*data)->image.img);
-	mlx_destroy_window((*data)->mlx, (*data)->mlx_win);
-	mlx_destroy_display((*data)->mlx);
-	free((*data)->mlx);
-	clear_space((*data)->space);
+	if ((*data)->mlx != NULL)
+	{
+		if ((*data)->image.img != NULL)
+			mlx_destroy_image((*data)->mlx, (*data)->image.img);
+		if ((*data)->mlx_win != NULL)
+			mlx_destroy_window((*data)->mlx, (*data)->mlx_win);
+		mlx_destroy_display((*data)->mlx);
+		free((*data)->mlx);
+	}
+	if ((*data)->space.shape != NULL)
+		clear_shape((*data)->space.shape);
 	free(*data);
 	exit(0);
 }
@@ -56,10 +61,8 @@ int	main(int argc, char **argv)
 		return (0);
 	data->space.shape = read_input(argv[1]);
 	if (data->space.shape == NULL)
-	{
-		free(data);
-		return (0);
-	}
+		clear_data(&data);
+	
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		clear_data(&data);
