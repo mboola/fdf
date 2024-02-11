@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rasterize.c                                        :+:      :+:    :+:   */
+/*   initialize_view.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,26 +12,24 @@
 
 #include "ft_fdf.h"
 
-/*
- *	Calculates the matrix used to convert 3d points to 2d points.
- *	Once it has all points converted and stored in a matrix of points, we call
- *	an algorithm to draw the lines between them.
- */
-void	rasterize(t_ctrl_prgrm *data)
+void	set_cavalier_view(t_ctrl_prgrm *data)
 {
 	t_shape	*shape;
-	t_list	*points;
-	int		row;
 
 	shape = data->space.shape;
-	calculate_matrix(data, shape);
-	points = shape->points;
-	row = 0;
-	while (points != NULL)
-	{
-		buffer_points((t_point *)(points->content), shape, data, row);
-		points = points->next;
-		row++;
-	}
-	draw_frame_buffer(data->image, shape->buffer);
+	shape->angle_x = 0.851;
+	shape->angle_y = 0.851;
+	shape->angle_z = 0.8615;
+	data->rasterize = 1;
+}
+
+void	set_isometric_view(t_ctrl_prgrm *data)
+{
+	t_shape	*shape;
+
+	shape = data->space.shape;
+	shape->angle_x = 0.6154729074;
+	shape->angle_y = 0.7853981634;
+	shape->angle_z = 0.52;
+	data->rasterize = 1;
 }

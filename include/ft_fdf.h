@@ -25,7 +25,7 @@
 //-----------------------------------------------------------------------------
 //	CONSTANT VALUES
 //-----------------------------------------------------------------------------
-# define WIN_WIDTH 900
+# define WIN_WIDTH 1000
 # define WIN_HEIGHT 600
 # define WIN_NAME "FDF"
 
@@ -134,10 +134,11 @@ typedef struct	s_ctrl_prgrm {
 	char	rasterize;
 	char	close;
 	char	reverse;
+	char	multiplier;
 }	t_ctrl_prgrm;
 
 //-----------------------------------------------------------------------------
-//	FUNCTIONS READ INPUT FROM FILE
+//	FUNCTIONS TO READ INPUT FROM FILE
 //-----------------------------------------------------------------------------
 t_shape	*read_input(char *file);
 t_list	*create_points(char **mat, int n_col, int n_row);
@@ -153,9 +154,10 @@ void	clear_shape(t_shape *shape);
 //	MAIN LOOP FUNCTIONS
 //-----------------------------------------------------------------------------
 void	main_loop(t_ctrl_prgrm *data);
+int		handle_keys(int keys, t_ctrl_prgrm *data);
 
 //-----------------------------------------------------------------------------
-//	INITIALIZE DATA FUNCTIONS 
+//	DATA INITIALIZATION FUNCTIONS 
 //-----------------------------------------------------------------------------
 t_shape	*init_shape(t_shape *shape, t_list *lst);
 void	init_matrices(t_space *space);
@@ -164,19 +166,16 @@ void	set_rotation_y(t_mat_funct rotation_y[4][4]);
 void	set_rotation_z(t_mat_funct rotation_z[4][4]);
 void	init_scalation(t_mat_funct scalation[4][4]);
 void	init_translation(t_mat_funct translation[4][4]);
-void	init_view(t_ctrl_prgrm *data);
-
 void	init_projection(t_proj projection_matrix[4][4]);
+void	init_view(t_ctrl_prgrm *data);
 
 //-----------------------------------------------------------------------------
 //	RASTERIZE FUNCTIONS 
 //-----------------------------------------------------------------------------
-void	rasterize(t_ctrl_prgrm *data);
 void	vblank_buffer(t_ctrl_prgrm *data);
-
+void	rasterize(t_ctrl_prgrm *data);
 void	buffer_points(t_point *points_3d, t_shape *shape, t_ctrl_prgrm *data,
 	int row);
-	
 void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2]);
 void	draw_point(t_image image, int coord[2], int color);
 void	draw_frame_buffer(t_image image, t_buffer *pixels);
@@ -186,6 +185,10 @@ void	draw_frame_buffer(t_image image, t_buffer *pixels);
 //-----------------------------------------------------------------------------
 void	calculate_matrix(t_ctrl_prgrm *data, t_shape *shape);
 
-int	handle_keys(int keys, t_ctrl_prgrm *data);
+//-----------------------------------------------------------------------------
+//	SET VIEWS
+//-----------------------------------------------------------------------------
+void	set_isometric_view(t_ctrl_prgrm *data);
+void	set_cavalier_view(t_ctrl_prgrm *data);
 
 #endif

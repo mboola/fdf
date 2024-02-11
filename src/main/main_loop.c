@@ -45,10 +45,9 @@ void	main_loop(t_ctrl_prgrm *data)
 {
 	init_matrices(&(data->space));
 	init_view(data);
-	//init_camera(&(data->space.camera));	//set projection
-	data->rasterize = 1;
 	data->close = 0;
 	data->reverse = 1;
+	data->multiplier = 1;
 	register_hooks(data);
 	mlx_loop(data->mlx);
 }

@@ -64,7 +64,7 @@ static void set_mat(double mat[4][4], t_mat_funct func[4][4], double angl)
 /*
  *	Creates a matrix with an array of values and a matrix of functions.
  */
-static void set_mat_arr(double mat[4][4], t_mat_funct func[4][4], double value[4])
+static void set_mat_arr(double mat[4][4], t_mat_funct func[4][4], double *value)
 {
 	int	i;
 	int	j;

@@ -73,9 +73,7 @@ void	init_view(t_ctrl_prgrm *data)
 	t_shape	*shape;
 
 	shape = data->space.shape;
-	shape->angle_x = 0.6154729074;
-	shape->angle_y = 0.7853981634;
-	shape->angle_z = 0.52;
+	set_isometric_view(data);
 	set_scale(shape);
 	set_translation(shape);
 	set_view_values(&(data->space.camera));
