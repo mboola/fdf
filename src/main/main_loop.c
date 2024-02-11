@@ -25,16 +25,17 @@ static int	handle_no_event(t_ctrl_prgrm *data)
 	{
 		vblank_buffer(data);
 		rasterize(data);
-		mlx_put_image_to_window(data->mlx, data->mlx_win, data->image.img, 0, 0);
+		mlx_put_image_to_window(data->mlx,
+			data->mlx_win, data->image.img, 0, 0);
 		data->rasterize = 0;
 	}
-    return (0);
+	return (0);
 }
 
-static void register_hooks(t_ctrl_prgrm *data)
+static void	register_hooks(t_ctrl_prgrm *data)
 {
-    mlx_loop_hook(data->mlx, &handle_no_event, data);
-    mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keys, data);
+	mlx_loop_hook(data->mlx, &handle_no_event, data);
+	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keys, data);
 }
 
 /*

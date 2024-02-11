@@ -67,7 +67,7 @@ static int	check_transformation(int keys, t_ctrl_prgrm *data)
  */
 int	handle_keys(int keys, t_ctrl_prgrm *data)
 {
-    if (keys == XK_Escape)
+	if (keys == XK_Escape)
 		data->close = 1;
 	else if (keys == XK_Tab)
 		data->reverse = data->reverse * -1;

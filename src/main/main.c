@@ -62,7 +62,6 @@ int	main(int argc, char **argv)
 	data->space.shape = read_input(argv[1]);
 	if (data->space.shape == NULL)
 		clear_data(&data);
-	
 	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		clear_data(&data);
