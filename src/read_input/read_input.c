@@ -45,17 +45,14 @@ static t_list	*process_line(char **line, int *n_col, int n_row)
 	return (arr_points);
 }
 
-static t_list	*end_converting(int fd, t_list **lst, int ref_col, t_list *node)
+static t_list	*end_converting(int fd, t_list **lst, int ref_col, int n_col)
 {
-	int		n_col;
 	int		n_row;
 	char	*line;
+	t_list	*node;
 
-	n_col = ref_col;
 	n_row = 1;
 	line = get_next_line(fd, 0);
-	if (line == NULL)
-		return (*lst);
 	while (line != NULL)
 	{
 		node = process_line(&line, &n_col, n_row);
@@ -95,7 +92,7 @@ static	t_list	*convert_points(int fd)
 	if (node == NULL)
 		return (NULL);
 	ft_lstadd_back(&lst, node);
-	return (end_converting(fd, &lst, n_col, node));
+	return (end_converting(fd, &lst, n_col, n_col));
 }
 
 /*
