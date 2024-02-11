@@ -12,7 +12,8 @@
 
 #include "ft_fdf.h"
 
-static void	multiply_matrix_double(double mat[4][4], double point[4], double point_p[4])
+static void	multiply_matrix_double(double mat[4][4], double point[4],
+	double point_p[4])
 {
 	int	i;
 	int	j;
@@ -31,7 +32,7 @@ static void	multiply_matrix_double(double mat[4][4], double point[4], double poi
 	}
 }
 
-static void set_mat(double mat[4][4], t_proj proj[4][4], t_view view)
+static void	set_mat(double mat[4][4], t_proj proj[4][4], t_view view)
 {
 	int	i;
 	int	j;
@@ -65,11 +66,9 @@ static void	mul_and_project(int cartesian_coord[3], double mat[4][4],
 	homogeneous_coordinates[1] = (double) cartesian_coord[1];
 	homogeneous_coordinates[2] = (double) cartesian_coord[2];
 	homogeneous_coordinates[3] = camera->homogeneous_coord;
-
 	set_mat(mat_proj, camera->projection_matrix, camera->view);
 	multiply_matrix_double(mat, homogeneous_coordinates, point_to_project);
 	multiply_matrix_double(mat_proj, point_to_project, projected_point);
-
 	normalized[0] = (int) projected_point[0];
 	normalized[1] = (int) projected_point[1];
 	normalized[2] = (int) projected_point[2];
@@ -90,7 +89,8 @@ void	buffer_points(t_point *points_3d, t_shape *shape, t_ctrl_prgrm *data,
 	i = 0;
 	while (points_3d[i].vector[0] != -1)
 	{
-		mul_and_project(points_3d[i].vector, shape->transformation_matrix, &(data->space.camera), coord);
+		mul_and_project(points_3d[i].vector, shape->transformation_matrix,
+			&(data->space.camera), coord);
 		vector2.coord[0] = coord[0];
 		vector2.coord[1] = coord[1];
 		vector2.color = points_3d[i].color;

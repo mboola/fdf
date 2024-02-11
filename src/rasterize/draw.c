@@ -12,7 +12,7 @@
 
 #include "ft_fdf.h"
 
-static int	calculate_values(int p_0[2], int p_f[2], t_draw_line *info)
+static int	calculate_values(int p_0[2], int p_f[2], t_draw_line *info, int *c)
 {
 	t_draw_line	b;
 
@@ -26,15 +26,17 @@ static int	calculate_values(int p_0[2], int p_f[2], t_draw_line *info)
 	b.point[0] = b.x0;
 	b.point[1] = b.y0;
 	info[0] = b;
+	*c = 0;
 	return (round(sqrt((p_f[0] - p_0[0]) * (p_f[0] - p_0[0])
-		+ (p_f[1] - p_0[1]) * (p_f[1] - p_0[1]))));
+				+ (p_f[1] - p_0[1]) * (p_f[1] - p_0[1]))));
 }
 
-static int	calculate_color(int color[2], int total_steps, int curr_step)
+static int	calc_color(int color[2], int total_steps, int curr_step)
 {
 	if (total_steps == 0)
 		total_steps = 1;
-	return (color[0] + round(((double)((color[1] - color[0])) / total_steps) * curr_step));
+	return (color[0] + round(((double)((color[1] - color[0])) / total_steps)
+		* curr_step));
 }
 
 /*
@@ -47,14 +49,13 @@ void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2])
 	int			total_steps;
 	int			curr_step;
 
-	total_steps = calculate_values(p_0, p_f, &b);
-	curr_step = 0;
+	total_steps = calculate_values(p_0, p_f, &b, &curr_step);
 	while (1)
 	{
-		draw_point(image, b.point, calculate_color(color, total_steps, curr_step));
+		draw_point(image, b.point, calc_color(color, total_steps, curr_step));
 		curr_step++;
 		if (b.x0 == p_f[0] && b.y0 == p_f[1])
-			break;
+			break ;
 		b.error2 = 2 * b.error;
 		if (b.error2 >= b.dy && b.x0 != p_f[0])
 		{
@@ -67,7 +68,7 @@ void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2])
 			b.y0 += b.sy;
 		}
 		b.point[0] = b.x0;
-		b.point[1] = b.y0;	
+		b.point[1] = b.y0;
 	}
 }
 
@@ -79,11 +80,11 @@ void	draw_point(t_image image, int coord[2], int color)
 {
 	char	*dst;
 
-	if (coord[1] >= WIN_WIDTH || coord[1] < 0 
+	if (coord[1] >= WIN_WIDTH || coord[1] < 0
 		|| coord[0] >= WIN_HEIGHT || coord[0] < 0)
 		return ;
 	dst = image.addr + (coord[0] * image.line_len + coord[1] * (image.bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 void	vblank_buffer(t_ctrl_prgrm *data)
@@ -94,10 +95,11 @@ void	vblank_buffer(t_ctrl_prgrm *data)
 
 	image = data->image;
 	i = 0;
-	while (i < WIN_HEIGHT * data->image.line_len + WIN_WIDTH * (data->image.bpp / 8))
+	while (i < WIN_HEIGHT * data->image.line_len
+		+ WIN_WIDTH * (data->image.bpp / 8))
 	{
 		dst = image.addr + i;
-		*(unsigned int*)dst = 0x0;
+		*(unsigned int *)dst = 0x0;
 		i++;
 	}
 }
