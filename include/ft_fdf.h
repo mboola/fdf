@@ -29,13 +29,6 @@
 # define WIN_HEIGHT 600
 # define WIN_NAME "FDF"
 
-/*
- *	Constant used to choose the view. 0 means isometric. Other means conic.
- */
-# ifndef VIEW
-#  define VIEW 0
-# endif
-
 # ifndef MAX_ANGLE
 #  define MAX_ANGLE 360
 # endif
@@ -113,9 +106,9 @@ typedef struct	s_buffer {
 typedef struct	s_shape {
 	t_buffer	*buffer;
 	t_list		*points;
-	float		angle_x;
-	float		angle_y;
-	float		angle_z;
+	double		angle_x;
+	double		angle_y;
+	double		angle_z;
 	double		scale[3];
 	double		translate[3];
 	double		transformation_matrix[4][4];
@@ -193,40 +186,7 @@ void	draw_frame_buffer(t_image image, t_buffer *pixels);
 //	MATRIX OPERATIONS FUNCTIONS 
 //-----------------------------------------------------------------------------
 void	calculate_matrix(t_ctrl_prgrm *data, t_shape *shape);
-/*
-int		read_input_file(int argc, char **argv, t_mlx_data *mlx_data);
 
-
-int		read_input_file(int argc, char **argv, t_mlx_data *mlx_data);
-int		main_loop(t_mlx_data *mlx_data);
-t_list	*new_point(int row, int col, int num, char *err);
-void	clear_point(void *point);
-
-void	initialize_matrices(t_mlx_data *mlx_data);
-void	initialize_projection(t_mlx_data *mlx_data);
-void	initialize_scale(t_mlx_data *mlx_data);
-void	initialize_translation(t_mlx_data *mlx_data);
-void	initialize_translation_correction(t_mlx_data *mlx_data);
-void	set_rotation_x(t_mlx_data *mlx_data);
-void	set_rotation_y(t_mlx_data *mlx_data);
-void	set_rotation_z(t_mlx_data *mlx_data);
-
-
-void	initialize_view(t_mlx_data *mlx_data);
-
-void	rasterize(t_image image, t_mlx_data *mlx_data);
-void	calculate_matrix(t_mlx_data *mlx_data, double result_mat[4][4]);
-void	convert_points(t_point *points, t_mlx_data *mlx_data,
-    double mat[4][4], int row);
-void	draw_frame_buffer(t_image image, t_buffer pixels);
-void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2]);
-void	draw_point(t_image image, int coord[2], int color);
-
-void	update_angle_x(t_mlx_data *mlx_data, double increment);
-void	update_angle_y(t_mlx_data *mlx_data, double increment);
-void	update_angle_z(t_mlx_data *mlx_data, double increment);
-
-void	initialize_conic_projection(t_mlx_data *mlx_data);
-*/
+int	handle_keys(int keys, t_ctrl_prgrm *data);
 
 #endif

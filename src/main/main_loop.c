@@ -23,76 +23,12 @@ static int	handle_no_event(t_ctrl_prgrm *data)
 		mlx_loop_end(data->mlx);
 	else if (data->rasterize)
 	{
-		printf("Rasterizing.\n");
 		vblank_buffer(data);
 		rasterize(data);
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->image.img, 0, 0);
 		data->rasterize = 0;
 	}
     return (0);
-}
-
-static void	check_shape(int keys, t_ctrl_prgrm *data)
-{
-	if (keys == XK_z)
-	{
-		((t_shape *)(data->space.shape))->angle_x += 0.1;
-		data->rasterize = 1;
-	}
-	else if (keys == XK_x)
-	{
-		((t_shape *)(data->space.shape))->angle_x -= 0.1;
-		data->rasterize = 1;
-	}
-	else if (keys == XK_w)
-	{
-		((t_shape *)(data->space.shape))->translate[0]--;
-		data->rasterize = 1;
-	}
-	else if (keys == XK_s)
-	{
-		((t_shape *)(data->space.shape))->translate[0]++;
-		data->rasterize = 1;
-	}
-	else if (keys == XK_a)
-	{
-		((t_shape *)(data->space.shape))->translate[1]--;
-		data->rasterize = 1;
-	}
-	else if (keys == XK_d)
-	{
-		((t_shape *)(data->space.shape))->translate[1]++;
-		data->rasterize = 1;
-	}
-	else if (keys == XK_q)
-	{
-		((t_shape *)(data->space.shape))->scale[0]++;
-		((t_shape *)(data->space.shape))->scale[1]++;
-		data->rasterize = 1;
-	}
-	else if (keys == XK_e)
-	{
-		((t_shape *)(data->space.shape))->scale[0]--;
-		((t_shape *)(data->space.shape))->scale[1]--;
-		data->rasterize = 1;
-	}
-}
-
-/*
- *	Here we listen if a key that modifies output has been used.
- *	Or if we end the program.
- */
-static int	handle_keys(int keys, t_ctrl_prgrm *data)
-{
-    if (keys == XK_Escape)
-		data->close = 1;
-	else if (keys == XK_r)
-		data->reverse = data->reverse * -1;
-	else
-	{
-		check_shape(keys, data);
-	}
-	return (0);
 }
 
 static void register_hooks(t_ctrl_prgrm *data)
@@ -112,7 +48,7 @@ void	main_loop(t_ctrl_prgrm *data)
 	//init_camera(&(data->space.camera));	//set projection
 	data->rasterize = 1;
 	data->close = 0;
-	data->reverse = 0;
+	data->reverse = 1;
 	register_hooks(data);
 	mlx_loop(data->mlx);
 }
