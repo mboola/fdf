@@ -12,13 +12,15 @@
 
 #include "ft_fdf.h"
 
-static double	return_zero()
+static double	return_zero(double a)
 {
+	(void)a;
 	return (0);
 }
 
-static double	return_one()
+static double	return_one(double a)
 {
+	(void)a;
 	return (1);
 }
 
