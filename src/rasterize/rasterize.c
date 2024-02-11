@@ -30,7 +30,7 @@ static void	print_points(void **points, int col)
 			ft_printf(1, "(%d,%d) ", coord.coord[0], coord.coord[1]);
 			j++;
 		}
-		ft_printf(1, "\n");
+		ft_printf(1, "%d\n", i);
 		i++;
 	}
 }
@@ -56,6 +56,6 @@ void	rasterize(t_ctrl_prgrm *data)
 		points = points->next;
 		row++;
 	}
-	print_points(shape->buffer->points, shape->buffer->n_col);
+	//print_points(shape->buffer->points, shape->buffer->n_col);
 	draw_frame_buffer(data->image, shape->buffer);
 }

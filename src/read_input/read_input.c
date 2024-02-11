@@ -56,21 +56,24 @@ static t_list	*end_converting(int fd, t_list **lst, int ref_col, t_list *node)
 	line = get_next_line(fd, 0);
 	if (line == NULL)
 		return (*lst);
-	node = process_line(&line, &n_col, n_row);
-	if (n_col != ref_col && node != NULL)
+	while (line != NULL)
 	{
-		clear_point((node->content));
-		free(node);
-		node = NULL;
+		node = process_line(&line, &n_col, n_row);
+		if (n_col != ref_col && node != NULL)
+		{
+			clear_point((node->content));
+			free(node);
+			node = NULL;
+		}
+		if (node == NULL)
+		{
+			ft_lstclear(lst, clear_point);
+			return (NULL);
+		}
+		ft_lstadd_back(lst, node);
+		n_row++;
+		line = get_next_line(fd, 0);
 	}
-	if (node == NULL)
-	{
-		ft_lstclear(lst, clear_point);
-		return (NULL);
-	}
-	ft_lstadd_back(lst, node);
-	n_row++;
-	line = get_next_line(fd, 0);
 	return (*lst);
 }
 
