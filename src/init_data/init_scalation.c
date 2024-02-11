@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_scalation.c                                 :+:      :+:    :+:   */
+/*   init_scalation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,15 @@
 
 #include "ft_fdf.h"
 
-static double	return_one()
+static double	return_one(double d)
 {
+	(void)d;
 	return (1);
 }
 
-static double	return_zero()
+static double	return_zero(double d)
 {
+	(void)d;
 	return (0);
 }
 

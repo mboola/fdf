@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_matrices.c                               :+:      :+:    :+:   */
+/*   init_projection.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,15 @@
 
 #include "ft_fdf.h"
 
-static double	return_one()
+static double	return_one(t_view view)
 {
+	(void)view;
 	return (1);
 }
 
-static double	return_zero()
+static double	return_zero(t_view view)
 {
+	(void)view;
 	return (0);
 }
 

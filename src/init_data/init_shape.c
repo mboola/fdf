@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_matrices.c                               :+:      :+:    :+:   */
+/*   init_shape.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,12 +12,27 @@
 
 #include "ft_fdf.h"
 
+static int	end_init_buffer(t_buffer *buffer, t_list *lst)
+{
+	t_point		*arr;
+	int			i;
 
-static t_buffer	*initialize_buffer(t_list *lst)
+	arr = (t_point *)lst->content;
+	i = 0;
+	while (arr[i].vector[0] != -1)
+		i++;
+	buffer->n_col = i;
+	buffer->points = ft_calloc_matstruct(sizeof(t_projected),
+			buffer->n_row, buffer->n_col);
+	if (buffer->points == NULL)
+		return (0);
+	return (1);
+}
+
+static t_buffer	*init_buffer(t_list *lst)
 {
 	t_buffer	*buffer;
 	t_list		*node;
-	t_point		*arr;
 	int			i;
 
 	buffer = malloc(sizeof(t_buffer));
@@ -31,13 +46,7 @@ static t_buffer	*initialize_buffer(t_list *lst)
 		node = node->next;
 	}
 	buffer->n_row = i;
-	arr = (t_point *)lst->content;
-	i = 0;
-	while (arr[i].vector[0] != -1)
-		i++;
-	buffer->n_col = i;
-	buffer->points = ft_calloc_matstruct(sizeof(t_projected), buffer->n_row, buffer->n_col);
-	if (buffer->points == NULL)
+	if (!end_init_buffer(buffer, lst))
 	{
 		free(buffer);
 		return (NULL);
@@ -49,7 +58,7 @@ t_shape	*init_shape(t_shape *shape, t_list *lst)
 {
 	t_buffer	*buffer;
 
-	buffer = initialize_buffer(lst);
+	buffer = init_buffer(lst);
 	if (buffer == NULL)
 	{
 		ft_lstclear(&lst, clear_point);
