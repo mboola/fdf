@@ -43,7 +43,7 @@ static void	mul_mat(double mat1[4][4], double mat2[4][4], double res[4][4])
 /*
  *	Creates a matrix with a value and a matrix of functions.
  */
-static void set_mat(double mat[4][4], t_mat_funct func[4][4], double angl)
+static void	set_mat(double mat[4][4], t_mat_funct func[4][4], double angl)
 {
 	int	i;
 	int	j;
@@ -64,7 +64,7 @@ static void set_mat(double mat[4][4], t_mat_funct func[4][4], double angl)
 /*
  *	Creates a matrix with an array of values and a matrix of functions.
  */
-static void set_mat_arr(double mat[4][4], t_mat_funct func[4][4], double *value)
+static void	set_mat_arr(double mat[4][4], t_mat_funct func[4][4], double *value)
 {
 	int	i;
 	int	j;
@@ -79,16 +79,6 @@ static void set_mat_arr(double mat[4][4], t_mat_funct func[4][4], double *value)
 			j++;
 		}
 		i++;
-	}
-}
-
-void	print_matrix(double result_mat[4][4])
-{
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-			printf("%1f ", result_mat[i][j]);
-		printf("\n");
 	}
 }
 
