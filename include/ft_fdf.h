@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fdf.h                                            :+:      :+:    :+:   */
+/*   ft_fdf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -40,12 +40,12 @@
 /*
  *	Struct used to store data of points.
  */
-typedef struct  s_point {
+typedef struct s_point {
 	int	vector[3];
 	int	color;
 }	t_point;
 
-typedef struct	s_projected {
+typedef struct s_projected {
 	int	coord[2];
 	int	color;
 }	t_projected;
@@ -53,7 +53,7 @@ typedef struct	s_projected {
 /*
  *	Used in the algorithm to calculate where to put pixels when drawing a line.
  */
-typedef struct	s_draw_line {
+typedef struct s_draw_line {
 	int	dx;
 	int	dy;
 	int	sx;
@@ -68,7 +68,7 @@ typedef struct	s_draw_line {
 /*
  *	Struct used to display pixels to the window through an image.
  */
-typedef struct	s_image {
+typedef struct s_image {
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -76,7 +76,7 @@ typedef struct	s_image {
 	int		endian;
 }	t_image;
 
-typedef struct	s_view {
+typedef struct s_view {
 	double	left;
 	double	right;
 	double	top;
@@ -87,7 +87,7 @@ typedef struct	s_view {
 
 typedef double	(*t_proj)(t_view);
 
-typedef struct	s_camera {
+typedef struct s_camera {
 	t_view	view;
 	t_proj	projection_matrix[4][4];
 	char	homogeneous_coord;
@@ -97,13 +97,13 @@ typedef struct	s_camera {
  *	This stores the information to print. A matrix of points (x, y)
  *	where a point should be printed.
  */
-typedef struct	s_buffer {
+typedef struct s_buffer {
 	void	**points;
 	int		n_col;
 	int		n_row;
 }	t_buffer;
 
-typedef struct	s_shape {
+typedef struct s_shape {
 	t_buffer	*buffer;
 	t_list		*points;
 	double		angle_x;
@@ -116,7 +116,7 @@ typedef struct	s_shape {
 
 typedef double	(*t_mat_funct)(double);
 
-typedef struct	s_space {
+typedef struct s_space {
 	t_shape		*shape;
 	t_camera	camera;
 	t_mat_funct	rotation_x[4][4];
@@ -126,7 +126,7 @@ typedef struct	s_space {
 	t_mat_funct	translation[4][4];
 }	t_space;
 
-typedef struct	s_ctrl_prgrm {
+typedef struct s_ctrl_prgrm {
 	t_space	space;
 	t_image	image;
 	void	*mlx;
@@ -175,7 +175,7 @@ void	init_view(t_ctrl_prgrm *data);
 void	vblank_buffer(t_ctrl_prgrm *data);
 void	rasterize(t_ctrl_prgrm *data);
 void	buffer_points(t_point *points_3d, t_shape *shape, t_ctrl_prgrm *data,
-	int row);
+			int row);
 void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2]);
 void	draw_point(t_image image, int coord[2], int color);
 void	draw_frame_buffer(t_image image, t_buffer *pixels);
