@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_points.c                                   :+:      :+:    :+:   */
+/*   buffer_points.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpovill- <mpovill-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,28 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
-
-/*
- *  We get the new point.
- *
-static void	multiply_matrix(double mat[4][4], int point[4], double point_p[4])
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < 4)
-	{
-		point_p[i] = 0;
-		j = 0;
-		while (j < 4)
-		{
-			point_p[i] += mat[i][j] * (double)point[j];
-			j++;
-		}
-		i++;
-	}
-}*/
 
 static void	multiply_matrix_double(double mat[4][4], double point[4], double point_p[4])
 {
@@ -110,17 +88,14 @@ void	buffer_points(t_point *points_3d, t_shape *shape, t_ctrl_prgrm *data,
 	t_projected	*mem;
 
 	i = 0;
-	while (points_3d[i].vector[0] != -1)	//while not end of array
+	while (points_3d[i].vector[0] != -1)
 	{
-		//printf("Point before: %d, %d, %d\n", points_3d[i].vector[0], points_3d[i].vector[1], points_3d[i].vector[2]);
 		mul_and_project(points_3d[i].vector, shape->transformation_matrix, &(data->space.camera), coord);
-		//printf("Point after: %d, %d\n", coord[0], coord[1]);
 		vector2.coord[0] = coord[0];
 		vector2.coord[1] = coord[1];
 		vector2.color = points_3d[i].color;
 		mem = (t_projected *)(shape->buffer->points[row]);
 		mem[i] = vector2;
-		//ft_printf(1, "X=%d, Y=%d\n", vector[0], vector[1]);
 		i++;
 	}
 }

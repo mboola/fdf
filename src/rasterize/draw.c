@@ -12,7 +12,7 @@
 
 #include "ft_fdf.h"
 
-static void	calculate_values(int p_0[2], int p_f[2], t_draw_line *info)
+static int	calculate_values(int p_0[2], int p_f[2], t_draw_line *info)
 {
 	t_draw_line	b;
 
@@ -26,21 +26,33 @@ static void	calculate_values(int p_0[2], int p_f[2], t_draw_line *info)
 	b.point[0] = b.x0;
 	b.point[1] = b.y0;
 	info[0] = b;
+	return (round(sqrt((p_f[0] - p_0[0]) * (p_f[0] - p_0[0])
+		+ (p_f[1] - p_0[1]) * (p_f[1] - p_0[1]))));
 }
 
+static int	calculate_color(int color[2], int total_steps, int curr_step)
+{
+	if (total_steps == 0)
+		total_steps = 1;
+	return (color[0] + round(((double)((color[1] - color[0])) / total_steps) * curr_step));
+}
 
 /*
- *	Algorithm that puts pixels between points.
+ *	Algorithm that puts pixels between points. (Bresenham)
  *	TODO: Need to calculate gradient of color.
  */
 void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2])
 {
-	t_draw_line		b;
+	t_draw_line	b;
+	int			total_steps;
+	int			curr_step;
 
-	calculate_values(p_0, p_f, &b);
+	total_steps = calculate_values(p_0, p_f, &b);
+	curr_step = 0;
 	while (1)
 	{
-		draw_point(image, b.point, color[0]);
+		draw_point(image, b.point, calculate_color(color, total_steps, curr_step));
+		curr_step++;
 		if (b.x0 == p_f[0] && b.y0 == p_f[1])
 			break;
 		b.error2 = 2 * b.error;

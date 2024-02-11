@@ -12,18 +12,18 @@
 
 #include "ft_fdf.h"
 
-static unsigned char	transform_color(char **str, char *err)
+static unsigned char	transform_color(char **str, char *end)
 {
 	char	value[3];
 
 	if (**str == '\0')
-		return (0xFF);
+		return (0x00);
 	value[0] = **str;
 	(*str)++;
 	if (**str == '\0')
 	{
-		*err = 1;
-		return (0);
+		*end = 1;
+		return (0x00);
 	}
 	value[1] = **str;
 	(*str)++;
@@ -32,8 +32,8 @@ static unsigned char	transform_color(char **str, char *err)
 		return (ft_atoi_base(value, HEXHIGHBASE));
 	if (ft_strchr(HEXLOWBASE, value[0]) && ft_strchr(HEXLOWBASE, value[1]))
 		return (ft_atoi_base(value, HEXLOWBASE));
-	*err = 1;
-	return (0);
+	*end = 1;
+	return (0x00);
 }
 
 static int	convert_rgb(unsigned char red, unsigned char green,
@@ -48,23 +48,24 @@ static int	convert_color(char *str)
 	unsigned char	red;
 	unsigned char	green;
 	unsigned char	blue;
-	char			err;
+	char			end;
 
 	color = ft_strchr(str, ',');
 	if (color == NULL)
 		return (0xFFFFFF);
 	color++;
-	if (!ft_strncmp(color, "0x", 2))
+	if (ft_strncmp(color, "0x", 2))
 		return (0xFFFFFF);
 	color += 2;
-	red = transform_color(&color, &err);
-	if (err)
+	end = 0;
+	red = transform_color(&color, &end);
+	if (end)
 		return (0);
-	green = transform_color(&color, &err);
-	if (err)
+	green = transform_color(&color, &end);
+	if (end)
 		return (0);
-	blue = transform_color(&color, &err);
-	if (err)
+	blue = transform_color(&color, &end);
+	if (end)
 		return (0);
 	return (convert_rgb(red, green, blue));
 }

@@ -37,7 +37,7 @@ CFLAGS			=	-Wall -Wextra -Werror
 LINUX_LINK_FLG	=	-lXext -lX11 -lm -lz
 MAC_LINK_FLG	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 HEADERS			=	-I./${INCLUDE} -I./${MINILIBX_DIR}
-OPTIMIZATION	=	#-O3
+OPTIMIZATION	=	-O3
 DEBUG			=	-g
 
 #------------------------------------------------------------------------------

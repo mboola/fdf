@@ -12,17 +12,6 @@
 
 #include "ft_fdf.h"
 
-void	set_cavalier_view(t_ctrl_prgrm *data)
-{
-	t_shape	*shape;
-
-	shape = data->space.shape;
-	shape->angle_x = 0.851;
-	shape->angle_y = 0.851;
-	shape->angle_z = 0.8615;
-	data->rasterize = 1;
-}
-
 void	set_isometric_view(t_ctrl_prgrm *data)
 {
 	t_shape	*shape;

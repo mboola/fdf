@@ -77,8 +77,6 @@ int	handle_keys(int keys, t_ctrl_prgrm *data)
 		data->multiplier--;
 	else if (keys == XK_i)
 		set_isometric_view(data);
-	else if (keys == XK_c)
-		set_cavalier_view(data);
 	else if (check_angles(keys, data))
 		return (0);
 	else if (check_transformation(keys, data))
