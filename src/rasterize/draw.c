@@ -27,16 +27,23 @@ static int	calculate_values(int p_0[2], int p_f[2], t_draw_line *info, int *c)
 	b.point[1] = b.y0;
 	info[0] = b;
 	*c = 0;
-	return (round(sqrt((p_f[0] - p_0[0]) * (p_f[0] - p_0[0])
-				+ (p_f[1] - p_0[1]) * (p_f[1] - p_0[1]))));
+	return (sqrt((p_f[0] - p_0[0]) * (p_f[0] - p_0[0])
+				+ (p_f[1] - p_0[1]) * (p_f[1] - p_0[1])));
 }
 
-static int	calc_color(int color[2], int total_steps, int curr_step)
+static int	calc_color(int color[2], double total_steps, int curr_step)
 {
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
+
+	red = ((color[1] & 0xFF0000) - (color[0] & 0xFF0000)) >> 16;
+	green = ((color[1] & 0x00FF00) - (color[0] & 0x00FF00)) >> 8;
+	blue = (color[1] & 0x0000FF) - (color[0] & 0x0000FF);
 	if (total_steps == 0)
 		total_steps = 1;
-	return (color[0] + round(((double)((color[1] - color[0])) / total_steps)
-		* curr_step));
+	return (color[0] + (((int)((double)(red * curr_step) / total_steps) << 16)
+		| ((int)((double)(green * curr_step) / total_steps) << 8) | ((int)((double)(blue * curr_step) / total_steps))));
 }
 
 /*
@@ -46,7 +53,7 @@ static int	calc_color(int color[2], int total_steps, int curr_step)
 void	draw_line(t_image image, int p_0[2], int p_f[2], int color[2])
 {
 	t_draw_line	b;
-	int			total_steps;
+	double		total_steps;
 	int			curr_step;
 
 	total_steps = calculate_values(p_0, p_f, &b, &curr_step);

@@ -17,8 +17,8 @@ void	set_isometric_view(t_ctrl_prgrm *data)
 	t_shape	*shape;
 
 	shape = data->space.shape;
-	shape->angle_x = 0;
-	shape->angle_y = 0;
-	shape->angle_z = -0.78;
+	shape->angle_x = 0.60710678118;
+	shape->angle_y = -0.70710678118;
+	shape->angle_z = -0.57734471598;
 	data->rasterize = 1;
 }

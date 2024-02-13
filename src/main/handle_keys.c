@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
+#include <stdio.h>
 
 static void	update_value(double *angle, double add, char reverse)
 {
@@ -34,6 +35,7 @@ static int	check_angles(int keys, t_ctrl_prgrm *data)
 	else
 		return (0);
 	data->rasterize = 1;
+	printf("X: %lf, Y: %lf, Z: %lf\n", shape->angle_x, shape->angle_y, shape->angle_z);
 	return (1);
 }
 
@@ -41,7 +43,7 @@ static void	update_altitude(double *altitude, char reverse)
 {
 	if (reverse > 0 && *altitude > 0.2)
 		*altitude -= 0.1;
-	else if (reverse <= 0 && *altitude < 20)
+	else if (reverse <= 0 && *altitude < 2)
 		*altitude += 0.1;
 }
 
