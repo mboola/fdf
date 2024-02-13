@@ -18,27 +18,27 @@
  */
 
 # ifndef XK_x
-#  define XK_x 1
+#  define XK_x 7
 # endif
 
 # ifndef XK_y
-#  define XK_y 13
+#  define XK_y 16
 # endif
 
 # ifndef XK_z
-#  define XK_z 0
+#  define XK_z 6
 # endif
 
 # ifndef XK_w
-#  define XK_w 2
+#  define XK_w 13
 # endif
 
 # ifndef XK_s
-#  define XK_s 2
+#  define XK_s 1
 # endif
 
 # ifndef XK_a
-#  define XK_a 2
+#  define XK_a 0
 # endif
 
 # ifndef XK_d
@@ -46,27 +46,27 @@
 # endif
 
 # ifndef XK_q
-#  define XK_q 2
+#  define XK_q 12
 # endif
 
 # ifndef XK_Escape
-#  define XK_Escape 2
+#  define XK_Escape 53
 # endif
 
 # ifndef XK_Tab
-#  define XK_Tab 2
+#  define XK_Tab 48
 # endif
 
 # ifndef XK_Up
-#  define XK_Up 2
+#  define XK_Up 126
 # endif
 
 # ifndef XK_Down
-#  define XK_Down 2
+#  define XK_Down 125
 # endif
 
 # ifndef XK_i
-#  define XK_i 2
+#  define XK_i 34
 # endif
 
 #endif

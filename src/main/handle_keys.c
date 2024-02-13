@@ -67,6 +67,7 @@ static int	check_transformation(int keys, t_ctrl_prgrm *data)
  */
 int	handle_keys(int keys, t_ctrl_prgrm *data)
 {
+	ft_printf(1, "%d\n", keys);
 	if (keys == XK_Escape)
 		data->close = 1;
 	else if (keys == XK_Tab)

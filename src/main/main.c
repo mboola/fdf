@@ -15,7 +15,7 @@
 /*
  *	Clears the struct created to run the application.
  */
-static void	clear_data(t_ctrl_prgrm **data)
+void	clear_data(t_ctrl_prgrm **data)
 {
 	if ((*data)->mlx != NULL)
 	{

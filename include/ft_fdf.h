@@ -192,4 +192,6 @@ void	calculate_matrix(t_ctrl_prgrm *data, t_shape *shape);
 void	set_isometric_view(t_ctrl_prgrm *data);
 void	set_cavalier_view(t_ctrl_prgrm *data);
 
+void	clear_data(t_ctrl_prgrm **data);
+
 #endif

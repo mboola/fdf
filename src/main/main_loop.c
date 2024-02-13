@@ -20,8 +20,10 @@
 static int	handle_no_event(t_ctrl_prgrm *data)
 {
 	if (data->close)
+	{
 		mlx_destroy_window(data->mlx, data->mlx_win);
-		//mlx_loop_end(data->mlx);
+		clear_data(&data);
+	}
 	else if (data->rasterize)
 	{
 		vblank_buffer(data);
@@ -36,8 +38,8 @@ static int	handle_no_event(t_ctrl_prgrm *data)
 static void	register_hooks(t_ctrl_prgrm *data)
 {
 	mlx_loop_hook(data->mlx, &handle_no_event, data);
-	mlx_key_hook(data->mlx_win, &handle_keys, data);
-	//mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keys, data);
+	//mlx_key_hook(data->mlx_win, &handle_keys, data);
+	mlx_hook(data->mlx_win, 2, 0, &handle_keys, data);
 }
 
 /*
