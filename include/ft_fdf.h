@@ -17,9 +17,10 @@
 //	LIBRARIES
 //-----------------------------------------------------------------------------
 # include "../ft_libft/include/libft.h"
-# include "../minilibx-linux/mlx.h"
-# include "../minilibx-linux/mlx_int.h"
+# include "../minilibx_macos/mlx.h"
+//# include "../minilibx_macos/mlx_int.h"
 # include "key_definitions.h"
+# include <fcntl.h>
 # include <math.h>
 
 //-----------------------------------------------------------------------------

@@ -22,9 +22,8 @@ OBJ_DIR		=	objects
 #------------------------------------------------------------------------------
 #	STATIC LIBRARIES
 #------------------------------------------------------------------------------
-MINILIBX_DIR	=	minilibx-linux
+MINILIBX_DIR	=	minilibx_macos
 MINILIBX		=	${MINILIBX_DIR}/libmlx.a
-MINILIBX_LINUX	=	${MINILIBX_DIR}/libmlx_Linux.a
 
 LIBFT_DIR		=	ft_libft
 LIBFT			=	${LIBFT_DIR}/libft.a
@@ -34,8 +33,7 @@ LIBFT			=	${LIBFT_DIR}/libft.a
 #------------------------------------------------------------------------------
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
-LINUX_LINK_FLG	=	-lXext -lX11 -lm -lz
-MAC_LINK_FLG	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
+MAC_LINK_FLG	=	-lmlx -framework OpenGL -framework AppKit
 HEADERS			=	-I./${INCLUDE} -I./${MINILIBX_DIR}
 OPTIMIZATION	=	-O3
 DEBUG			=	-g
@@ -44,8 +42,7 @@ DEBUG			=	-g
 #	LINKING LIBRARIES
 #------------------------------------------------------------------------------
 LIBFT_LINK			=	-L./${LIBFT_DIR} -lft
-MINILIBX_LINK_LINUX	=	-L./${MINILIBX_DIR} -lmlx -L./${MINILIBX_DIR} -lmlx_Linux ${LINUX_LINK_FLG}
-MINILIBX_LINK_MAC	=	-L./${MINILIBX_DIR} -lmlx -L./${MINILIBX_DIR} ${MAC_LINK_FLG}
+MINILIBX_LINK_MAC	=	-L./${MINILIBX_DIR} -L./${MINILIBX_DIR} ${MAC_LINK_FLG}
 
 #------------------------------------------------------------------------------
 #	FILES
@@ -79,7 +76,7 @@ all: ${LIB_DIR} ${OBJ_DIR} ${MINILIBX} ${LIBFT} ${NAME}
 
 ${NAME}: ${OBJ_FILES}
 	@echo "Compilating fdf."
-	${CC} ${OBJ_FILES} ${LIBFT_LINK} ${MINILIBX_LINK_LINUX} -o $@ ${DEBUG}
+	${CC} ${OBJ_FILES} ${LIBFT_LINK} ${MINILIBX_LINK_MAC} -o $@ ${DEBUG}
 
 ${MINILIBX}:
 	@echo "Compilating minilibx."

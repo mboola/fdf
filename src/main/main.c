@@ -21,9 +21,9 @@ static void	clear_data(t_ctrl_prgrm **data)
 	{
 		if ((*data)->image.img != NULL)
 			mlx_destroy_image((*data)->mlx, (*data)->image.img);
-		if ((*data)->mlx_win != NULL)
-			mlx_destroy_window((*data)->mlx, (*data)->mlx_win);
-		mlx_destroy_display((*data)->mlx);
+		//if ((*data)->mlx_win != NULL)
+			//mlx_destroy_window((*data)->mlx, (*data)->mlx_win);
+		//mlx_destroy_display((*data)->mlx);
 		free((*data)->mlx);
 	}
 	if ((*data)->space.shape != NULL)

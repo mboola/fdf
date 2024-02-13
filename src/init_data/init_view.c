@@ -14,11 +14,11 @@
 
 static void	set_scale(t_shape *shape)
 {
-	int	x;
-	int	y;
-	int	k;
-	int	n;
-	int	scale;
+	int		x;
+	int		y;
+	int		k;
+	int		n;
+	double	scale;
 
 	x = shape->buffer->n_col;
 	y = shape->buffer->n_row;
