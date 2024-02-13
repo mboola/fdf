@@ -38,7 +38,6 @@ static int	handle_no_event(t_ctrl_prgrm *data)
 static void	register_hooks(t_ctrl_prgrm *data)
 {
 	mlx_loop_hook(data->mlx, &handle_no_event, data);
-	//mlx_key_hook(data->mlx_win, &handle_keys, data);
 	mlx_hook(data->mlx_win, 2, 0, &handle_keys, data);
 }
 

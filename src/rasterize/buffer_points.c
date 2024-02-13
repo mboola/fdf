@@ -64,7 +64,7 @@ static void	mul_and_project(int cartesian_coord[3], double mat[4][4],
 
 	homogeneous_coordinates[0] = (double) cartesian_coord[0];
 	homogeneous_coordinates[1] = (double) cartesian_coord[1];
-	homogeneous_coordinates[2] = (double) cartesian_coord[2];
+	homogeneous_coordinates[2] = (double) cartesian_coord[2] * camera->altitude;
 	homogeneous_coordinates[3] = camera->homogeneous_coord;
 	set_mat(mat_proj, camera->projection_matrix, camera->view);
 	multiply_matrix_double(mat, homogeneous_coordinates, point_to_project);

@@ -87,6 +87,7 @@ void	draw_point(t_image image, int coord[2], int color)
 	*(unsigned int *)dst = color;
 }
 
+//Produces an addr error
 void	vblank_buffer(t_ctrl_prgrm *data)
 {
 	char	*dst;

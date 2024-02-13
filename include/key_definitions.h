@@ -69,4 +69,8 @@
 #  define XK_i 34
 # endif
 
+# ifndef XK_r
+#  define XK_r 15
+# endif
+
 #endif

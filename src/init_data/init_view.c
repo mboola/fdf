@@ -66,6 +66,7 @@ static void	set_view_values(t_camera *camera)
 	camera->view.bottom = 0;
 	camera->view.far = 0;
 	camera->view.near = 0;
+	camera->altitude = 0.5;
 }
 
 void	init_view(t_ctrl_prgrm *data)

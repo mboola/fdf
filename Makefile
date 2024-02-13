@@ -37,6 +37,7 @@ MAC_LINK_FLG	=	-lmlx -framework OpenGL -framework AppKit
 HEADERS			=	-I./${INCLUDE} -I./${MINILIBX_DIR}
 OPTIMIZATION	=	-O3
 DEBUG			=	-g
+SANITIZER		=	#-fsanitize=address
 
 #------------------------------------------------------------------------------
 #	LINKING LIBRARIES
@@ -47,7 +48,7 @@ MINILIBX_LINK_MAC	=	-L./${MINILIBX_DIR} -L./${MINILIBX_DIR} ${MAC_LINK_FLG}
 #------------------------------------------------------------------------------
 #	FILES
 #------------------------------------------------------------------------------
-FDF_HEADER	=	${INCLUDE}/ft_fdf.h
+FDF_HEADER	=	${INCLUDE}/ft_fdf.h ${INCLUDE}/key_definitions.h
 
 CLEAR_STRUCTS_FILES	=	clear_structs.c
 MAIN_FILES			=	main.c main_loop.c handle_keys.c set_views.c
@@ -67,7 +68,7 @@ SRC_FILES	=	${CLEAR_STRUCTS_FILES} ${MAIN_FILES} ${INIT_DATA} ${OPERATIONS} ${RA
 OBJ_FILES = ${patsubst %.c,${OBJ_DIR}/%.o,${notdir ${SRC_FILES}}}
 
 ${OBJ_DIR}/%.o: ${SRC}/*/%.c ${FDF_HEADER} Makefile
-	$(CC) ${CFLAGS} ${HEADERS} ${OPTIMIZATION} -c $< -o $@ ${DEBUG}
+	$(CC) ${CFLAGS} ${HEADERS} ${OPTIMIZATION} ${SANITIZER} -c $< -o $@ ${DEBUG}
 
 #------------------------------------------------------------------------------
 #	MAIN RULES TO COMPILE AND CREATE THE EXECUTABLE AND TO CLEAN IT
@@ -76,7 +77,7 @@ all: ${LIB_DIR} ${OBJ_DIR} ${MINILIBX} ${LIBFT} ${NAME}
 
 ${NAME}: ${OBJ_FILES}
 	@echo "Compilating fdf."
-	${CC} ${OBJ_FILES} ${LIBFT_LINK} ${MINILIBX_LINK_MAC} -o $@ ${DEBUG}
+	${CC} ${SANITIZER} ${OBJ_FILES} ${LIBFT_LINK} ${MINILIBX_LINK_MAC} -o $@ ${DEBUG}
 
 ${MINILIBX}:
 	@echo "Compilating minilibx."

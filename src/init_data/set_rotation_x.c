@@ -37,10 +37,10 @@ void	set_rotation_x(t_mat_funct rotation_x[4][4])
 	rotation_x[0][3] = return_zero;
 	rotation_x[1][0] = return_zero;
 	rotation_x[1][1] = cos;
-	rotation_x[1][2] = sin;
+	rotation_x[1][2] = negative_sin;
 	rotation_x[1][3] = return_zero;
 	rotation_x[2][0] = return_zero;
-	rotation_x[2][1] = negative_sin;
+	rotation_x[2][1] = sin;
 	rotation_x[2][2] = cos;
 	rotation_x[2][3] = return_zero;
 	rotation_x[3][0] = return_zero;

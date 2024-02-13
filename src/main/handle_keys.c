@@ -37,6 +37,14 @@ static int	check_angles(int keys, t_ctrl_prgrm *data)
 	return (1);
 }
 
+static void	update_altitude(double *altitude, char reverse)
+{
+	if (reverse > 0 && *altitude > 0.2)
+		*altitude -= 0.1;
+	else if (reverse <= 0 && *altitude < 20)
+		*altitude += 0.1;
+}
+
 static int	check_transformation(int keys, t_ctrl_prgrm *data)
 {
 	t_shape	*shape;
@@ -55,6 +63,8 @@ static int	check_transformation(int keys, t_ctrl_prgrm *data)
 		update_value(&(shape->scale[0]), data->multiplier, data->reverse);
 		update_value(&(shape->scale[1]), data->multiplier, data->reverse);
 	}
+	else if (keys == XK_r)
+		update_altitude(&(data->space.camera.altitude), data->reverse);
 	else
 		return (0);
 	data->rasterize = 1;
@@ -67,7 +77,7 @@ static int	check_transformation(int keys, t_ctrl_prgrm *data)
  */
 int	handle_keys(int keys, t_ctrl_prgrm *data)
 {
-	ft_printf(1, "%d\n", keys);
+	ft_printf(1, "%d", keys);
 	if (keys == XK_Escape)
 		data->close = 1;
 	else if (keys == XK_Tab)

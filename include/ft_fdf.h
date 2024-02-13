@@ -92,6 +92,7 @@ typedef struct s_camera {
 	t_view	view;
 	t_proj	projection_matrix[4][4];
 	char	homogeneous_coord;
+	double	altitude;
 }	t_camera;
 
 /*
