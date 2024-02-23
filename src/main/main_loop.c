@@ -26,7 +26,6 @@ static int	handle_no_event(t_ctrl_prgrm *data)
 	}
 	else if (data->rasterize)
 	{
-		vblank_buffer(data);
 		rasterize(data);
 		mlx_put_image_to_window(data->mlx,
 			data->mlx_win, data->image.img, 0, 0);
@@ -35,9 +34,17 @@ static int	handle_no_event(t_ctrl_prgrm *data)
 	return (0);
 }
 
+static int	close_program(t_ctrl_prgrm *data)
+{
+	mlx_destroy_window(data->mlx, data->mlx_win);
+	clear_data(&data);
+	return (0);
+}
+
 static void	register_hooks(t_ctrl_prgrm *data)
 {
 	mlx_loop_hook(data->mlx, &handle_no_event, data);
+	mlx_hook(data->mlx_win, 17, 0, &close_program, data);
 	mlx_hook(data->mlx_win, 2, 0, &handle_keys, data);
 }
 

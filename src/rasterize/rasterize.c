@@ -12,6 +12,19 @@
 
 #include "ft_fdf.h"
 
+char	mlx_reserve_image(t_ctrl_prgrm *data)
+{
+	t_image	image;
+
+	image.img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (image.img == NULL)
+		return (0);
+	image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_len,
+			&image.endian);
+	data->image = image;
+	return (1);
+}
+
 /*
  *	Calculates the matrix used to convert 3d points to 2d points.
  *	Once it has all points converted and stored in a matrix of points, we call
@@ -23,6 +36,10 @@ void	rasterize(t_ctrl_prgrm *data)
 	t_list	*points;
 	int		row;
 
+	if (data->image.img != NULL)
+		mlx_destroy_image(data->mlx, data->image.img);
+	if (!mlx_reserve_image(data))
+		clear_data(&data);
 	shape = data->space.shape;
 	calculate_matrix(data, shape);
 	points = shape->points;

@@ -12,14 +12,12 @@
 
 #include "ft_fdf.h"
 
-//works
 void	clear_buffer(t_buffer *buffer)
 {
 	ft_matclear(&(buffer->points));
 	free(buffer);
 }
 
-//works
 void	clear_point(void *data)
 {
 	t_point	*point;
@@ -28,10 +26,22 @@ void	clear_point(void *data)
 	free(point);
 }
 
-//works
 void	clear_shape(t_shape *shape)
 {
 	ft_lstclear(&(shape->points), clear_point);
 	clear_buffer(shape->buffer);
 	free(shape);
+}
+
+/*
+ *	Clears the struct created to run the application.
+ */
+void	clear_data(t_ctrl_prgrm **data)
+{
+	if ((*data)->mlx != NULL)
+		free((*data)->mlx);
+	if ((*data)->space.shape != NULL)
+		clear_shape((*data)->space.shape);
+	free(*data);
+	exit(0);
 }

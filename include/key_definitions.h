@@ -17,60 +17,60 @@
  *	Here I define keys values if they are not defined.
  */
 
-# ifndef XK_x
-#  define XK_x 7
+# ifndef XK_X
+#  define XK_X 7
 # endif
 
-# ifndef XK_y
-#  define XK_y 16
+# ifndef XK_Y
+#  define XK_Y 16
 # endif
 
-# ifndef XK_z
-#  define XK_z 6
+# ifndef XK_Z
+#  define XK_Z 6
 # endif
 
-# ifndef XK_w
-#  define XK_w 13
+# ifndef XK_W
+#  define XK_W 13
 # endif
 
-# ifndef XK_s
-#  define XK_s 1
+# ifndef XK_S
+#  define XK_S 1
 # endif
 
-# ifndef XK_a
-#  define XK_a 0
+# ifndef XK_A
+#  define XK_A 0
 # endif
 
-# ifndef XK_d
-#  define XK_d 2
+# ifndef XK_D
+#  define XK_D 2
 # endif
 
-# ifndef XK_q
-#  define XK_q 12
+# ifndef XK_Q
+#  define XK_Q 12
 # endif
 
-# ifndef XK_Escape
-#  define XK_Escape 53
+# ifndef XK_ESCAPE
+#  define XK_ESCAPE 53
 # endif
 
-# ifndef XK_Tab
-#  define XK_Tab 48
+# ifndef XK_TAB
+#  define XK_TAB 48
 # endif
 
-# ifndef XK_Up
-#  define XK_Up 126
+# ifndef XK_UP
+#  define XK_UP 126
 # endif
 
-# ifndef XK_Down
-#  define XK_Down 125
+# ifndef XK_DOWN
+#  define XK_DOWN 125
 # endif
 
-# ifndef XK_i
-#  define XK_i 34
+# ifndef XK_I
+#  define XK_I 34
 # endif
 
-# ifndef XK_r
-#  define XK_r 15
+# ifndef XK_R
+#  define XK_R 15
 # endif
 
 #endif

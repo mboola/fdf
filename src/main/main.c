@@ -13,36 +13,6 @@
 #include "ft_fdf.h"
 
 /*
- *	Clears the struct created to run the application.
- */
-void	clear_data(t_ctrl_prgrm **data)
-{
-	if ((*data)->mlx != NULL)
-	{
-		if ((*data)->image.img != NULL)
-			mlx_destroy_image((*data)->mlx, (*data)->image.img);
-		free((*data)->mlx);
-	}
-	if ((*data)->space.shape != NULL)
-		clear_shape((*data)->space.shape);
-	free(*data);
-	exit(0);
-}
-
-static char	mlx_reserve_image(t_ctrl_prgrm *data)
-{
-	t_image	image;
-
-	image.img = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-	if (image.img == NULL)
-		return (0);
-	image.addr = mlx_get_data_addr(image.img, &image.bpp, &image.line_len,
-			&image.endian);
-	data->image = image;
-	return (1);
-}
-
-/*
  *	Main function. Reads the file into a matrix of points.
  *	Creates a struct that will hold all the information to create a window
  *	and put pixels to it. Clears the struct when ended.

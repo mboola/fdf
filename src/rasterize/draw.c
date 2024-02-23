@@ -28,7 +28,7 @@ static int	calculate_values(int p_0[2], int p_f[2], t_draw_line *info, int *c)
 	info[0] = b;
 	*c = 0;
 	return (sqrt((p_f[0] - p_0[0]) * (p_f[0] - p_0[0])
-				+ (p_f[1] - p_0[1]) * (p_f[1] - p_0[1])));
+			+ (p_f[1] - p_0[1]) * (p_f[1] - p_0[1])));
 }
 
 static int	calc_color(int color[2], double total_steps, int curr_step)
@@ -43,7 +43,8 @@ static int	calc_color(int color[2], double total_steps, int curr_step)
 	if (total_steps == 0)
 		total_steps = 1;
 	return (color[0] + (((int)((double)(red * curr_step) / total_steps) << 16)
-		| ((int)((double)(green * curr_step) / total_steps) << 8) | ((int)((double)(blue * curr_step) / total_steps))));
+		| ((int)((double)(green * curr_step) / total_steps) << 8)
+		| ((int)((double)(blue * curr_step) / total_steps))));
 }
 
 /*
@@ -94,20 +95,11 @@ void	draw_point(t_image image, int coord[2], int color)
 	*(unsigned int *)dst = color;
 }
 
-//Produces an addr error
 void	vblank_buffer(t_ctrl_prgrm *data)
 {
-	char	*dst;
-	int		i;
 	t_image	image;
 
 	image = data->image;
-	i = 0;
-	while (i < WIN_HEIGHT * data->image.line_len
-		+ WIN_WIDTH * (data->image.bpp / 8))
-	{
-		dst = image.addr + i;
-		*(unsigned int *)dst = 0x0;
-		i++;
-	}
+	ft_bzero((void *)image.addr, WIN_HEIGHT * data->image.line_len
+		+ WIN_WIDTH * (data->image.bpp / 8));
 }

@@ -37,7 +37,8 @@ MAC_LINK_FLG	=	-lmlx -framework OpenGL -framework AppKit
 HEADERS			=	-I./${INCLUDE} -I./${MINILIBX_DIR}
 OPTIMIZATION	=	-O3
 DEBUG			=	-g
-SANITIZER		=	#-fsanitize=address
+USE_COLOR		=	-D USE_COLOR=0
+SANITIZER		=	 -fsanitize=address
 
 #------------------------------------------------------------------------------
 #	LINKING LIBRARIES
@@ -68,14 +69,18 @@ SRC_FILES	=	${CLEAR_STRUCTS_FILES} ${MAIN_FILES} ${INIT_DATA} ${OPERATIONS} ${RA
 OBJ_FILES = ${patsubst %.c,${OBJ_DIR}/%.o,${notdir ${SRC_FILES}}}
 
 ${OBJ_DIR}/%.o: ${SRC}/*/%.c ${FDF_HEADER} Makefile
-	$(CC) ${CFLAGS} ${HEADERS} ${OPTIMIZATION} ${SANITIZER} -c $< -o $@ ${DEBUG}
+	$(CC) ${CFLAGS} ${HEADERS} ${OPTIMIZATION} ${SANITIZER} ${USE_COLOR} -c $< -o $@ ${DEBUG}
 
 #------------------------------------------------------------------------------
 #	MAIN RULES TO COMPILE AND CREATE THE EXECUTABLE AND TO CLEAN IT
 #------------------------------------------------------------------------------
-all: ${LIB_DIR} ${OBJ_DIR} ${MINILIBX} ${LIBFT} ${NAME}
+all: make_libs ${OBJ_DIR} ${NAME}
 
-${NAME}: ${OBJ_FILES}
+make_libs:
+	@make -C ${MINILIBX_DIR}
+	@make -C ${LIBFT_DIR}
+
+${NAME}: ${OBJ_FILES} ${MINILIBX} ${LIBFT}
 	@echo "Compilating fdf."
 	${CC} ${SANITIZER} ${OBJ_FILES} ${LIBFT_LINK} ${MINILIBX_LINK_MAC} -o $@ ${DEBUG}
 
@@ -105,12 +110,8 @@ re: fclean all
 #------------------------------------------------------------------------------
 #	RULES TO CREATE THE DIRECTORIES
 #------------------------------------------------------------------------------
-${LIB_DIR}:
-	@echo "Creating libraries file directory."
-	@mkdir -p $@
-
 ${OBJ_DIR}:
 	@echo "Creating objects file directory."
 	@mkdir -p $@
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re make_libs

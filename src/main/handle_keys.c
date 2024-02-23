@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
-#include <stdio.h>
 
-static void	update_value(double *angle, double add, char reverse)
+static void	update_value(double *value, double add, char reverse)
 {
 	if (reverse > 0)
-		*angle += add;
+		*value += add;
 	else
-		*angle -= add;
+		*value -= add;
 }
 
 static int	check_angles(int keys, t_ctrl_prgrm *data)
@@ -26,16 +25,15 @@ static int	check_angles(int keys, t_ctrl_prgrm *data)
 	t_shape	*shape;
 
 	shape = (t_shape *)(data->space.shape);
-	if (keys == XK_x)
+	if (keys == XK_X)
 		update_value(&(shape->angle_x), 0.1 * data->multiplier, data->reverse);
-	else if (keys == XK_y)
+	else if (keys == XK_Y)
 		update_value(&(shape->angle_y), 0.1 * data->multiplier, data->reverse);
-	else if (keys == XK_z)
+	else if (keys == XK_Z)
 		update_value(&(shape->angle_z), 0.1 * data->multiplier, data->reverse);
 	else
 		return (0);
 	data->rasterize = 1;
-	printf("X: %lf, Y: %lf, Z: %lf\n", shape->angle_x, shape->angle_y, shape->angle_z);
 	return (1);
 }
 
@@ -52,20 +50,21 @@ static int	check_transformation(int keys, t_ctrl_prgrm *data)
 	t_shape	*shape;
 
 	shape = (t_shape *)(data->space.shape);
-	if (keys == XK_w)
+	if (keys == XK_W)
 		shape->translate[0] -= data->multiplier;
-	else if (keys == XK_s)
+	else if (keys == XK_S)
 		shape->translate[0] += data->multiplier;
-	else if (keys == XK_a)
+	else if (keys == XK_A)
 		shape->translate[1] -= data->multiplier;
-	else if (keys == XK_d)
+	else if (keys == XK_D)
 		shape->translate[1] += data->multiplier;
-	else if (keys == XK_q)
+	else if (keys == XK_Q && ((data->reverse < 0 && shape->scale[0] > 0.2)
+			|| data->reverse >= 0))
 	{
 		update_value(&(shape->scale[0]), data->multiplier, data->reverse);
 		update_value(&(shape->scale[1]), data->multiplier, data->reverse);
 	}
-	else if (keys == XK_r)
+	else if (keys == XK_R)
 		update_altitude(&(data->space.camera.altitude), data->reverse);
 	else
 		return (0);
@@ -79,16 +78,15 @@ static int	check_transformation(int keys, t_ctrl_prgrm *data)
  */
 int	handle_keys(int keys, t_ctrl_prgrm *data)
 {
-	ft_printf(1, "%d", keys);
-	if (keys == XK_Escape)
+	if (keys == XK_ESCAPE)
 		data->close = 1;
-	else if (keys == XK_Tab)
+	else if (keys == XK_TAB)
 		data->reverse = data->reverse * -1;
-	else if (keys == XK_Up && data->multiplier < 10)
+	else if (keys == XK_UP && data->multiplier < 10)
 		data->multiplier++;
-	else if (keys == XK_Down && data->multiplier > 1)
+	else if (keys == XK_DOWN && data->multiplier > 1)
 		data->multiplier--;
-	else if (keys == XK_i)
+	else if (keys == XK_I)
 		set_isometric_view(data);
 	else if (check_angles(keys, data))
 		return (0);
